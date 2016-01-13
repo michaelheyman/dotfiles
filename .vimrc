@@ -1,6 +1,16 @@
+" Enable syntax higlighting
 syntax on 
+
+" color scheme
+"set t_Co=256
+"set background=dark
+
 filetype plugin indent on
+
+" Enable line numbers
 set number
+
+" Enable smart indentation
 set smartindent
 
 " prevent usage of arrows
@@ -13,13 +23,18 @@ noremap! <Down> <Esc>
 noremap! <Left> <Esc>
 noremap! <Right> <Esc>>
 
+" Highlight searches
 set hlsearch
+
+" Disable swap and backup files
 set noswapfile
 set nobackup
 
-" indent options
+" Indent options
 set autoindent
-set tabstop=4
+set tabstop=2
 set expandtab
 set smarttab
+set shiftwidth=4
+
 "set cursorline
