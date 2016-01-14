@@ -3,8 +3,9 @@
 syntax enable
 
 "set t_Co=256
-"set background=dark
-colorscheme monokai
+set background=dark
+"colorscheme monokai
+colorscheme solarized
 
 " plugins
 filetype plugin indent on
