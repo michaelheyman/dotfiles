@@ -1,17 +1,19 @@
 " Enable syntax higlighting
-syntax on 
+"syntax on 
+syntax enable
 
-" color scheme
 "set t_Co=256
 "set background=dark
+colorscheme monokai
 
+" plugins
 filetype plugin indent on
 
 " Enable line numbers
 set number
 
 " Enable smart indentation
-set smartindent
+"set smartindent
 
 " prevent usage of arrows
 nnoremap <Left> :echoe "Use H"<CR> 
@@ -32,9 +34,11 @@ set nobackup
 
 " Indent options
 set autoindent
-set tabstop=2
-set expandtab
-set smarttab
+set noexpandtab
+set tabstop=4
+"set expandtab
 set shiftwidth=4
+
+set smarttab
 
 "set cursorline
