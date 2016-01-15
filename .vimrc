@@ -2,10 +2,11 @@
 "syntax on 
 syntax enable
 
-"set t_Co=256
-set background=dark
+set t_Co=256
+"set background=dark
 "colorscheme monokai
-colorscheme solarized
+"colorscheme solarized
+colorscheme distinguished
 
 " plugins
 filetype plugin indent on
