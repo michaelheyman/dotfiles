@@ -1,5 +1,6 @@
 # Aliases
 alias ls='ls -1hF'
+alias ll='ls -l'
 
 # Tell ls to be colourful
 export CLICOLOR=1
