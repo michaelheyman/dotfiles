@@ -1,5 +1,4 @@
-" Enable syntax higlighting
-syntax enable
+syntax enable				" syntax highlighting
 
 " Color
 set t_Co=256 				" Distinguished specific
@@ -9,8 +8,7 @@ colorscheme distinguished
 " Plugins
 filetype plugin indent on
 
-" Enable line numbers
-set number
+set nu						" display line numbers
 
 " Avoid usage of arrows
 nnoremap <Left> :echoe "Use H"<CR> 
@@ -22,8 +20,7 @@ noremap! <Down> <Esc>
 noremap! <Left> <Esc>
 noremap! <Right> <Esc>>
 
-" Highlight searches
-set hlsearch
+set hlsearch				" highlight searches
 
 " Disable swap and backup files
 set noswapfile
@@ -31,6 +28,8 @@ set nobackup
 
 " Indent options
 set autoindent
-set noexpandtab
+set noexpandtab				" use tab instead of spaces
 set tabstop=4
 set shiftwidth=4
+
+set clipboard=unnamed		" enable osx clipboard sharing
