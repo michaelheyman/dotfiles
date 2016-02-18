@@ -1,4 +1,6 @@
 syntax enable				" syntax highlighting
+command W w
+command Q q
 
 " Color
 set t_Co=256 				" Distinguished specific
@@ -25,6 +27,8 @@ set hlsearch				" highlight searches
 " Disable swap and backup files
 set noswapfile
 set nobackup
+set undofile
+set undodir=~/.dotfiles/.vim/undo
 
 " Indent options
 set autoindent

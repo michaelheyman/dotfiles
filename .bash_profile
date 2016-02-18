@@ -8,3 +8,7 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 
 # Tell grep to highlight matches
 export GREP_OPTIONS='--color=auto'
+
+# Case insensitive tab-to-completion
+bind "set completion-ignore-case on"
+bind "set show-all-if-ambiguous on"
