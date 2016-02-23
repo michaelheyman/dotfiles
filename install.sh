@@ -3,6 +3,6 @@
 # Rename dotfiles folder
 mv ~/dotfiles ~/.dotfiles
 
-# Link dotfiles to home directory
-ln -sv ~/.dotfiles/.vimrc ~
-ln -sv ~/.dotfiles/.bash_profile ~
+# Create symlink between source and destination
+ln -s ~/.bash_profile ~/.dotfiles/bash_profile
+ln -s ~/.vimrc ~/.dotfiles/vimrc
