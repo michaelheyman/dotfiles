@@ -22,8 +22,8 @@ set undodir=~/.vim/undo
 " Indent options
 set autoindent
 "set noexpandtab				" use tab instead of spaces
-set expandtab					" use spaces instead of tabs
 set tabstop=4
 set shiftwidth=4
+set expandtab					" use spaces instead of tabs
 
 set clipboard=unnamed		" enable osx clipboard sharing
