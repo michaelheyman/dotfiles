@@ -29,6 +29,7 @@ set expandtab					" use spaces instead of tabs
 "relative number function toggle
 function! NumberToggle()
   if(&relativenumber == 1)
+    set norelativenumber
     set number
   elseif(&number == 1)
     set nonumber
