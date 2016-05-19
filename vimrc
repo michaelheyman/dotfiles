@@ -26,4 +26,14 @@ set tabstop=4
 set shiftwidth=4
 set expandtab					" use spaces instead of tabs
 
-set clipboard=unnamed		" enable osx clipboard sharing
+"relative number function toggle
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  elseif(&number == 1)
+    set nonumber
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <silent> <C-n> :call NumberToggle()<cr>
