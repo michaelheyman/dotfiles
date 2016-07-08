@@ -1,3 +1,6 @@
 # Disable dock bounce to alert behavior
 defaults write com.apple.dock no-bouncing -bool TRUE
 # Must 'killall Dock' to apply
+
+# Set plain text as the default format in texedit
+defaults write com.apple.TextEdit RichText -int 0
