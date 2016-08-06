@@ -1,20 +1,51 @@
 #!/bin/bash
+if [ -d ~/.dotfiles ]
+then
+    echo "You already have a Dotfiles folder. You'll need to remove ~/.dotfiles if you want to install"
+    exit
+else
+    echo "Cloning Dotfiles"
+    git clone https://github.com/michaelheyman/dotfiles.git ~/.dotfiles
+fi
 
-# Rename dotfiles folder
-mv ~/dotfiles ~/.dotfiles
+echo "Looking for an existing vim config..."
+if [ -f ~.vimrc ]
+then
+    echo "Found ~.vimrc. Backing up to ~.vimrc.backup";
+    cp ~.vimrc ~.vimrc.backup
+    rm ~.vimrc
+fi
 
-# Setup vim
-mkdir -pv ~/.vim/undo
-mkdir -pv ~/.vim/autoload ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-mkdir -pv ~/.vim/bundle/syntastic
+echo "Setting up vim..."
+mkdir -pv ~/.vim/autoload ~/.vim/bundle ~/.vim/undo
 
-# Delete bash_profile vimrc and osx
-rm ~/.bash_profile
-rm ~/.vimrc
-rm ~/.osx
+echo "Looking for an existing bash profile config..."
+if [ -f ~.bash_profile ]
+then
+    echo "Found ~.bash_profile. Backing up to ~.bash_profile.backup";
+    cp ~.bash_profile ~.bash_profile.backup
+    rm ~.bash_profile
+fi
 
-# Create symlink between source and destination
-ln -s ~/.dotfiles/bash_profile ~/.bash_profile
+#first line necessary?
+unamestr='uname'
+if [["$unamestr" == Darwin]]; then
+    echo "Looking for an existing osx config..."
+    if [ -f ~.osx ]
+    then
+        echo "Found ~.osx. Backing up to ~.osx.backup";
+        cp ~.osx ~.osx.backup
+        rm ~.osx
+    fi
+fi
+
+echo "Symlinking .vimrc to ~/.dotfiles/.vimrc"
 ln -s ~/.dotfiles/vimrc ~/.vimrc
+
+echo "Symlinking .bash_profile to ~/.dotfiles/.bash_profile"
+ln -s ~/.dotfiles/bash_profile ~/.bash_profile
+
+echo "Symlinking .osx to ~/.dotfiles/.osx"
 ln -s ~/.dotfiles/osx ~/.osx
+
+echo "Dotfiles have been successfuly installed"
