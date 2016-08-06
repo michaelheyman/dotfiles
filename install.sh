@@ -14,6 +14,8 @@ then
     echo "Found ~.vimrc. Backing up to ~.vimrc.backup";
     cp ~.vimrc ~.vimrc.backup
     rm ~.vimrc
+else
+    echo "Cloning .vimrc"
 fi
 
 echo "Setting up vim..."
@@ -25,6 +27,8 @@ then
     echo "Found ~.bash_profile. Backing up to ~.bash_profile.backup";
     cp ~.bash_profile ~.bash_profile.backup
     rm ~.bash_profile
+else
+    echo "Cloning .bash_profile"
 fi
 
 if ["$(uname)" == Darwin]; then
@@ -34,7 +38,11 @@ if ["$(uname)" == Darwin]; then
         echo "Found ~.osx. Backing up to ~.osx.backup";
         cp ~.osx ~.osx.backup
         rm ~.osx
+    else
+        echo "Cloning .osx"
     fi
+else
+    echo "Unknown platform"
 fi
 
 
