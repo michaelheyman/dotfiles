@@ -10,12 +10,10 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Colorschemes
 Plugin 'altercation/vim-colors-solarized'
-
 Plugin 'junegunn/seoul256.vim'
-
 Plugin 'morhetz/gruvbox'
-
 Plugin 'Lokaltog/vim-distinguished'
 
 " call :PluginInstall to install plugins

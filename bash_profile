@@ -1,7 +1,6 @@
 # Aliases
 alias ls='ls -1hF'
 alias ll='ls -l'
-#alias subl='python3 ~/.subliminal/subl.py'
 
 # Tell ls to be colourful
 export CLICOLOR=1
