@@ -27,9 +27,7 @@ then
     rm ~.bash_profile
 fi
 
-#first line necessary?
-unamestr='uname'
-if [["$unamestr" == Darwin]]; then
+if [["$(uname)" == Darwin]]; then
     echo "Looking for an existing osx config..."
     if [ -f ~.osx ]
     then
