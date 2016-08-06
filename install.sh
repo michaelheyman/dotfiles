@@ -27,7 +27,7 @@ then
     rm ~.bash_profile
 fi
 
-if [["$(uname)" == Darwin]]; then
+if ["$(uname)" == Darwin]; then
     echo "Looking for an existing osx config..."
     if [ -f ~.osx ]
     then
@@ -36,6 +36,7 @@ if [["$(uname)" == Darwin]]; then
         rm ~.osx
     fi
 fi
+
 
 echo "Symlinking .vimrc to ~/.dotfiles/.vimrc"
 ln -s ~/.dotfiles/vimrc ~/.vimrc
