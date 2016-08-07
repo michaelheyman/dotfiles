@@ -20,6 +20,7 @@ fi
 
 echo "Setting up vim..."
 mkdir -pv ~/.vim/autoload ~/.vim/bundle ~/.vim/undo
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/budle/Vundle.vim
 
 echo "Looking for an existing bash profile config..."
 if [ -f ~.bash_profile ]
