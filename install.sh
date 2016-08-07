@@ -21,6 +21,7 @@ fi
 echo "Setting up vim..."
 mkdir -pv ~/.vim/autoload ~/.vim/bundle ~/.vim/undo
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 
 echo "Looking for an existing bash profile config..."
 if [ -f ~.bash_profile ]
@@ -57,3 +58,4 @@ if [ "$(uname)" == Darwin ]; then
 fi
 
 echo "Dotfiles have been successfuly installed"
+echo "Run :PluginInstall inside VIM"
