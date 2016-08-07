@@ -4,8 +4,8 @@ then
     echo "You already have a Dotfiles folder. You'll need to remove ~/.dotfiles if you want to install"
     exit
 else
-    echo "#Cloning Dotfiles"
-    git clone https://github.com/michaelheyman/dotfiles.git ~/.dotfiles
+    echo "#Moving Dotfiles"
+    mv ~/dotfiles/ ~/.dotfiles
 fi
 
 echo "Looking for an existing vim config..."
