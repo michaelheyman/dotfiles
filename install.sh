@@ -4,7 +4,7 @@ then
     echo "You already have a Dotfiles folder. You'll need to remove ~/.dotfiles if you want to install"
     exit
 else
-    echo "Cloning Dotfiles"
+    echo "#Cloning Dotfiles"
     git clone https://github.com/michaelheyman/dotfiles.git ~/.dotfiles
 fi
 
@@ -15,7 +15,7 @@ then
     cp ~.vimrc ~.vimrc.backup
     rm ~.vimrc
 else
-    echo "Cloning .vimrc"
+    echo "#Cloning .vimrc"
 fi
 
 echo "Setting up vim..."
@@ -28,10 +28,10 @@ then
     cp ~.bash_profile ~.bash_profile.backup
     rm ~.bash_profile
 else
-    echo "Cloning .bash_profile"
+    echo "#Cloning .bash_profile"
 fi
 
-if ["$(uname)" == Darwin]; then
+if [ "$(uname)" == Darwin ]; then
     echo "Looking for an existing osx config..."
     if [ -f ~.osx ]
     then
@@ -39,12 +39,9 @@ if ["$(uname)" == Darwin]; then
         cp ~.osx ~.osx.backup
         rm ~.osx
     else
-        echo "Cloning .osx"
+        echo "#Cloning .osx"
     fi
-else
-    echo "Unknown platform"
 fi
-
 
 echo "Symlinking .vimrc to ~/.dotfiles/.vimrc"
 ln -s ~/.dotfiles/vimrc ~/.vimrc
