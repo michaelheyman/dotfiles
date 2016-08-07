@@ -49,7 +49,10 @@ ln -s ~/.dotfiles/vimrc ~/.vimrc
 echo "Symlinking .bash_profile to ~/.dotfiles/.bash_profile"
 ln -s ~/.dotfiles/bash_profile ~/.bash_profile
 
-echo "Symlinking .osx to ~/.dotfiles/.osx"
-ln -s ~/.dotfiles/osx ~/.osx
+
+if [ "$(uname)" == Darwin ]; then
+    echo "Symlinking .osx to ~/.dotfiles/.osx"
+    ln -s ~/.dotfiles/osx ~/.osx
+fi
 
 echo "Dotfiles have been successfuly installed"
