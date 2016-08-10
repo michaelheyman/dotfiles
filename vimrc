@@ -58,7 +58,7 @@ set undodir=~/.vim/undo
 
 " Indent options
 set autoindent
-set tabstop=4
+set softtabstop=4
 set shiftwidth=4
 set expandtab					" use spaces instead of tabs
 
