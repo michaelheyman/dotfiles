@@ -45,6 +45,14 @@ if [ "$(uname)" == Darwin ]; then
     fi
 fi
 
+if [ "$(uname)" == Linux ]; then
+    if [ ! -a ~/.inputrc ]; then
+        echo '$include /etc/inputrc' > ~/.inputrc;
+    fi
+
+    echo 'set completion-ignore-case On' >> ~/.inputrc;
+fi
+
 echo "Symlinking .vimrc to ~/.dotfiles/.vimrc"
 ln -s ~/.dotfiles/vimrc ~/.vimrc
 
