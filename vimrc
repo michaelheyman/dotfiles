@@ -74,3 +74,8 @@ function! NumberToggle()
   endif
 endfunc
 nnoremap <silent> <C-n> :call NumberToggle()<cr>
+
+" remember last cursor position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
