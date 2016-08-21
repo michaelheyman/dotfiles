@@ -15,6 +15,9 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/seoul256.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-distinguished'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " call :PluginInstall to install plugins
 
@@ -61,6 +64,14 @@ set autoindent
 set softtabstop=4
 set shiftwidth=4
 set expandtab					" use spaces instead of tabs
+
+" Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+let g:airline_theme="distinguished"
+
+nmap <leader>l :bnext<CR>
+nmap <leader>h :bprevious<CR>
 
 "relative number function toggle
 function! NumberToggle()
