@@ -33,6 +33,16 @@ else
     echo "#Cloning .bash_profile"
 fi
 
+echo "Looking for an existing bashrc config..."
+if [ -f ~.bashrc ]
+then
+    echo "Found ~.bashrc. Backing up to ~.bashrc.backup";
+    cp ~.bashrc ~.bashrc.backup
+    rm ~.bashrc
+else
+    echo "#Cloning .bashrc"
+fi
+
 if [ "$(uname)" == Darwin ]; then
     echo "Looking for an existing osx config..."
     if [ -f ~.osx ]
@@ -59,6 +69,8 @@ ln -s ~/.dotfiles/vimrc ~/.vimrc
 echo "Symlinking .bash_profile to ~/.dotfiles/.bash_profile"
 ln -s ~/.dotfiles/bash_profile ~/.bash_profile
 
+echo "Symlinking .bashrc to ~/.dotfiles/.bashrc"
+ln -s ~/.dotfiles/bashrc ~/.bashrc
 
 if [ "$(uname)" == Darwin ]; then
     echo "Symlinking .osx to ~/.dotfiles/.osx"
