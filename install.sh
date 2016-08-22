@@ -86,6 +86,10 @@ link_file () {
     fi
 }
 
+command_exists () {
+    type "$1" &> /dev/null;
+}
+
 install_dotfiles () {
     info 'installing dotfiles'
 
@@ -96,6 +100,27 @@ install_dotfiles () {
         dst="$HOME/.$(basename "${src%.*}")"    # reduces filepath to filename
         link_file "$src" "$dst"
     done
+}
+
+install_brew() {
+    if test ! $(which brew); then
+        echo "  Installing Homebrew for you."
+
+        # Install the correct homebrew for each OS type
+        if test "$(uname)" = "Darwin"; then
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+        fi
+    fi
+}
+
+install_package () {
+    if [ "$(uname)" == Darwin ]; then
+        brew install $1
+    elif [ "$(uname)" == Linux ]; then
+        sudo apt get install $1
+    fi
 }
 
 install_vim () {
@@ -121,6 +146,15 @@ install_os () {
 }
 
 install_dotfiles
+
+declare -a packages=('git' 'vim');
+for package in "${packages[@]}"; do
+    if [[ ! command_exists $package ]]; then
+        install_package $package
+    fi
+done
+
+install_brew
 install_vim
 install_os
 
