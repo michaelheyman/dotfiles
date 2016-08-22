@@ -2,7 +2,7 @@
 
 To install:
 ```
-$ git clone https://github.com/michaelheyman/dotfiles.git
+$ git clone https://github.com/michaelheyman/dotfiles.git ~/.dotfiles
 ```
 
 To source:
