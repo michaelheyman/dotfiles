@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+"------------------------------------------------------------
+" Vundle options
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -15,20 +18,36 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/seoul256.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'Lokaltog/vim-distinguished'
+" Plugins
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-
+Plugin 'scrooloose/syntastic'
 " call :PluginInstall to install plugins
 
 call vundle#end()               " required
 filetype plugin indent on
 
-command W w
-command Q q
+"------------------------------------------------------------
+" Plugin options
 
-" Color
-syntax enable
+" Automatically displays all buffers when there's only one tab open.
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+let g:airline_theme="distinguished"
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+"------------------------------------------------------------
+" Color options
 
 " gruvbox:
 "let g:gruvbox_termcolors=16
@@ -50,9 +69,18 @@ colo seoul256
 " set cursorline
 " colorscheme distinguished
 
-"set nu						" display line numbers
-set hlsearch				" highlight searches
-nmap <leader>q :nohlsearch<CR>
+"------------------------------------------------------------
+" Usability options
+
+syntax enable
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Highlight searches
+set hlsearch
+
 " Disable swap and backup files
 set noswapfile
 set nobackup
@@ -63,16 +91,32 @@ set undodir=~/.vim/undo
 set autoindent
 set softtabstop=4
 set shiftwidth=4
-set expandtab					" use spaces instead of tabs
 
-" Automatically displays all buffers when there's only one tab open.
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
-let g:airline_theme="distinguished"
+" Use spaces instead of tabs
+set expandtab
+
+
+" remember last cursor position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"------------------------------------------------------------
+" Key remaps
+
+" Fix persistent save and quit errors
+command W w
+command Q q
+
+" Clear highlighted search
+nmap <leader>q :nohlsearch<CR>
 
 " Move between open buffers
 nmap <leader>l :bnext<CR>
 nmap <leader>h :bprevious<CR>
+
+"------------------------------------------------------------
+" Functions
 
 "relative number function toggle
 function! NumberToggle()
@@ -86,8 +130,3 @@ function! NumberToggle()
   endif
 endfunc
 nnoremap <silent> <C-n> :call NumberToggle()<cr>
-
-" remember last cursor position
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
