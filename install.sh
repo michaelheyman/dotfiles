@@ -31,17 +31,12 @@ link_file () {
     local overwrite= backup= skip=
     local action=
 
-    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
-    then
-
-        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
-        then
+    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
+        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
             local currentSrc="$(readlink $dst)" # check if destination is already symlinked
 
-            if [ "$currentSrc" == "$src" ]
-            then
+            if [ "$currentSrc" == "$src" ]; then
                 skip=true;
-
             else
                 user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
                 [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
@@ -63,35 +58,29 @@ link_file () {
                     * )
                         ;;
                 esac
-
             fi
-
         fi
 
         overwrite=${overwrite:-$overwrite_all}
         backup=${backup:-$backup_all}
         skip=${skip:-$skip_all}
 
-        if [ "$overwrite" == "true" ]
-        then
+        if [ "$overwrite" == "true" ]; then
             rm -rf "$dst"
             success "removed $dst"
         fi
 
-        if [ "$backup" == "true" ]
-        then
+        if [ "$backup" == "true" ]; then
             mv "$dst" "${dst}.backup"
             success "moved $dst to ${dst}.backup"
         fi
 
-        if [ "$skip" == "true" ]
-        then
+        if [ "$skip" == "true" ]; then
             success "skipped $src"
         fi
     fi
 
-    if [ "$skip" != "true" ]  # "false" or empty
-    then
+    if [ "$skip" != "true" ]; then  # "false" or empty
         ln -s "$1" "$2"
         success "linked $1 to $2"
     fi
@@ -117,7 +106,12 @@ install_vim () {
 }
 
 install_os () {
-    if [ "$(uname)" == Linux ]; then
+    if [ "$(uname)" == Darwin ]; then
+        spath="./sublime/Preferences.sublime-settings"
+        sdest="~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/.$(basename "${spath%.*}")"
+        link_file "$spath" "$sdest"
+
+    elif [ "$(uname)" == Linux ]; then
         if [ ! -a ~/.inputrc ]; then
             echo '$include /etc/inputrc' > ~/.inputrc;
         fi
