@@ -119,7 +119,7 @@ install_package () {
     if [ "$(uname)" == Darwin ]; then
         brew install $1
     elif [ "$(uname)" == Linux ]; then
-        sudo apt get install $1
+        sudo apt install $1
     fi
 }
 
