@@ -52,7 +52,7 @@ colo seoul256
 
 "set nu						" display line numbers
 set hlsearch				" highlight searches
-
+nmap <leader>q :nohlsearch<CR>
 " Disable swap and backup files
 set noswapfile
 set nobackup
@@ -70,6 +70,7 @@ let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 let g:airline_theme="distinguished"
 
+" Move between open buffers
 nmap <leader>l :bnext<CR>
 nmap <leader>h :bprevious<CR>
 

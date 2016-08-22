@@ -1,81 +1,134 @@
-#!/bin/bash
-if [ -d ~/.dotfiles ]
-then
-    echo "You already have a Dotfiles folder. You'll need to remove ~/.dotfiles if you want to install"
+#!/usr/bin/env bash
+
+# cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd -P)
+
+set -e
+
+echo ''
+
+info () {
+    printf "\r  [ \033[00;34m..\033[0m ] $1\n"
+}
+
+user () {
+    printf "\r  [ \033[0;33m??\033[0m ] $1\n"
+}
+
+success () {
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+    echo ''
     exit
-else
-    echo "#Moving Dotfiles"
-    mv ~/dotfiles/ ~/.dotfiles
-fi
+}
 
-echo "Looking for an existing vim config..."
-if [ -f ~.vimrc ]
-then
-    echo "Found ~.vimrc. Backing up to ~.vimrc.backup";
-    cp ~.vimrc ~.vimrc.backup
-    rm ~.vimrc
-else
-    echo "#Cloning .vimrc"
-fi
+link_file () {
+    local src=$1 dst=$2
 
-echo "Setting up vim..."
-mkdir -pv ~/.vim/autoload ~/.vim/bundle ~/.vim/undo
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+    local overwrite= backup= skip=
+    local action=
 
-echo "Looking for an existing bash profile config..."
-if [ -f ~.bash_profile ]
-then
-    echo "Found ~.bash_profile. Backing up to ~.bash_profile.backup";
-    cp ~.bash_profile ~.bash_profile.backup
-    rm ~.bash_profile
-else
-    echo "#Cloning .bash_profile"
-fi
-
-echo "Looking for an existing bashrc config..."
-if [ -f ~.bashrc ]
-then
-    echo "Found ~.bashrc. Backing up to ~.bashrc.backup";
-    cp ~.bashrc ~.bashrc.backup
-    rm ~.bashrc
-else
-    echo "#Cloning .bashrc"
-fi
-
-if [ "$(uname)" == Darwin ]; then
-    echo "Looking for an existing osx config..."
-    if [ -f ~.osx ]
+    if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
     then
-        echo "Found ~.osx. Backing up to ~.osx.backup";
-        cp ~.osx ~.osx.backup
-        rm ~.osx
-    else
-        echo "#Cloning .osx"
+
+        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+        then
+            local currentSrc="$(readlink $dst)" # check if destination is already symlinked
+
+            if [ "$currentSrc" == "$src" ]
+            then
+                skip=true;
+
+            else
+                user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+                [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+                read -n 1 action
+
+                case "$action" in
+                    o )
+                        overwrite=true;;
+                    O )
+                        overwrite_all=true;;
+                    b )
+                        backup=true;;
+                    B )
+                        backup_all=true;;
+                    s )
+                        skip=true;;
+                    S )
+                        skip_all=true;;
+                    * )
+                        ;;
+                esac
+
+            fi
+
+        fi
+
+        overwrite=${overwrite:-$overwrite_all}
+        backup=${backup:-$backup_all}
+        skip=${skip:-$skip_all}
+
+        if [ "$overwrite" == "true" ]
+        then
+            rm -rf "$dst"
+            success "removed $dst"
+        fi
+
+        if [ "$backup" == "true" ]
+        then
+            mv "$dst" "${dst}.backup"
+            success "moved $dst to ${dst}.backup"
+        fi
+
+        if [ "$skip" == "true" ]
+        then
+            success "skipped $src"
+        fi
     fi
-fi
 
-if [ "$(uname)" == Linux ]; then
-    if [ ! -a ~/.inputrc ]; then
-        echo '$include /etc/inputrc' > ~/.inputrc;
+    if [ "$skip" != "true" ]  # "false" or empty
+    then
+        ln -s "$1" "$2"
+        success "linked $1 to $2"
     fi
+}
 
-    echo 'set completion-ignore-case On' >> ~/.inputrc;
-fi
+install_dotfiles () {
+    info 'installing dotfiles'
 
-echo "Symlinking .vimrc to ~/.dotfiles/.vimrc"
-ln -s ~/.dotfiles/vimrc ~/.vimrc
+    local overwrite_all=false backup_all=false skip_all=false
 
-echo "Symlinking .bash_profile to ~/.dotfiles/.bash_profile"
-ln -s ~/.dotfiles/bash_profile ~/.bash_profile
+    for src in $(find $PWD -type f ! -name "*.*" -maxdepth 1)   # find files in PWD with no extension
+    do
+        dst="$HOME/.$(basename "${src%.*}")"    # reduces filepath to filename
+        link_file "$src" "$dst"
+    done
+}
 
-echo "Symlinking .bashrc to ~/.dotfiles/.bashrc"
-ln -s ~/.dotfiles/bashrc ~/.bashrc
+install_vim () {
+    mkdir -pv ~$HOME/.vim/autoload ~$HOME/.vim/bundle ~$HOME/.vim/undo
+    git clone https://github.com/VundleVim/Vundle.vim.git ~$HOME/.vim/bundle/Vundle.vim
+    vim +PluginInstall +qall
+    success "vim installed"
+}
 
-if [ "$(uname)" == Darwin ]; then
-    echo "Symlinking .osx to ~/.dotfiles/.osx"
-    ln -s ~/.dotfiles/osx ~/.osx
-fi
+install_os () {
+    if [ "$(uname)" == Linux ]; then
+        if [ ! -a ~/.inputrc ]; then
+            echo '$include /etc/inputrc' > ~/.inputrc;
+        fi
 
-echo "Dotfiles have been successfuly installed"
-echo "Run :PluginInstall inside VIM"
+        echo 'set completion-ignore-case On' >> ~/.inputrc;
+    fi
+}
+
+install_dotfiles
+install_vim
+install_os
+
+echo ''
+echo '  All installed!'
