@@ -21,8 +21,6 @@ success () {
 
 fail () {
     printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-    echo ''
-    exit
 }
 
 link_file () {
@@ -32,14 +30,14 @@ link_file () {
     local action=
 
     if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
-        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ] [ "$append_all" == "false" ]; then
+        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ] && [ "$append_all" == "false" ]; then
             local currentSrc="$(readlink $dst)" # check if destination is already symlinked
 
             if [ "$currentSrc" == "$src" ]; then
                 skip=true;
             else
-                user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-                [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+                user "File already exists: $dst ($(basename "$src")), what do you want to do?"
+                user "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all, [a]ppend, [A]ppend all?"
                 read -n 1 action
 
                 case "$action" in
@@ -55,10 +53,10 @@ link_file () {
                         skip=true;;
                     S )
                         skip_all=true;;
-                    a )
-                        append=true;;
-                    A )
-                        append_all=true;;
+		    a )
+			append=true;;
+		    A )
+			append_all=true;;
                     * )
                         ;;
                 esac
@@ -68,7 +66,7 @@ link_file () {
         overwrite=${overwrite:-$overwrite_all}
         backup=${backup:-$backup_all}
         skip=${skip:-$skip_all}
-        append=${append:-$append_all}
+	append=${append:-$append_all}
 
         if [ "$overwrite" == "true" ]; then
             rm -rf "$dst"
@@ -84,13 +82,13 @@ link_file () {
             success "skipped $src"
         fi
 
-        if [ "$append" == "true" ]; then
-            cat $src >> $dst
-            success "appended $src to $dst"
-        fi
+	if [ "$append" == "true" ]; then
+	    cat $src >> $dst
+	    success "appended $src to $dst"
+	fi
     fi
 
-    if [ "$skip" != "true" ]; then  # "false" or empty
+    if [ "$skip" != "true" ] && [ "$append" != "true" ]; then  # "false" or empty
         ln -s "$1" "$2"
         success "linked $1 to $2"
     fi
@@ -113,31 +111,22 @@ install_dotfiles () {
     done
 }
 
-install_brew () {
-    if test ! $(which brew); then
-        echo "  Installing Homebrew for you."
-
-        # Install the correct homebrew for each OS type
-        if test "$(uname)" = "Darwin"; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-        elif test "$(expr substr $(uname -s) 1 5)" = "Linux"; then
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
-        fi
-    fi
-}
-
 install_package () {
     info "installing $1"
     if [ "$(uname)" == Darwin ]; then
         brew install $1
     elif [ "$(uname)" == Linux ]; then
-        sudo apt install $1
+        sudo apt-get install $1
     fi
 }
 
 install_vim () {
-    mkdir -pv ~$HOME/.vim/autoload ~$HOME/.vim/bundle ~$HOME/.vim/undo
-    git clone https://github.com/VundleVim/Vundle.vim.git ~$HOME/.vim/bundle/Vundle.vim
+    mkdir -pv $HOME/.vim/autoload $HOME/.vim/bundle $HOME/.vim/undo
+    if [ -d $HOME/.vim/bundle/Vundle.vim ]; then
+        fail "Vundle directory already exists, unable to clone to it"
+        return
+    fi
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
     vim +PluginInstall +qall
     success "vim installed"
 }
@@ -147,6 +136,10 @@ install_os () {
         spath="./sublime/Preferences.sublime-settings"
         sdest="~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/.$(basename "${spath%.*}")"
         link_file "$spath" "$sdest"
+        # install homebrew
+        if ! command_exists brew; then
+            /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        fi
 
     elif [ "$(uname)" == Linux ]; then
         if [ ! -a ~/.inputrc ]; then
@@ -166,7 +159,6 @@ for package in "${packages[@]}"; do
     fi
 done
 
-install_brew
 install_vim
 install_os
 
