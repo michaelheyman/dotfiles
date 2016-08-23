@@ -28,11 +28,11 @@ fail () {
 link_file () {
     local src=$1 dst=$2
 
-    local overwrite= backup= skip=
+    local overwrite= backup= skip= append=
     local action=
 
     if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]; then
-        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
+        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ] [ "$append_all" == "false" ]; then
             local currentSrc="$(readlink $dst)" # check if destination is already symlinked
 
             if [ "$currentSrc" == "$src" ]; then
@@ -55,6 +55,10 @@ link_file () {
                         skip=true;;
                     S )
                         skip_all=true;;
+                    a )
+                        append=true;;
+                    A )
+                        append_all=true;;
                     * )
                         ;;
                 esac
@@ -64,6 +68,7 @@ link_file () {
         overwrite=${overwrite:-$overwrite_all}
         backup=${backup:-$backup_all}
         skip=${skip:-$skip_all}
+        append=${append:-$append_all}
 
         if [ "$overwrite" == "true" ]; then
             rm -rf "$dst"
@@ -77,6 +82,11 @@ link_file () {
 
         if [ "$skip" == "true" ]; then
             success "skipped $src"
+        fi
+
+        if [ "$append" == "true" ]; then
+            cat $src >> $dst
+            success "appended $src to $dst"
         fi
     fi
 
@@ -93,16 +103,17 @@ command_exists () {
 install_dotfiles () {
     info 'installing dotfiles'
 
-    local overwrite_all=false backup_all=false skip_all=false
+    local overwrite_all=false backup_all=false skip_all=false append_all=false
 
-    for src in $(find $PWD -type f ! -name "*.*" -maxdepth 1)   # find files in PWD with no extension
+    for src in $(find $PWD -maxdepth 1 -type f ! -name "*.*")   # find files in PWD with no extension
     do
-        dst="$HOME/.$(basename "${src%.*}")"    # reduces filepath to filename
+        # dst="$HOME/.$(basename "${src%.*}")"    # reduces filepath to filename
+        dst="$HOME/.$(basename "$src")"    # reduces filepath to filename
         link_file "$src" "$dst"
     done
 }
 
-install_brew() {
+install_brew () {
     if test ! $(which brew); then
         echo "  Installing Homebrew for you."
 
@@ -116,6 +127,7 @@ install_brew() {
 }
 
 install_package () {
+    info "installing $1"
     if [ "$(uname)" == Darwin ]; then
         brew install $1
     elif [ "$(uname)" == Linux ]; then
@@ -149,7 +161,7 @@ install_dotfiles
 
 declare -a packages=('git' 'vim');
 for package in "${packages[@]}"; do
-    if [[ ! command_exists $package ]]; then
+    if ! command_exists $package; then
         install_package $package
     fi
 done
