@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-# cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 
 set -e
@@ -53,10 +52,10 @@ link_file () {
                         skip=true;;
                     S )
                         skip_all=true;;
-		    a )
-			append=true;;
-		    A )
-			append_all=true;;
+                    a )
+                        append=true;;
+                    A )
+                        append_all=true;;
                     * )
                         ;;
                 esac
@@ -66,7 +65,7 @@ link_file () {
         overwrite=${overwrite:-$overwrite_all}
         backup=${backup:-$backup_all}
         skip=${skip:-$skip_all}
-	append=${append:-$append_all}
+        append=${append:-$append_all}
 
         if [ "$overwrite" == "true" ]; then
             rm -rf "$dst"
@@ -82,10 +81,10 @@ link_file () {
             success "skipped $src"
         fi
 
-	if [ "$append" == "true" ]; then
-	    cat $src >> $dst
-	    success "appended $src to $dst"
-	fi
+        if [ "$append" == "true" ]; then
+            cat $src >> $dst
+            success "appended $src to $dst"
+        fi
     fi
 
     if [ "$skip" != "true" ] && [ "$append" != "true" ]; then  # "false" or empty
@@ -105,7 +104,6 @@ install_dotfiles () {
 
     for src in $(find $PWD -maxdepth 1 -type f ! -name "*.*")   # find files in PWD with no extension
     do
-        # dst="$HOME/.$(basename "${src%.*}")"    # reduces filepath to filename
         dst="$HOME/.$(basename "$src")"    # reduces filepath to filename
         link_file "$src" "$dst"
     done
@@ -136,6 +134,7 @@ install_os () {
         spath="./sublime/Preferences.sublime-settings"
         sdest="~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/.$(basename "${spath%.*}")"
         link_file "$spath" "$sdest"
+
         # install homebrew
         if ! command_exists brew; then
             /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
