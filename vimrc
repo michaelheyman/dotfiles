@@ -7,45 +7,66 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" lternatively, pass a path where Vundle should install plugins
+" alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 " Colorschemes
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/seoul256.vim'
-Plugin 'morhetz/gruvbox'
-Plugin 'Lokaltog/vim-distinguished'
+"Plugin 'morhetz/gruvbox'
+"Plugin 'Lokaltog/vim-distinguished'
+
 " Plugins
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'scrooloose/syntastic'
-" call :PluginInstall to install plugins
+Plugin 'lervag/vimtex'
 
 call vundle#end()               " required
 filetype plugin indent on
 
+"call :PluginInstall to install plugins
+
 "------------------------------------------------------------
 " Plugin options
 
-" Automatically displays all buffers when there's only one tab open.
+" vim-airline
+"Automatically displays all buffers when there's only one tab open.
 let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 let g:airline_theme="distinguished"
 
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
-"let g:syntastic_cpp_compiler_options = '-std=c++11'
+" vimtex
+"these options are not working
+let g:vimtex_disable_version_warning = 1
+let g:vimtex_compiler_latexmk = {'callback' : 0}
+
+" Skim config for vimtext
+let g:vimtex_view_general_viewer
+            \ = '/Applications/Skim.app/Contents/SharedSupport/displayline'
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
+
+" This adds a callback hook that updates Skim after compilation
+let g:vimtex_latexmk_callback_hooks = ['UpdateSkim']
+function! UpdateSkim(status)
+    if !a:status | return | endif
+
+    let l:out = b:vimtex.out()
+    let l:tex = expand('%:p')
+    let l:cmd = [g:vimtex_view_general_viewer, '-r']
+    if !empty(system('pgrep Skim'))
+        call extend(l:cmd, ['-g'])
+    endif
+    if has('nvim')
+        call jobstart(l:cmd + [line('.'), l:out, l:tex])
+    elseif has('job')
+        call job_start(l:cmd + [line('.'), l:out, l:tex])
+    else
+        call system(join(l:cmd + [line('.'), shellescape(l:out), shellescape(l:tex)], ' '))
+    endif
+endfunction
 
 "------------------------------------------------------------
 " Color options
@@ -80,7 +101,9 @@ set ignorecase
 set smartcase
 
 " Highlight searches
-set hlsearch
+"set hlsearch
+" Highlight searches without requiring :noh afterwards
+set incsearch nohlsearch
 
 " Disable swap and backup files
 set noswapfile
@@ -96,11 +119,13 @@ set shiftwidth=4
 " Use spaces instead of tabs
 set expandtab
 
-
 " remember last cursor position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+" removes delay from inserting new line with O
+set ttimeoutlen=100
 
 "------------------------------------------------------------
 " Key remaps
@@ -113,8 +138,8 @@ command Q q
 nmap <leader>q :nohlsearch<CR>
 
 " Move between open buffers
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
+"nmap <leader>l :bnext<CR>
+"nmap <leader>h :bprevious<CR>
 
 "------------------------------------------------------------
 " Functions
@@ -131,3 +156,15 @@ function! NumberToggle()
   endif
 endfunc
 nnoremap <silent> <C-n> :call NumberToggle()<cr>
+
+"Template for tutoring
+function! CppMain()
+    call append(0, "#include <iostream>")
+    call append(1, "#include <string>")
+    call append(2, "using namespace std;")
+    call append(3, "")
+    call append(4, "int main() {")
+    call append(5, "")
+    call append(6, "    return 0;")
+    call append(7, "}")
+endfunction
