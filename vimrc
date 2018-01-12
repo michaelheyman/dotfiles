@@ -132,6 +132,7 @@ set ttimeoutlen=100
 
 " Fix persistent save and quit errors
 command W w
+command Wq wq
 command Q q
 
 " Clear highlighted search
@@ -157,7 +158,7 @@ function! NumberToggle()
 endfunc
 nnoremap <silent> <C-n> :call NumberToggle()<cr>
 
-"Template for tutoring
+" Templates for tutoring
 function! CppMain()
     call append(0, "#include <iostream>")
     call append(1, "#include <string>")
@@ -167,4 +168,11 @@ function! CppMain()
     call append(5, "")
     call append(6, "    return 0;")
     call append(7, "}")
+endfunction
+
+function! JavaMain()
+    call append(0, "class Application {")
+    call append(1, "    public static void main(String[] args) {")
+    call append(2, "    }")
+    call append(3, "}")
 endfunction
