@@ -68,6 +68,11 @@ function! UpdateSkim(status)
     endif
 endfunction
 
+" Clears auxiliary build files on vimtex exit
+augroup vimtex_config
+    au!
+    au User VimtexEventQuit call vimtex#compiler#clean(0)
+augroup END
 "------------------------------------------------------------
 " Color options
 
