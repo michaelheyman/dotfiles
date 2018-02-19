@@ -132,6 +132,8 @@ endif
 " removes delay from inserting new line with O
 set ttimeoutlen=100
 
+" sets a vertical bar to suggest word-wrapping
+set colorcolumn=80
 "------------------------------------------------------------
 " Key remaps
 
@@ -144,8 +146,8 @@ command Q q
 nmap <leader>q :nohlsearch<CR>
 
 " Move between open buffers
-"nmap <leader>l :bnext<CR>
-"nmap <leader>h :bprevious<CR>
+nmap gn :bn<CR>
+nmap gp :bp<CR>
 
 "------------------------------------------------------------
 " Functions
