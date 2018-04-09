@@ -15,9 +15,10 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Colorschemes
 "Plugin 'altercation/vim-colors-solarized'
-Plugin 'junegunn/seoul256.vim'
+"Plugin 'junegunn/seoul256.vim'
 "Plugin 'morhetz/gruvbox'
 "Plugin 'Lokaltog/vim-distinguished'
+Plugin 'w0ng/vim-hybrid'
 
 " Plugins
 Plugin 'vim-airline/vim-airline'
@@ -84,8 +85,8 @@ augroup END
 " seoul256:
 "   Range:   233 (darkest) ~ 239 (lightest)
 "   Default: 237
-let g:seoul256_background=234
-colo seoul256
+"let g:seoul256_background=234
+"colo seoul256
 
 " solarized:
 " set background=dark
@@ -96,6 +97,12 @@ colo seoul256
 " set t_Co=256
 " set cursorline
 " colorscheme distinguished
+
+" hybrid
+set background=dark
+colorscheme hybrid
+set cursorline
+set number
 
 "------------------------------------------------------------
 " Usability options
@@ -134,7 +141,16 @@ endif
 set ttimeoutlen=100
 
 " sets a vertical bar to suggest word-wrapping
-set colorcolumn=80
+"set colorcolumn=80
+"let &colorcolumn=join(range(81,999),",")
+highlight OverLength ctermbg=red ctermfg=white
+match OverLength /\%80v\+/
+
+" netrw options
+let g:netrw_liststyle = 3 " set default netrw view to tree
+let g:netrw_banner = 0
+let g:netrw_winsize = 25
+
 "------------------------------------------------------------
 " Key remaps
 
