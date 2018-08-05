@@ -25,6 +25,10 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'lervag/vimtex'
 Plugin 'tpope/vim-surround'
+Plugin 'guns/vim-clojure-static'        "clojure
+Plugin 'kien/rainbow_parentheses.vim'   "clojure
+Plugin 'tpope/vim-fireplace'            "clojure
+Plugin 'elmcast/elm-vim'
 
 call vundle#end()               " required
 filetype plugin indent on
@@ -200,3 +204,15 @@ function! JavaMain()
     call append(2, "    }")
     call append(3, "}")
 endfunction
+
+let buildCommand = { 
+            \'cpp' : 'g++ -std=c++11',
+            \'elm' : 'elm-make',
+            \'py': 'python3'
+            \}
+
+" Different settings for different filetypes
+autocmd Filetype clj,hs,lhs setlocal ts=2 sw=2 sts=2
+autocmd FileType elm map ,t :w\|!elm-make %
+autocmd FileType cpp map ,t :w\|!g++ -std=c++11 %
+autocmd FileType py map ,t :w\|!python3 %

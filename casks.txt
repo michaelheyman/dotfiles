@@ -1,8 +1,6 @@
 1password
-appcleaner
 bartender
 bettertouchtool
-brackets
 catch
 docker
 dropbox
@@ -19,6 +17,7 @@ keepingyouawake
 mactex
 nordvpn
 pycharm-ce
+qlstephen
 skim
 skype
 slack

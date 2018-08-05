@@ -323,6 +323,7 @@ you should place your code here."
         '(:link t :maxlevel 2 :formula "$5=$3+$4;t::$6=ceil($5*60/25);N"))
   (setq org-agenda-files (list "~/Drive/Org/tasks.org"
                                "~/Drive/Org/agenda.org"))
+  (evil-ex-define-cmd "W[rite]" 'evil-write)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
