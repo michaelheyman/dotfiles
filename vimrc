@@ -155,6 +155,12 @@ let g:netrw_liststyle = 3 " set default netrw view to tree
 let g:netrw_banner = 0
 let g:netrw_winsize = 25
 
+" open vsplit to the right
+set splitright
+
+" allows switching to another buffer without having to save it first
+set hidden
+
 "------------------------------------------------------------
 " Key remaps
 
@@ -177,11 +183,11 @@ nmap gp :bp<CR>
 function! NumberToggle()
   if(&relativenumber == 1)
     set norelativenumber
-    set number
   elseif(&number == 1)
     set nonumber
-  else
     set relativenumber
+  else
+    set number
   endif
 endfunc
 nnoremap <silent> <C-n> :call NumberToggle()<cr>
