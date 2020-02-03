@@ -31,28 +31,33 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     python
-     markdown
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     c-c++
-     ivy
-     ;; auto-completion
-     ;; better-defaults
      ;; agda
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t)
+     ;; better-defaults
+     c-c++
+     clojure
      ;; emacs-lisp
      ;; git
+     ivy
      haskell
-     ;; markdown
+     markdown
      org
+     osx
+     python
+     ranger
      (shell :variables
              shell-default-height 30
              shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
+     spell-checking
+     syntax-checking
      ;; version-control
      )
    ;; List of additional packages that will be installed without being
@@ -314,6 +319,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (add-to-list 'load-path "~/Documents/emacs/")
+  (require 'ox-confluence)
+  ;; (require 'org-tempo) ;; Allows the usage of '<s' to expand #=BEGIN_SRC blocks
   ;; (setq org-pomodoro-audio-player "mplayer")
   ;; (setq org-pomodoro-finished-sound-args "-volume 1.0")
   ;; (setq org-pomodoro-long-break-sound-args "-volume 1.0")
@@ -335,7 +343,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic bind-key f powerline org-category-capture with-editor projectile packed avy highlight iedit evil goto-chg undo-tree dash hydra mmm-mode markdown-toc markdown-mode gh-md disaster cmake-mode clang-format intero flycheck hlint-refactor hindent haskell-snippets yasnippet company-ghci company-ghc ghc company haskell-mode cmm-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help winum which-key magit-gitflow highlight-indentation helm-make helm helm-core git-link evil-mc dumb-jump adaptive-wrap counsel smartparens alert org-plus-contrib magit async s ivy ws-butler wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org swiper spaceline smex smeargle restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree move-text magit-popup macrostep lorem-ipsum log4e linum-relative link-hint ivy-hydra info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers hide-comnt help-fns+ google-translate golden-ratio gnuplot gntp gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link))))
+    (reveal-in-osx-finder pbcopy osx-trash osx-dictionary launchctl ranger flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-haskell clj-refactor inflections edn multiple-cursors paredit peg lv cider-eval-sexp-fu cider sesman queue clojure-mode auto-dictionary yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional cython-mode anaconda-mode pythonic bind-key f powerline org-category-capture with-editor projectile packed avy highlight iedit evil goto-chg undo-tree dash hydra mmm-mode markdown-toc markdown-mode gh-md disaster cmake-mode clang-format intero flycheck hlint-refactor hindent haskell-snippets yasnippet company-ghci company-ghc ghc company haskell-mode cmm-mode xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help winum which-key magit-gitflow highlight-indentation helm-make helm helm-core git-link evil-mc dumb-jump adaptive-wrap counsel smartparens alert org-plus-contrib magit async s ivy ws-butler wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org swiper spaceline smex smeargle restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree move-text magit-popup macrostep lorem-ipsum log4e linum-relative link-hint ivy-hydra info+ indent-guide hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers hide-comnt help-fns+ google-translate golden-ratio gnuplot gntp gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-commit flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav define-word counsel-projectile column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent ace-window ace-link))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
