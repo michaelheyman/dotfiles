@@ -7,3 +7,6 @@ defaults write com.apple.TextEdit RichText -int 0
 
 # Enable key-repetition is some apps in OS X
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Disable Chrome two-finger back/forward navigation
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
