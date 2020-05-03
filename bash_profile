@@ -12,8 +12,8 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 export GREP_OPTIONS='--color=auto'
 
 # Case insensitive tab-to-completion
-bind "set completion-ignore-case on"
-bind "set show-all-if-ambiguous on"
+# bind "set completion-ignore-case on"
+# bind "set show-all-if-ambiguous on"
 
 #export PATH=~/Library/Android/sdk/tools:$PATH
 export PATH=~/Library/Android/sdk/platform-tools:$PATH
@@ -29,3 +29,6 @@ export PATH=~/Library/Android/sdk/platform-tools:$PATH
 export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 export PATH="$HOME/.elan/bin:$PATH"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+source $HOME/.autoproxy
