@@ -16,7 +16,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Colorschemes
 "Plugin 'altercation/vim-colors-solarized'
 "Plugin 'junegunn/seoul256.vim'
-"Plugin 'morhetz/gruvbox'
+Plugin 'morhetz/gruvbox'
 "Plugin 'Lokaltog/vim-distinguished'
 Plugin 'w0ng/vim-hybrid'
 
@@ -29,6 +29,9 @@ Plugin 'guns/vim-clojure-static'        "clojure
 Plugin 'kien/rainbow_parentheses.vim'   "clojure
 Plugin 'tpope/vim-fireplace'            "clojure
 Plugin 'elmcast/elm-vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'purescript-contrib/purescript-vim'
 
 call vundle#end()               " required
 filetype plugin indent on
@@ -37,6 +40,15 @@ filetype plugin indent on
 
 "------------------------------------------------------------
 " Plugin options
+
+" haskell-vim options
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
 " vim-airline
 "Automatically displays all buffers when there's only one tab open.
@@ -83,8 +95,8 @@ augroup END
 " Color options
 
 " gruvbox:
-"let g:gruvbox_termcolors=16
-"colo gruvbox
+" colorscheme gruvbox
+" set background=dark
 
 " seoul256:
 "   Range:   233 (darkest) ~ 239 (lightest)
@@ -158,8 +170,22 @@ let g:netrw_winsize = 25
 " open vsplit to the right
 set splitright
 
+" open term on the bottom instead of above
+set splitbelow
+
+" :term size
+" set termwinsize=15x0
+
 " allows switching to another buffer without having to save it first
 set hidden
+
+" prevent {} motion from opening fold
+set foldopen-=block
+
+" set autoformat for haskell with keybind gq
+":set formatprg=stylish-haskell
+
+set tw=79
 
 "------------------------------------------------------------
 " Key remaps
@@ -175,6 +201,9 @@ nmap <leader>q :nohlsearch<CR>
 " Move between open buffers
 nmap gn :bn<CR>
 nmap gp :bp<CR>
+
+" Enable backspace in vim 8.1.X -- I probably should do this
+set backspace=2
 
 "------------------------------------------------------------
 " Functions
@@ -219,6 +248,6 @@ let buildCommand = {
 
 " Different settings for different filetypes
 autocmd Filetype clj,hs,lhs setlocal ts=2 sw=2 sts=2
-autocmd FileType elm map ,t :w\|!elm-make %
+"autocmd FileType elm map ,t :w\|!elm make %
 autocmd FileType cpp map ,t :w\|!g++ -std=c++11 %
 autocmd FileType py map ,t :w\|!python3 %
