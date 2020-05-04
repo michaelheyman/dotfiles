@@ -151,15 +151,16 @@ install_os () {
 
 install_dotfiles
 
-declare -a packages=('git' 'vim');
-for package in "${packages[@]}"; do
-    if ! command_exists $package; then
-        install_package $package
-    fi
-done
+# TODO: remove opinionated packages, make it an explicit option
+# declare -a packages=('git' 'vim');
+# for package in "${packages[@]}"; do
+#     if ! command_exists $package; then
+#         install_package $package
+#     fi
+# done
 
 install_vim
-install_os
+# install_os
 
 echo ''
 echo '  All installed!'
