@@ -1,0 +1,22 @@
+#!/bin/bash
+
+kill_procs="$(docker ps -q)"
+
+if [ "$(echo "$kill_procs")" = "" ] ; then
+    echo "No docker processes to kill."
+else
+    echo "Killing all docker processes.."
+    docker kill $kill_procs
+    echo "Done."
+    echo ""
+fi
+
+remove_procs="$(docker ps -a -q)"
+
+if [ "$(echo "$remove_procs")" = "" ] ; then
+    echo "No docker processes to remove."
+else
+    echo "Removing all docker processes.."
+    docker rm $remove_procs
+    echo "Done."
+fi

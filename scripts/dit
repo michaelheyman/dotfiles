@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Connects interactively to a container and opens its shell
+
+if [ $# -gt 1 ]
+then
+    echo "Usage: $0 <container-id>"
+    exit 1
+fi
+
+docker exec -it $1 bash

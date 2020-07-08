@@ -1,0 +1,9 @@
+#!/bin/bash
+
+procs="$(docker ps -q)"
+
+if [ "$(echo "$procs")" = "" ] ; then
+    echo "No docker processes running."
+else
+    docker kill $procs
+fi

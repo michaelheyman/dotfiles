@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# This script expects that you have setup the NPM_AUTH environment variable:
+#   NPM_AUTH=$(echo -n $ARTIFACTORY_USER:$ARTIFACTORY_API_KEY | base64)
+# The full reference on how to do that can be found here:
+#   https://confluence.cambiahealth.com/confluence/display/CCSE/Artifactory+-+Getting+Started
+
+ARTIFACTORY_USER=michael.heyman
+
+echo registry=https://janusplatform.jfrog.io/janusplatform/api/npm/npm/ >> .npmrc
+echo _auth = "$NPM_AUTH" >> .npmrc
+echo email = "$ARTIFACTORY_USER"@cambiahealth.com >> .npmrc
+echo always-auth = true >> .npmrc
+
+echo "Changing the mode of 'npmrc' to 766.." 
+chmod 766 .npmrc
+
+echo "npmrc file has been created in the current directory"

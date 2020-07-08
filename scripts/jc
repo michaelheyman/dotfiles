@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# This script assumes you have jenv and openjdk-11.0.2 installed, and
+# that your default jenv version is java 1.8
+
+# Java project
+if [[ -f pom.xml ]]
+then
+    is_java_11=$(cat pom.xml | grep "<java.version>11")
+
+    if [[ $? -eq 0 ]]
+    then
+        echo "Running mvn clean package (Java 11) to clear artifacts..."
+        eval "$(jenv init -)"
+        jenv local 11.0.2
+        mvn clean package
+        janus cuke
+    else
+        echo "Running mvn clean package (Java 8) to clear artifacts..."
+        mvn clean package
+        janus cuke
+    fi
+# Go project
+elif [[ -f go.mod ]]
+then
+    echo "Running make cuke since this is a Go project..."
+    make cuke
+# Everything else
+else
+    janus cuke
+fi
