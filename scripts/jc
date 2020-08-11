@@ -1,25 +1,30 @@
 #!/bin/bash
 
-# This script assumes you have jenv and openjdk-11.0.2 installed, and
-# that your default jenv version is java 1.8
+# This script assumes you have jenv and openjdk-11.0.2 installed. They are
+# typically found in /Library/Java/JavaVirtualMachines/<version>/Contents/Home
+
+# Run `jenv versions` to see which version of Java 8 and Java 11 you have
+# installed and set those versions here
+JENV_JAVA8=1.8
+JENV_JAVA11=11.0.2
 
 # Java project
 if [[ -f pom.xml ]]
 then
     is_java_11=$(cat pom.xml | grep "<java.version>11")
+    eval "$(jenv init -)"
 
     if [[ $? -eq 0 ]]
     then
-        echo "Running mvn clean package (Java 11) to clear artifacts..."
-        eval "$(jenv init -)"
-        jenv local 11.0.2
-        mvn clean package
-        janus cuke
+        echo "Running mvn clean package (Java $JENV_JAVA11) to clear artifacts..."
+        jenv local $JENV_JAVA11
     else
-        echo "Running mvn clean package (Java 8) to clear artifacts..."
-        mvn clean package
-        janus cuke
+        echo "Running mvn clean package (Java $JENV_JAVA8) to clear artifacts..."
+        jenv local $JENV_JAVA8
     fi
+
+    mvn clean package
+    janus cuke
 # Go project
 elif [[ -f go.mod ]]
 then
