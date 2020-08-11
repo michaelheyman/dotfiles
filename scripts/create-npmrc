@@ -3,7 +3,7 @@
 # This script expects that you have setup the NPM_AUTH environment variable:
 #   NPM_AUTH=$(echo -n $ARTIFACTORY_USER:$ARTIFACTORY_API_KEY | base64)
 # The full reference on how to do that can be found here:
-#   https://confluence.cambiahealth.com/confluence/display/CCSE/Artifactory+-+Getting+Started
+#   https://cambiahealth.atlassian.net/wiki/spaces/CCSE/pages/744461/Artifactory+-+Getting+Started
 
 ARTIFACTORY_USER=michael.heyman
 
