@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Retrieves the JANUS_STACK_VERSION for all environments
+
+jaio_environments=(dev uat prd)
+hsq_environments=(dev2 int2 uat2 prdqa2 prd2)
+
+if [ $# -ne 1 ]
+then
+    echo "Usage: $0 <stack-name>"
+    exit 1
+fi
+
+stack_name=$1
+
+function service_status() {
+    stack=$1
+    env=$2
+    platform=janusplatform.io
+
+    if [[ "$2" == *2 ]]
+    then
+        platform=healthsparq.com
+    fi
+
+    stack_version=$(curl -s -X GET "https://$stack.$env.$platform/env" | jq -r '.systemEnvironment.JANUS_STACK_VERSION')
+    health_status=$(curl -s -X GET "https://$stack.$env.$platform/health" | jq -r '.status')
+
+    printf "%7s: %s %s\n" "$2" "$stack_version" "$health_status"
+}
+
+echo "stack name: $stack_name"
+
+for i in "${jaio_environments[@]}"
+do 
+    service_status "$stack_name" "$i"
+done
+
+for i in "${hsq_environments[@]}"
+do 
+    service_status "$stack_name" "$i"
+done

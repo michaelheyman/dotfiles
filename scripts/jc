@@ -3,14 +3,14 @@
 # This script assumes you have jenv and openjdk-11.0.2 installed. They are
 # typically found in /Library/Java/JavaVirtualMachines/<version>/Contents/Home
 
-# This maven plugin ensures that mvn picks up the right java version based
-# off your jenv settings and .java-version file
-eval "$(jenv init -)"
-jenv enable-plugin maven
-
 # Java project
 if [[ -f pom.xml ]]
 then
+    # This maven plugin ensures that mvn picks up the right java version based
+    # off your jenv settings and .java-version file
+    eval "$(jenv init -)"
+    jenv enable-plugin maven
+
     echo "Running mvn clean package to clear artifacts..."
     mvn clean package
     janus cuke
