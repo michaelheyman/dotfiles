@@ -160,7 +160,7 @@ set ttimeoutlen=100
 "set colorcolumn=80
 "let &colorcolumn=join(range(81,999),",")
 highlight OverLength ctermbg=red ctermfg=white
-match OverLength /\%74v\+/
+match OverLength /\%80v\+/
 
 " netrw options
 let g:netrw_liststyle = 3 " set default netrw view to tree
