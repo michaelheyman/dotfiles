@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Retrieves the JANUS_STACK_VERSION for all environments
+# Requires jq, install it with brew install jq
 
 jaio_environments=(dev uat prd)
 hsq_environments=(dev2 int2 uat2 prdqa2 prd2)
@@ -17,16 +18,19 @@ function service_status() {
     stack=$1
     env=$2
     platform=janusplatform.io
-
     if [[ "$2" == *2 ]]
     then
         platform=healthsparq.com
     fi
-
     stack_version=$(curl -s -X GET "https://$stack.$env.$platform/env" | jq -r '.systemEnvironment.JANUS_STACK_VERSION')
     health_status=$(curl -s -X GET "https://$stack.$env.$platform/health" | jq -r '.status')
-
-    printf "%7s: %s %s\n" "$2" "$stack_version" "$health_status"
+    if [[ -z $stack_version ]]
+    then
+        printf "%7s: %s %-5s %s\n" "$2" "$stack_version" "$health_status"
+    else
+        git_commit=$(curl -s -X GET "https://minerva-api.$env.$platform/api/deployments?service=$stack" | jq -r '.deployments[-1] | .["git-commit-url"]' | sed 's/.*commit\///')
+        printf "%7s: %s %-5s %s\n" "$2" "$stack_version" "$health_status" "$git_commit"
+    fi
 }
 
 echo "stack name: $stack_name"
