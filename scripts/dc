@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Spins up the docker-compose resources of a docker-compose file with a prefix
+
 if [ $# -gt 1 ]
 then
     echo "Usage: $0 <environment>"

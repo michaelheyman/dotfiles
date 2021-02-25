@@ -1,6 +1,12 @@
 #!/bin/bash
 
+
+# Remove all containers
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+
 # TODO: pipe the output of this command to null
 # and print something nicer if it didn't find anything, like "No docker images
 # to remove
+# Remove dangling images
  docker rmi --force $(docker images --all -q)

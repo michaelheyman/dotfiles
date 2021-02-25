@@ -3,6 +3,15 @@
 # This script assumes you have jenv and openjdk-11.0.2 installed. They are
 # typically found in /Library/Java/JavaVirtualMachines/<version>/Contents/Home
 
+# In support of the latest Janus CLI, a test-results directory is required. This
+# checks if that directory exists, and otherwise creates it
+
+if [[ ! -d "./test-results" ]]
+then
+    echo "Creating a test-results directory for your convenience"
+    mkdir test-results
+fi
+
 # Java project
 if [[ -f pom.xml ]]
 then
