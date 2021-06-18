@@ -4,7 +4,6 @@
 # Requires jq, install it with brew install jq
 
 jaio_environments=(dev uat prd)
-hsq_environments=(dev2 int2 uat2 prdqa2 prd2)
 
 if [ $# -ne 1 ]
 then
@@ -36,11 +35,6 @@ function service_status() {
 echo "stack name: $stack_name"
 
 for i in "${jaio_environments[@]}"
-do 
-    service_status "$stack_name" "$i"
-done
-
-for i in "${hsq_environments[@]}"
 do 
     service_status "$stack_name" "$i"
 done
