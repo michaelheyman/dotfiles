@@ -3,14 +3,9 @@
 # This script assumes you have jenv and openjdk-11.0.2 installed. They are
 # typically found in /Library/Java/JavaVirtualMachines/<version>/Contents/Home
 
-# In support of the latest Janus CLI, a test-results directory is required. This
-# checks if that directory exists, and otherwise creates it
-
-if [[ ! -d "./test-results" ]]
-then
-    echo "Creating a test-results directory for your convenience"
-    mkdir test-results
-fi
+info () {
+    printf "\r\033[2K[ \033[00;32mi\033[0m ] $1\n"
+}
 
 # Java project
 if [[ -f pom.xml ]]
@@ -20,15 +15,17 @@ then
     eval "$(jenv init -)"
     jenv enable-plugin maven
 
-    echo "Running mvn clean package to clear artifacts..."
+    info 'Running mvn clean package to clear artifacts...'
+    info "Java project detected: running 'mvn clean package' to clear artifacts followed by 'janus cuke"
     mvn clean package
     janus cuke
 # Go project
 elif [[ -f go.mod ]]
 then
-    echo "Running make cuke since this is a Go project..."
+    info "Go project detected: running 'make cuke'"
     make cuke
 # Everything else
 else
     janus cuke
 fi
+
