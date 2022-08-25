@@ -3,6 +3,12 @@ alias dns-reset "sudo killall -HUP mDNSResponder; sleep 2"
 alias dps "docker ps"
 alias dih "docker_inspect_health"
 
+# Kubernetes aliases
+alias k "AWS_PROFILE=dev AWS_DEFAULT_REGION=us-west-2 CLUSTER=dev-eks01 janus kubectl"
+alias kgp "kubectl get pods"
+alias kd "kubectl describe"
+
+# GitHub aliases
 alias gd 'git diff'
 alias gl 'git log'
 alias glo 'git log --oneline'
