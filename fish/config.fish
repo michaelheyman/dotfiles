@@ -8,19 +8,6 @@
 # source (pyenv init - --no-rehash | psub)
 # source (pyenv virtualenv-init - | psub)
 
-# jenv config
-#
-# The following line is supposedly the recommended setup for jenv, but all it seems to
-# do is add ~/.jenv/shims to the path and duplicate that value on every shell reload:
-#
-# status --is-interactive; and source (jenv init -|psub)
-#
-# This attempts to do the same thing:
-fish_add_path $HOME/.jenv/shims
-# TODO: look at jenv addons (export addon?) that may set JAVA_HOME automatically, based on
-# some documented ideas here: https://github.com/jenv/jenv
-set -x JAVA_HOME (/usr/libexec/java_home -v '1.8.*')
-
 fish_add_path $HOME/Documents/scripts
 # set -gx PATH /usr/local/bin $PATH
 set -U __done_min_cmd_duration 5000
@@ -32,10 +19,10 @@ set -x GOPATH $HOME/go
 # Therefore, I'm hardcoding the path to the Go binary in the fish shell. Return
 # here if you have issues with GOROOT.
 # set -x GOROOT (brew --prefix golang)/libexec
-set -x GOROOT /usr/local/opt/go/libexec
+set -x GOROOT /opt/homebrew/opt/go/libexec
 fish_add_path $GOPATH/bin
 # Bypass module sum validation for modules that live in this prefix
-set -gx GOPRIVATE github.com/cambiahealth
+set -gx GOPRIVATE github.com/vivantehealth
 #
 # Download packages to $GOPATH/src instead of $GOPATH/mod. This allows Goland to
 # resolve its imports
