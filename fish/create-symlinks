@@ -4,6 +4,6 @@
 # This file is useful because it is shell agnostic
 
 # Use absolute paths to avoid circular symlink issues
-ln -s $(pwd)/init.fish $HOME/.config/omf/init.fish
-ln -s $(pwd)/omf.fish $HOME/.config/fish/conf.d/omf.fish
-ln -s $(pwd)/config.fish $HOME/.config/fish/config.fish
+ln -s -f $(pwd)/init.fish $HOME/.config/omf/init.fish
+ln -s -f $(pwd)/omf.fish $HOME/.config/fish/conf.d/omf.fish
+ln -s -f $(pwd)/config.fish $HOME/.config/fish/config.fish
