@@ -21,6 +21,9 @@ alias wifi 'networksetup -setairportnetwork en0 Regence_Tenant1 Flo3jul1'
 # File containing secrets that must NOT be version controlled
 source $OMF_CONFIG/secrets.fish
 
+# Load `gcloud components` onto path, such as gke-gcloud-auth-plugin
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc
+
 # Configure kubectl completion. This probably only needs to be ran once.
 # See: https://kubernetes.io/docs/tasks/tools/included/optional-kubectl-configs-fish/
 # kubectl completion fish | source
