@@ -1,0 +1,32 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+# - clean:
+#     ["~", "~/.oh-my-zsh/custom/", "~/.oh-my-zsh/custom/plugins/", "~/.config"]
+
+# - shell:
+#     - [sh pre-install.sh, Running pre installation script]
+#     - [mkdir -p ~/.oh-my-zsh/custom/, Creating oh-my-zsh custom folders]
+#     - [mkdir -p ~/.oh-my-zsh/custom/plugins, Creating oh-my-zsh custom plugins folders]
+
+- link:
+    ~/.config/fish/.aliases: fish/.aliases
+    ~/.config/fish/.exports: fish/.exports
+    ~/.config/fish/.functions: fish/.functions
+    ~/.local/bin: bin
+
+    # ~/.shell:
+    # ~/.bash:
+    # ~/.bash_profile:
+    # ~/.bashrc:
+    #   force: true
+    # ~/.gitconfig:
+    # ~/.gitignore_global:
+    # ~/.zsh:
+    ~/.zshrc: zsh/zshrc
+    # ~/.libs:
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]

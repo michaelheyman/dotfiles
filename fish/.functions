@@ -1,0 +1,5 @@
+# fish doesn't support aliases with parameters, so functions are the
+# workaround
+function docker_inspect_health
+    docker inspect -f "{{json .State.Health }}" $argv | jq
+end

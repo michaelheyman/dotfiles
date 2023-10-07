@@ -1,49 +1,8 @@
-# This command must be ran at least once. However, leaving it on slows down the shell
-# RVM fish integration: https://rvm.io/integration/fish
-rvm default
-
-# set -g fish_user_paths "/usr/local/opt/openssl/bin" $fish_user_paths
-
-# Enable --no-rehash when updating pyenv
-#   It updated the paths to the shims from pyenv-old-version to pyenv-new-version
-source (pyenv init - --no-rehash | psub)
-source (pyenv virtualenv-init - | psub)
-
-fish_add_path $HOME/Documents/scripts
-# set -gx PATH /usr/local/bin $PATH
-set -U __done_min_cmd_duration 5000
-
-# Go config
-#
-set -x GOPATH $HOME/go
-# The following command is extremely slow and affect every single shell session.
-# Therefore, I'm hardcoding the path to the Go binary in the fish shell. Return
-# here if you have issues with GOROOT.
-# set -x GOROOT (brew --prefix golang)/libexec
-set -x GOROOT /opt/homebrew/opt/go/libexec
-fish_add_path $GOPATH/bin
-# Bypass module sum validation for modules that live in this prefix
-set -gx GOPRIVATE github.com/vivantehealth
-#
-# Download packages to $GOPATH/src instead of $GOPATH/mod. This allows Goland to
-# resolve its imports
-# Actually, this makes `go mod download` throw a "go: modules disabled by GO111MODULE=off; see 'go help modules'"
-# set -gx GO111MODULE off
-# set --erase GO111MODULE
-
-# Maybe these/this are/is needed to have RubyMine run cucumber internally?
-# source ($HOME/.rvm/scripts/rvm)
-# rvm default
+for file in ~/.config/fish/.{aliases*,exports*,functions*}
+  if test -r $file
+    source "$file"
+  end
+end
 
 # Disable help message when opening shell
 set fish_greeting
-
-# Load Ruby version to run Jekyll on Apple Silicon
-# See:
-#   https://jekyllrb.com/docs/installation/macos/
-#   https://talk.jekyllrb.com/t/how-to-setup-chruby-for-fish-shell-instead-of-regular-bash-zsh/7390
-source /opt/homebrew/Cellar/chruby-fish/1.0.0/share/fish/vendor_functions.d/chruby.fish
-# # https://rvm.io/workflow/chruby
-# source (cat ~/.rvm/scripts/extras/chruby.sh | psub)
-source /opt/homebrew/Cellar/chruby-fish/1.0.0/share/fish/vendor_conf.d/chruby_auto.fish
-chruby ruby-3.1.3

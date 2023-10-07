@@ -1,0 +1,11 @@
+# Go config
+#
+set -x GOPATH $HOME/go
+# The following command is extremely slow and affect every single shell session.
+# Therefore, I'm hardcoding the path to the Go binary in the fish shell. Return
+# here if you have issues with GOROOT.
+# set -x GOROOT (brew --prefix golang)/libexec
+set -x GOROOT /opt/homebrew/opt/go/libexec
+fish_add_path $GOPATH/bin
+# Bypass module sum validation for modules that live in this prefix
+set -gx GOPRIVATE github.com/$COMPANY

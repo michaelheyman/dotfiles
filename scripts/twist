@@ -1,6 +1,0 @@
-#!/bin/bash
-
-PRISMA_USER="bca91379-8efc-4285-97ed-434bdee662f0"
-PRISMA_PASS=$(security find-generic-password -a twistcli -s twistcli -w)
-PRISMA_ADDRESS="https://us-east1.cloud.twistlock.com/us-1-111574442"
-twistcli images scan --address $PRISMA_ADDRESS --user $PRISMA_USER --password $PRISMA_PASS --details $1
