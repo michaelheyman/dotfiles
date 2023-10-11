@@ -6,7 +6,9 @@
 - clean: ['~', '~/.config']
 
 - link:
-    ~/.config/fish: fish
+    ~/.config/fish/config.fish:
+      path: fish/config.fish
+      force: true
     ~/.local/bin: bin
     ~/.shell: shell
     ~/.bash_profile:
