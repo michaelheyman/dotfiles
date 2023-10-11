@@ -3,23 +3,17 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.oh-my-zsh/custom/', '~/.oh-my-zsh/custom/plugins/', '~/.config']
-
-- shell:
-  # - [sh pre-install.sh, Running pre installation script]
-  - [mkdir -p ~/.oh-my-zsh/custom/, Creating oh-my-zsh custom forlders]
-  - [mkdir -p ~/.oh-my-zsh/custom/plugins, Creating oh-my-zsh custom plugins forlders]
+- clean: ['~', '~/.config']
 
 - link:
+    ~/.config/fish: fish
+    ~/.local/bin: bin
     ~/.shell: shell
     ~/.bash_profile:
     ~/.bashrc:
       force: true
-    ~/.config/fish: fish
     ~/.gitconfig:
     ~/.gitignore_global:
-    ~/.local/bin: bin
-    ~/.zsh:
     ~/.zshrc:
       force: true
 
