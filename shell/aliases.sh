@@ -1,0 +1,22 @@
+# Navigation aliases
+alias ls='ls -1hF'
+alias ll='ls -l'
+alias ..="cd .."
+alias ...="cd ../.."
+
+# Docker aliases
+alias dih="docker_inspect_health"
+alias dlf="docker logs --follow"
+alias dps="docker ps"
+
+# Kubernetes aliases
+alias kd="kubectl describe"
+alias kgp="kubectl get pods"
+
+# GitHub aliases
+alias gc='git checkout'
+alias gd='git diff'
+alias gl='git log'
+alias glo='git log --oneline'
+alias gp='git pull'
+alias gs='git status'
