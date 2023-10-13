@@ -5,3 +5,6 @@ set -q XDG_DATA_HOME
 
 # Load Oh My Fish configuration.
 source $OMF_PATH/init.fish
+
+# File containing secrets that must NOT be version controlled
+source $OMF_CONFIG/secrets.fish

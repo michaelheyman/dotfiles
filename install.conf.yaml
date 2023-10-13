@@ -3,11 +3,17 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.config']
+- clean: ['~', '~/.config/fish', '~/.local/bin', '~/.shell']
 
 - link:
     ~/.config/fish/config.fish:
       path: fish/config.fish
+      force: true
+    ~/.config/fish/conf.d/omf.fish:
+      path: fish/omf/omf.fish
+      force: true
+    ~/.config/omf/secrets.fish:
+      path: fish/omf/secrets.fish
       force: true
     ~/.local/bin: bin
     ~/.shell: shell
@@ -16,6 +22,7 @@
       force: true
     ~/.gitconfig:
     ~/.gitignore_global:
+    ~/.ghci:
     ~/.zshrc:
       force: true
 

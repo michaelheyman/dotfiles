@@ -6,7 +6,7 @@ docker-build: ## Build docker image
 
 .PHONY: docker-clean
 docker-clean: ## Clean docker image
-	docker rmi -f ${IMAGE_NAME} .
+	docker rmi -f ${IMAGE_NAME}
 
 .PHONY: docker-build
 docker-run: docker-build ## Run docker image
