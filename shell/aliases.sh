@@ -1,6 +1,6 @@
 # Navigation aliases
 alias ls='ls -1hF'
-alias ll='ls -l'
+alias ll='ls -al'
 alias ..="cd .."
 alias ...="cd ../.."
 

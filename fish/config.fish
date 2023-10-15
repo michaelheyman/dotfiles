@@ -1,4 +1,4 @@
-for file in ~/.config/fish/.{aliases*,exports*,functions*}
+for file in ~/.shell/{aliases*,exports*}.sh
   if test -r $file
     source "$file"
   end
