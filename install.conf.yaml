@@ -3,9 +3,16 @@
       create: true
       relink: true
 
-- clean: ['~', '~/.config/fish', '~/.local/bin', '~/.shell']
+- clean:
+    - "~"
+    - "~/.config/fish"
+    - "~/.local/bin"
+    - "~/.shell"
 
 - link:
+    ~/.bash_profile:
+    ~/.bashrc:
+      force: true
     ~/.config/fish/config.fish:
       path: fish/config.fish
       force: true
@@ -15,16 +22,14 @@
     ~/.config/omf/secrets.fish:
       path: fish/omf/secrets.fish
       force: true
-    ~/.local/bin: bin
-    ~/.shell: shell
-    ~/.bash_profile:
-    ~/.bashrc:
-      force: true
+    ~/.editorconfig: .editorconfig
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.ghci:
+    ~/.local/bin: bin
+    ~/.shell: shell
     ~/.zshrc:
       force: true
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]
