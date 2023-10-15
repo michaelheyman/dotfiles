@@ -8,3 +8,6 @@ RUN apt update \
 WORKDIR /app
 
 COPY . .
+
+# Change default shell to bash which supports source
+RUN ln -sf /bin/bash /bin/sh

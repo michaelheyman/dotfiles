@@ -19,6 +19,8 @@
     ~/.config/fish/conf.d/omf.fish:
       path: fish/omf/omf.fish
       force: true
+    ~/.config/fish/.exports: fish/.exports
+    ~/.config/fish/.functions: fish/.functions
     ~/.config/omf/secrets.fish:
       path: fish/omf/secrets.fish
       force: true
@@ -32,4 +34,28 @@
       force: true
 
 - shell:
-    - [git submodule update --init --recursive, Installing submodules]
+    - command: git submodule update --init --recursive
+      description: Installing submodules
+    - command: source $(pwd)/scripts/install-functions.sh && install_brew_if_macos
+      description: Installing brew if system is macOS
+      stdout: true
+      stderr: true
+    - command: source $(pwd)/scripts/install-functions.sh && install_package fish
+      description: Installing fish
+      stderr: true
+    - command: source $(pwd)/scripts/install-functions.sh && install_oh_my_fish
+      description: Installing oh-my-fish
+      stderr: true
+    - command: source $(pwd)/scripts/install-functions.sh && install_package zsh
+      description: Installing zsh
+      stderr: true
+    - command: source $(pwd)/scripts/install-functions.sh && install_oh_my_zsh
+      description: Installing oh-my-zsh
+      stderr: true
+    - command: chsh -s $(which fish)
+      description: Changing default shell to fish
+      stdout: true
+      stderr: true
+    - command: echo ""
+      description: Run exec fish to change your shell now
+      quiet: true
