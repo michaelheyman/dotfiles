@@ -2,12 +2,33 @@
 
 set -e
 
-install_brew_if_macos() {
-  if [ "$(uname)" == "Darwin" ]; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  else
-    echo "Skipping brew installation on $(uname)"
-  fi
+if_darwin() {
+    if [ "$(uname)" == "Darwin" ]; then
+        if [ $# -ge 1 ]; then
+            local command="$1"
+            shift  # Remove the first argument (the command name)
+
+            # Check if the command is a function
+            if declare -F "$command" &>/dev/null; then
+                echo "Executing function: $command with parameters: $@"
+                "$command" "$@"
+            # Check if the command is an executable
+            elif command -v "$command" &>/dev/null; then
+                echo "Executing command: $command with parameters: $@"
+                "$command" "$@"
+            else
+                echo "Invalid command: $command is neither a function nor a valid command."
+            fi
+        else
+            echo "No command provided."
+        fi
+    else
+        echo "Not a Darwin platform, skipping execution of command."
+    fi
+}
+
+install_brew() {
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
 install_package() {
