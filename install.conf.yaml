@@ -10,8 +10,9 @@
     - "~/.shell"
 
 - link:
-    ~/.bash_profile:
+    ~/.bash_profile: bash/bash_profile
     ~/.bashrc:
+      path: bash/bashrc
       force: true
     ~/.config/fish/config.fish:
       path: fish/config.fish
@@ -22,12 +23,15 @@
     ~/.config/fish/.exports: fish/.exports
     ~/.config/fish/.functions: fish/.functions
     ~/.editorconfig: .editorconfig
-    ~/.gitconfig:
-    ~/.gitignore_global:
-    ~/.ghci:
+    ~/.gitconfig: git/gitconfig
+    ~/.gitignore_global: git/gitignore_global
+    ~/.ghci: ghc/ghci
     ~/.local/bin: bin
     ~/.shell: shell
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.vimrc: vim/vimrc
     ~/.zshrc:
+      path: zsh/zshrc
       force: true
 
 - shell:
@@ -48,6 +52,9 @@
       stderr: true
     - command: source $(pwd)/scripts/install-functions.sh && install_oh_my_zsh
       description: Installing oh-my-zsh
+      stderr: true
+    - command: cat ~/.zshrc.pre-oh-my-zsh >> ~/.zshrc
+      description: Appending contents of custom zshrc to automatic OMZ zshrc
       stderr: true
     - command: chsh -s $(which fish)
       description: Changing default shell to fish

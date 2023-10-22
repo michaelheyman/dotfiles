@@ -1,4 +1,4 @@
-for file in ~/.shell/{aliases*}.sh
+for file in ~/.shell/aliases.sh
   if test -r $file
     source "$file"
   end
