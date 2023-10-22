@@ -21,9 +21,6 @@
       force: true
     ~/.config/fish/.exports: fish/.exports
     ~/.config/fish/.functions: fish/.functions
-    ~/.config/omf/secrets.fish:
-      path: fish/omf/secrets.fish
-      force: true
     ~/.editorconfig: .editorconfig
     ~/.gitconfig:
     ~/.gitignore_global:

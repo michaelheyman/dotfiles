@@ -7,4 +7,6 @@ set -q XDG_DATA_HOME
 source $OMF_PATH/init.fish
 
 # File containing secrets that must NOT be version controlled
-source $OMF_CONFIG/secrets.fish
+if test -e $OMF_CONFIG/secrets.fish
+  source $OMF_CONFIG/secrets.fish
+end
