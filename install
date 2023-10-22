@@ -7,9 +7,19 @@ DOTBOT_DIR="dotbot"
 
 DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+METADIR="meta"
 
 cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
+git submodule update --init --recursive
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+# Check if the system is running Debian
+if [ -e /etc/debian_version ]; then
+    # Install debian packages
+    sudo "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}/${METADIR}" -p "${BASEDIR}/${METADIR}/dotbot-apt/apt.py" -c "${BASEDIR}/${METADIR}/configs/packages.debian.yaml"
+# Check if the system is macOS
+elif [ "$(uname -s)" == "Darwin" ]; then
+    # Install macos packages
+    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}/${METADIR}" --plugin-dir dotbot-brew -c "${BASEDIR}/${METADIR}/configs/packages.darwin.yaml"
+fi
+
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${BASEDIR}/${CONFIG}" "${@}"
