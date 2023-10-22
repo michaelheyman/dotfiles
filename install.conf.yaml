@@ -14,6 +14,7 @@
     ~/.bashrc:
       path: bash/bashrc
       force: true
+    ~/.config/fish/completions: fish/completions
     ~/.config/fish/config.fish:
       path: fish/config.fish
       force: true
