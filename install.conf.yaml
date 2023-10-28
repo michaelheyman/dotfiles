@@ -5,60 +5,13 @@
 
 - clean:
     - "~"
-    - "~/.config/fish"
     - "~/.local/bin"
-    - "~/.shell"
 
 - link:
-    ~/.bash_profile: bash/bash_profile
-    ~/.bashrc:
-      path: bash/bashrc
-      force: true
-    ~/.config/fish/completions: fish/completions
-    ~/.config/fish/config.fish:
-      path: fish/config.fish
-      force: true
-    ~/.config/fish/conf.d/omf.fish:
-      path: fish/omf/omf.fish
-      force: true
-    ~/.config/fish/.exports: fish/.exports
-    ~/.config/fish/.functions: fish/.functions
     ~/.editorconfig: .editorconfig
     ~/.gitconfig: git/gitconfig
     ~/.gitignore_global: git/gitignore_global
     ~/.ghci: ghc/ghci
     ~/.local/bin: bin
-    ~/.shell: shell
     ~/.tmux.conf: tmux/tmux.conf
     ~/.vimrc: vim/vimrc
-    ~/.zshrc:
-      path: zsh/zshrc
-      force: true
-
-- shell:
-    - command: source $(pwd)/scripts/install-functions.sh && if_darwin install_brew
-      description: Installing brew if system is macOS
-      stdout: true
-      stderr: true
-    - command: source $(pwd)/scripts/install-functions.sh && install_package fish
-      description: Installing fish
-      stderr: true
-    - command: source $(pwd)/scripts/install-functions.sh && install_oh_my_fish
-      description: Installing oh-my-fish
-      stderr: true
-    - command: source $(pwd)/scripts/install-functions.sh && install_package zsh
-      description: Installing zsh
-      stderr: true
-    - command: source $(pwd)/scripts/install-functions.sh && install_oh_my_zsh
-      description: Installing oh-my-zsh
-      stderr: true
-    - command: cat ~/.zshrc.pre-oh-my-zsh >> ~/.zshrc
-      description: Appending contents of custom zshrc to automatic OMZ zshrc
-      stderr: true
-    - command: chsh -s $(which fish)
-      description: Changing default shell to fish
-      stdout: true
-      stderr: true
-    - command: echo ""
-      description: Run exec fish to change your shell now
-      quiet: true

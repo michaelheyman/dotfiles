@@ -169,6 +169,8 @@
     diffFilter = diffr
 [user]
     useConfigOnly = true
+	email = michaelheyman@users.noreply.github.com
+	name = Michael Heyman
 [core]
 	autocrlf = input
 	excludesfile = ~/.gitignore_global

@@ -15,11 +15,11 @@ git submodule update --init --recursive
 # Check if the system is running Debian
 if [ -e /etc/debian_version ]; then
     # Install debian packages
-    sudo "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}/${METADIR}" -p "${BASEDIR}/${METADIR}/dotbot-apt/apt.py" -c "${BASEDIR}/${METADIR}/configs/packages.debian.yaml"
+    ./install-profile debian
 # Check if the system is macOS
 elif [ "$(uname -s)" == "Darwin" ]; then
     # Install macos packages
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}/${METADIR}" --plugin-dir dotbot-brew -c "${BASEDIR}/${METADIR}/configs/packages.darwin.yaml"
+    ./install-profile darwin
+else
+    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${BASEDIR}/${CONFIG}" "${@}"
 fi
-
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${BASEDIR}/${CONFIG}" "${@}"

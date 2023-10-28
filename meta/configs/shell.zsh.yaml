@@ -1,0 +1,20 @@
+
+- link:
+    ~/.zshrc:
+      path: zsh/zshrc
+      force: true
+
+- shell:
+    - command: echo "Y" | /bin/sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      description: Installing oh-my-zsh
+      stderr: true
+    - command: cat ~/.zshrc.pre-oh-my-zsh >> ~/.zshrc
+      description: Appending contents of custom zshrc to automatic OMZ zshrc
+      stderr: true
+    - command: chsh -s $(which zsh)
+      description: Changing default shell to zsh
+      stdout: true
+      stderr: true
+    - command: echo ""
+      description: Run `exec zsh` to change your shell now
+      quiet: true

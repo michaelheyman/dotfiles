@@ -1,0 +1,27 @@
+
+- clean:
+    - "~"
+    - "~/.config/fish"
+
+- link:
+    ~/.config/fish/completions: fish/completions
+    ~/.config/fish/config.fish:
+      path: fish/config.fish
+      force: true
+    ~/.config/fish/conf.d/omf.fish:
+      path: fish/omf/omf.fish
+      force: true
+    ~/.config/fish/.exports: fish/.exports
+    ~/.config/fish/.functions: fish/.functions
+
+- shell:
+    - command: curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install-fish && chmod u+x install-fish && ./install-fish --noninteractive
+      description: Installing oh-my-fish
+      stderr: true
+    - command: chsh -s $(which fish)
+      description: Changing default shell to fish
+      stdout: true
+      stderr: true
+    - command: echo ""
+      description: Run `exec fish` to change your shell now
+      quiet: true
