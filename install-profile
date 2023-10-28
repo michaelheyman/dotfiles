@@ -35,7 +35,6 @@ while IFS= read -r config; do
     CONFIGS+=" ${config}"
 done < "${META_DIR}/${PROFILES_DIR}/$1"
 
-echo "contents of $1 file: $CONFIGS"
 # Remove the input parameter from ${@}
 shift
 

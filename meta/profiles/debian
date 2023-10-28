@@ -1,3 +1,4 @@
 packages.debian
 shell.common
 shell.zsh
+shell.fish
