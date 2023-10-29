@@ -1,4 +1,5 @@
 packages.darwin
+btt
 git
 shell.common
 shell.zsh

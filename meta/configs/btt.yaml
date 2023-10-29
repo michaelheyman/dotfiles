@@ -1,0 +1,10 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean:
+    - "~/.config/btt"
+
+- link:
+    ~/.config/btt/presets.bttpreset: btt/exported_triggers.bttpreset
