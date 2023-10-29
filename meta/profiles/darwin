@@ -1,4 +1,5 @@
 packages.darwin
+git
 shell.common
 shell.zsh
 shell.fish
