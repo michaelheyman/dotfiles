@@ -1,6 +1,7 @@
 packages.darwin
 btt
 git
+iterm2
 shell.common
 shell.zsh
 shell.fish

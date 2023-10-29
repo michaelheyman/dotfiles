@@ -1,0 +1,10 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean:
+    - "~/.config/btt"
+
+- link:
+    ~/.config/iterm2/Default.json: iterm2/Default.json
