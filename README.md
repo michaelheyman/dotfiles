@@ -14,6 +14,20 @@ on your machine.
 Start by cloning the repository to your `~/.dotfiles` directory and moving to that newly created
 directory:
 
+### Via SSH
+
+Follow the
+[instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+to configure SSH and then run this:
+
+```bash
+git clone git@github.com:michaelheyman/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+```
+### Via HTTPS
+
+Follow the instructions to configure SSH and then run this:
+
 ```bash
 git clone https://github.com/michaelheyman/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
