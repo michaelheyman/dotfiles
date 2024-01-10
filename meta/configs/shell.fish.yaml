@@ -22,7 +22,7 @@
       description: Installing oh-my-fish
       stderr: true
     - command: chsh -s $(which fish)
-      description: Changing default shell to fish
+      description: Changing default shell to fish. Uses sudo to circumvent the PAM Authentication failure error.
       stdout: true
       stderr: true
     - command: echo ""

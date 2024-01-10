@@ -10,8 +10,8 @@
     - command: cat ~/.zshrc.pre-oh-my-zsh >> ~/.zshrc
       description: Appending contents of custom zshrc to automatic OMZ zshrc
       stderr: true
-    - command: chsh -s $(which zsh)
-      description: Changing default shell to zsh
+    - command: sudo chsh -s $(which zsh)
+      description: Changing default shell to zsh. Uses sudo to circumvent the PAM Authentication failure error.
       stdout: true
       stderr: true
     - command: echo ""

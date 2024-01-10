@@ -45,3 +45,13 @@ Install any of these profiles by running `./install-profile <profile-name>`.
 
 Make modifications and run `make docker-run`. Inside the container, install your dotfiles to verify
 effect.
+
+## Enhancements 
+
+- [ ] Create mechanism that installs
+  [Vundle](https://github.com/VundleVim/Vundle.vim), probably by auto
+  cloning the repo. Document to run `:PluginInstall` in `vim` after you load it
+  the first time
+- [ ] Fix whatever weirdness is around the install.conf.yaml not being
+  automatically ran?
+
