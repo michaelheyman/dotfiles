@@ -10,6 +10,7 @@ export GREP_OPTIONS='--color=auto'
 # bind "set show-all-if-ambiguous on"
 
 # Make vim the default man pager
-export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+# TODO: the shell is not always in /bin/sh, so the following command may fail:
+# export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
 
 source ~/.bashrc

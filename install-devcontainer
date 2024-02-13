@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Circumvent VSCode not liking having a two command entrypoint for the
+# dotfiles.installCommand
+./install-profile devcontainer
+
+# # Source the new bashrc before starting the container. We can't do this in
+# the YAML files: https://github.com/anishathalye/dotbot/issues/237
+echo "Reloading bashrc"
+source ~/.bashrc
