@@ -12,3 +12,8 @@ end
 
 # Disable help message when opening shell
 set fish_greeting
+
+# Check if pyenv exists and initialize it if it does
+if type -q pyenv
+  pyenv init - | source
+end
