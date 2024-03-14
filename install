@@ -12,8 +12,12 @@ METADIR="meta"
 cd "${BASEDIR}"
 git submodule update --init --recursive
 
+# Check if the script is running in GitHub Codespaces
+if [ "$CODESPACES" = "true" ]; then
+    # Install devcontainer packages
+    ./install-devcontainer
 # Check if the system is running Debian
-if [ -e /etc/debian_version ]; then
+elif [ -e /etc/debian_version ]; then
     # Install debian packages
     ./install-profile debian
 # Check if the system is macOS
