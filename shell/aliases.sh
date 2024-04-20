@@ -9,6 +9,7 @@ alias dlf="docker logs --follow"
 alias dps="docker ps"
 
 # Kubernetes aliases
+alias k="kubectl"
 alias kd="kubectl describe"
 alias kgp="kubectl get pods"
 
@@ -19,3 +20,4 @@ alias gl='git log'
 alias glo='git log --oneline'
 alias gp='git pull'
 alias gs='git status'
+
