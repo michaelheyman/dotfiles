@@ -1,4 +1,3 @@
-# Source the correct system-wide bashrc file based on the OS.
 {{ if eq .chezmoi.os "darwin" -}}
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
