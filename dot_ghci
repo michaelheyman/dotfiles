@@ -1,0 +1,14 @@
+-- Taken from https://typeclasses.com/ghci/config
+
+-- Configures the prompt to show a colored lambda
+:set prompt "\ESC[1;35m\x03BB> \ESC[m"
+:set prompt-cont "\ESC[1;35m > \ESC[m"
+
+-- Sets the default editor when executing `:e` in the GHCI
+:set editor vim
+
+-- Enables displaying type of resulting computation
+:set +t
+
+-- Enables OverloadedStrings extension by default
+:seti -XOverloadedStrings
