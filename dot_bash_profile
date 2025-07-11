@@ -1,0 +1,16 @@
+# Tell ls to be colourful
+export CLICOLOR=1
+export LSCOLORS=Exfxcxdxbxegedabagacad
+
+# Tell grep to highlight matches
+export GREP_OPTIONS='--color=auto'
+
+# Case insensitive tab-to-completion
+# bind "set completion-ignore-case on"
+# bind "set show-all-if-ambiguous on"
+
+# Make vim the default man pager
+# TODO: the shell is not always in /bin/sh, so the following command may fail:
+# export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man ts=8 nomod nolist nonu noma' -\""
+
+source ~/.bashrc
