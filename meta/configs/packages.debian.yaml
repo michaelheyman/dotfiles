@@ -1,7 +1,0 @@
-- apt:
-    - curl
-    - fish
-    - jq
-    - procps
-    - zsh
-    - vim
