@@ -1,0 +1,18 @@
+{{- if and (eq .chezmoi.os "linux") (lookPath "apt-get") }}
+#!/bin/sh
+
+set -e -u
+
+echo "Updating APT cache and installing packages..."
+sudo apt-get update
+
+{{- if .packages.debian.apts }}
+{{- range .packages.debian.apts }}
+if ! dpkg -l {{ . | quote }} >/dev/null 2>&1; then
+    echo "Installing apt package: {{ . }}"
+    sudo apt-get install -y {{ . | quote }}
+fi
+{{- end }}
+{{- end }}
+
+{{ end -}}
