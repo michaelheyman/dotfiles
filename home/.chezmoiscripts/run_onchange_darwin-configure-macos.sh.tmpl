@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
 # Disable dock bounce to alert behavior
@@ -12,3 +13,5 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Disable Chrome two-finger back/forward navigation
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+
+{{ end -}}
