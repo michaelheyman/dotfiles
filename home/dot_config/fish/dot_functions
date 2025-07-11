@@ -3,3 +3,4 @@
 function docker_inspect_health
     docker inspect -f "{{json .State.Health }}" $argv | jq
 end
+

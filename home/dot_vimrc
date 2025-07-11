@@ -220,34 +220,3 @@ function! NumberToggle()
   endif
 endfunc
 nnoremap <silent> <C-n> :call NumberToggle()<cr>
-
-" Templates for tutoring
-function! CppMain()
-    call append(0, "#include <iostream>")
-    call append(1, "#include <string>")
-    call append(2, "using namespace std;")
-    call append(3, "")
-    call append(4, "int main() {")
-    call append(5, "")
-    call append(6, "    return 0;")
-    call append(7, "}")
-endfunction
-
-function! JavaMain()
-    call append(0, "class Application {")
-    call append(1, "    public static void main(String[] args) {")
-    call append(2, "    }")
-    call append(3, "}")
-endfunction
-
-let buildCommand = { 
-            \'cpp' : 'g++ -std=c++11',
-            \'elm' : 'elm-make',
-            \'py': 'python3'
-            \}
-
-" Different settings for different filetypes
-autocmd Filetype clj,hs,lhs setlocal ts=2 sw=2 sts=2
-"autocmd FileType elm map ,t :w\|!elm make %
-autocmd FileType cpp map ,t :w\|!g++ -std=c++11 %
-autocmd FileType py map ,t :w\|!python3 %

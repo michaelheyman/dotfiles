@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Disable dock bounce to alert behavior
 defaults write com.apple.dock no-bouncing -bool TRUE
 # Must 'killall Dock' to apply
