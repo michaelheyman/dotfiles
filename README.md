@@ -1,71 +1,87 @@
 # dotfiles
 
+My personal dotfiles, managed by [chezmoi](https://chezmoi.io).
+
 ## Description
 
-A configuration driven set of dotfiles that enable you to control which type of packages and
-configurations you want to install on your machine.
+This is a configuration-driven set of dotfiles that allows me to version control my development
+environment and keep it consistent across multiple machines. It uses `chezmoi` to manage
+configurations for different operating systems (macOS and Linux) and environments.
 
-This is only possible due to the existence of
-[dotbot](https://github.com/anishathalye/dotbot), and requires a pre-existing Python installation
-on your machine.
+## Prerequisites
 
-## Usage
+This repository is private. To use these dotfiles, you must have:
 
-Start by cloning the repository to your `~/.dotfiles` directory and moving to that newly created
-directory:
+1. **SSH Authentication with GitHub**:
+    You need to have an SSH key set up and added to your GitHub account to clone this repository.
+    Follow the [GitHub instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+    for help.
+2. **`chezmoi`**: `chezmoi` must be installed on the target machine.
 
-### Via SSH
+## Installation
 
-Follow the
-[instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-to configure SSH and then run this:
-
-```bash
-git clone git@github.com:michaelheyman/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-```
-### Via HTTPS
-
-Follow the instructions to configure SSH and then run this:
+You can install `chezmoi` and initialize your dotfiles from this private repository with a single
+command. This will also apply the changes to your home directory.
 
 ```bash
-git clone https://github.com/michaelheyman/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:michaelheyman/dotfiles.git
 ```
 
-There are a few installation options.
+If you prefer to review the changes before applying them, you can omit the `--apply` flag and then
+run `chezmoi diff` to see a preview and `chezmoi apply -v` to execute the changes.
 
-### Install Default
+## Development and Testing
 
-Run `./install` to get the default installation on your machine.
+To make changes to your dotfiles, you can edit the source files directly and then apply them.
 
-This installation directive will attempt to detect the system that you are running, and install
-the adequate packages and configurations.
+1. **Edit a file**:
+    Use `chezmoi edit` to open a file in your editor.
 
-There is probably some work that can be done here to improve this experience.
+    ```bash
+    chezmoi edit ~/.bashrc
+    ```
 
-### Install Profile
+2. **Apply changes**:
+    Run `chezmoi apply` to apply any pending changes.
 
-There is a list of profiles under [meta/profiles](./meta/profiles/) that can be installed
-individually:
+    ```bash
+    chezmoi apply -v
+    ```
 
-- `darwin`: For darwin systems.
-- `debian`: For debian systems.
-- `devcontainer`: Lightweight devcontainer system.
+3. **Commit and push changes**:
+    The source directory (`~/.local/share/chezmoi`) is a git repository. Commit and push your
+    changes as you would with any other repository.
 
-Install any of these profiles by running `./install-profile <profile-name>`.
+    ```bash
+    chezmoi cd
+    git add .
+    git commit -m "Add new feature"
+    git push
+    ```
 
-## Development
+### Testing with Docker
 
-Make modifications and run `make docker-run`. Inside the container, install your dotfiles to verify
-effect.
+A `Dockerfile` is included in the `.docker/` directory to provide a clean environment for testing
+your dotfiles on Linux.
 
-## Enhancements 
+1. **Build the Docker image**:
+    From the root of the repository, run:
 
-- [ ] Create mechanism that installs
-  [Vundle](https://github.com/VundleVim/Vundle.vim), probably by auto
-  cloning the repo. Document to run `:PluginInstall` in `vim` after you load it
-  the first time
-- [ ] Fix whatever weirdness is around the install.conf.yaml not being
-  automatically ran?
+    ```bash
+    docker build -f .docker/Dockerfile -t dotfiles .
+    ```
 
+2. **Run the container**:
+    The `Dockerfile` is configured to automatically run `chezmoi apply`. You can run the container
+    to verify that the process completes without errors.
+
+    ```bash
+    docker run --rm dotfiles
+
+    ```
+
+    To inspect the container's state, you can start an interactive shell:
+
+    ```bash
+    docker run -it --rm dotfiles bash
+    ```
