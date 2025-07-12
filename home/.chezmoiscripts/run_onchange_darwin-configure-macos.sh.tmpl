@@ -1,0 +1,17 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+# Disable dock bounce to alert behavior
+defaults write com.apple.dock no-bouncing -bool TRUE
+# Must 'killall Dock' to apply
+
+# Set plain text as the default format in texedit
+defaults write com.apple.TextEdit RichText -int 0
+
+# Enable key-repetition is some apps in OS X
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+
+# Disable Chrome two-finger back/forward navigation
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+
+{{ end -}}

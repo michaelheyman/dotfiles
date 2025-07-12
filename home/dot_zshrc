@@ -1,0 +1,7 @@
+if [ -f ~/.shell/aliases.sh ]; then
+    source ~/.shell/aliases.sh
+fi
+
+if [ -f ~/.shell/exports.sh ]; then
+    source ~/.shell/exports.sh
+fi

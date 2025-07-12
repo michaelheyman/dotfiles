@@ -2,7 +2,7 @@ IMAGE_NAME=dotfiles
 
 .PHONY: docker-build
 docker-build: ## Build docker image
-	docker build -t ${IMAGE_NAME} .
+	docker build -t ${IMAGE_NAME} -f .docker/Dockerfile .
 
 .PHONY: docker-clean
 docker-clean: ## Clean docker image

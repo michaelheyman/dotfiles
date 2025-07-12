@@ -1,0 +1,6 @@
+{{ if ne .chezmoi.os "darwin" -}}
+dot_config/aerospace
+{{- end }}
+{{ if eq .profile "work" -}}
+dot_ghci
+{{- end }}

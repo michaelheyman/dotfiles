@@ -1,0 +1,36 @@
+packages:
+  darwin:
+    brews:
+      - fish
+      - git
+      - go
+      - jq
+      - pyenv
+      - pyenv-virtualenv
+      - tmux
+      - tree
+      - vim
+      - wget
+    casks:
+      - appcleaner
+      - disk-inventory-x
+      - docker
+      - firefox
+      - google-chrome
+      - google-cloud-sdk
+      - iina
+      - iterm2
+      - keepingyouawake
+      - postman
+      - scroll-reverser
+      - spotify
+      - telegram
+      - visual-studio-code
+  debian:
+    apts:
+      - curl
+      - fish
+      - jq
+      - procps
+      - zsh
+      - vim
