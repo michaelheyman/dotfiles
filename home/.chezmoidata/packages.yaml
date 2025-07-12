@@ -19,13 +19,13 @@ packages:
       - google-chrome
       - google-cloud-sdk
       - iina
-      - iterm2
       - keepingyouawake
       - postman
       - scroll-reverser
       - spotify
       - telegram
       - visual-studio-code
+      - wezterm
   debian:
     apts:
       - curl

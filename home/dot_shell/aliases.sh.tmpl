@@ -5,13 +5,10 @@ alias ...="cd ../.."
 
 # Docker aliases
 alias dih="docker_inspect_health"
-alias dlf="docker logs --follow"
 alias dps="docker ps"
 
 # Kubernetes aliases
 alias k="kubectl"
-alias kd="kubectl describe"
-alias kgp="kubectl get pods"
 
 # GitHub aliases
 alias gc='git checkout'
@@ -20,6 +17,8 @@ alias gl='git log'
 alias glo='git log --oneline'
 alias gp='git pull'
 alias gs='git status'
+
+alias cm='chezmoi'
 
 {{ if eq .profile "work" -}}
 alias jaeger='docker run --rm -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 -p 16686:16686 -p 4317:4317 -p 4318:4318 -p 9411:9411 jaegertracing/all-in-one:latest'
