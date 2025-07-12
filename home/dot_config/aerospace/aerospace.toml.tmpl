@@ -150,11 +150,11 @@ alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
-### On window detected callbacks
-
+# On window detected callbacks.
+# See: https://nikitabobko.github.io/AeroSpace/guide#on-window-detected-callback
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
-{{ if eq .profile "work" -}}
+{{- if eq .profile "work" }}
 run = "move-node-to-workspace P"
 {{ else }}
 run = "move-node-to-workspace 1"

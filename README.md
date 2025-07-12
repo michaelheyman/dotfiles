@@ -16,7 +16,6 @@ This repository is private. To use these dotfiles, you must have:
     You need to have an SSH key set up and added to your GitHub account to clone this repository.
     Follow the [GitHub instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
     for help.
-2. **`chezmoi`**: `chezmoi` must be installed on the target machine.
 
 ## Installation
 
