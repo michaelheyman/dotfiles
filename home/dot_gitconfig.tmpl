@@ -1,3 +1,96 @@
+[alias]
+    # Shorthand for add
+    a = add
+    # Add all unstaged (including untracked) files.
+    # See`git help add`
+    aa = add --all
+    # See`git help add`
+    ai = add --interactive
+    undo-commit = reset --soft HEAD~1
+    ac = !git add . && git commit -am
+    # Amend the currently staged files to the last commit
+    # See`git help commit`
+    amend = commit --amend --reuse-message=HEAD
+    # Shorthand for commit
+    c = commit -m                     # commit with message
+    ca = commit -am                   # commit all with message
+    cam = commit -am                  # "same as ca"
+
+    rbi = rebase --interactive @{upstream}
+    ci = commit                       # commit
+    # ============================ Branch
+    b = branch
+    # ============================ Merge
+    # Shorthand for merge
+    m = merge
+
+    # ============================Grabbing
+    # Pull in remote changes for the current repository and all its submodules
+    p = !"git pull; git submodule foreach git pull origin master"
+    # Shorthand for fetch
+    f = fetch
+    # grab a change from a branch
+    cp = cherry-pick -x
+    # pull
+    pl = pull
+    # push
+    ps = push
+
+    # ============================Status
+    s = status -s
+    st = status
+    co = checkout
+    cob = checkout -b
+
+    #=============================Stash
+    # stash
+    ss = stash                        # stash changes
+    sl = stash list                   # list stashes
+    sa = stash apply                  # apply stash (restore changes)
+    sd = stash drop                   # drop stashes (destory changes)
+    # ============================Diff
+    # diff
+    di = diff
+    dis = diff --stat
+    diw = diff --color-words
+    dc = diff --cached
+    dcs = diff --cached --stat
+    dcw = diff --cached --color-words
+    dh = diff HEAD~
+    dhs = diff HEAD~ --stat
+    dhw = diff HEAD~ --color-words
+    du = diff @{u}...
+    dus = diff @{u}... --stat
+    duw = diff @{u}... --color-words
+    # Show all conflicted files
+    diff-conflicted-files = diff --name-only --diff-filter=U
+    # Show the diff between the latest commit and the current state
+    diff-to-latest-commit = "!git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    # Show a commit-hash diff between two branches
+    diff-commit-hash-to-branch = "!git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative $1"
+    # `git diff-to-x-commit $number` shows the diff between the state `$number` revisions ago and the current state
+    diff-to-x-commit = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+    # ============================Other
+    l = log --graph --decorate --pretty=oneline --abbrev-commit -n 10
+    ll = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lll = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+    short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+    overview = log --all --oneline --no-merges
+    changelog = "!sh -c \"git log --oneline --no-merges $1..HEAD\" -"
+    filelog = log -u # show changes to a file
+    # Pretty log of commits. Supports options of git log
+    # https://www.kernel.org/pub/software/scm/git/docs/git-log.html#_pretty_formats
+    log-pretty = log --graph --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an - %aE>%Creset' --abbrev-commit
+    # Pretty log of commits from origin/master
+    log-origin-master = log --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an - %aE>%Creset' --abbrev-commit --no-merges origin/master
+[diff]
+	tool = vscode
+[difftool]
+	prompt = false
+[difftool "vscode"]
+	cmd = "code --wait --diff \"$LOCAL\" \"$REMOTE\""
+	trustExitCode = false
 [core]
 	excludesFile = ~/.gitignore_global
 [http]
