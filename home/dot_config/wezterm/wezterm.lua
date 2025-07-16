@@ -3,7 +3,12 @@ local act = wezterm.action
 
 config = wezterm.config_builder()
 
-config.keys = {
+config.inactive_pane_hsb = {
+  saturation = 0.8, -- Default: 0.9
+  brightness = 0.5, -- Default: 0.8
+}
+
+  config.keys = {
   -- Disable the default CMD+K behavior (Super+k) so we can overwrite it
   {
     key = 'k',
