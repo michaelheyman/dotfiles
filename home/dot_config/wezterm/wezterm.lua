@@ -14,13 +14,13 @@ config.keys = {
   -- Terminal control shortcuts
   -- --------------------------------------------------------
   
-  -- Disable the default CMD+K behavior (Super+k) so we can overwrite it
-  { key = 'k', mods = 'CMD', action = act.DisableDefaultAssignment },
+  -- Disable the default SUPER+K behavior
+  { key = 'k', mods = 'SUPER', action = act.DisableDefaultAssignment },
   
   -- Clear scrollback & viewport, then redraw prompt
   { 
     key = 'k', 
-    mods = 'CMD',
+    mods = 'SUPER',
     action = act.Multiple {
       act.ClearScrollback 'ScrollbackAndViewport',
       act.SendKey { key = 'L', mods = 'CTRL' },
@@ -28,39 +28,38 @@ config.keys = {
   },
   
   -- Search case insensitive, default is case sensitive
-  { key = 'f', mods = 'CMD', action = act.Search({ CaseInSensitiveString = '' }) },
+  { key = 'f', mods = 'SUPER', action = act.Search({ CaseInSensitiveString = '' }) },
   
   -- Windows and Tabs
   -- --------------------------------------------------------
   -- Open new window in home directory
-  { key = 'n', mods = 'CMD', action = act.SpawnCommandInNewWindow { cwd = wezterm.home_dir } },
+  { key = 'n', mods = 'SUPER', action = act.SpawnCommandInNewWindow { cwd = wezterm.home_dir } },
   
   -- Open new tab in home directory
-  { key = 't', mods = 'CMD', action = act.SpawnCommandInNewTab { cwd = wezterm.home_dir } },
+  { key = 't', mods = 'SUPER', action = act.SpawnCommandInNewTab { cwd = wezterm.home_dir } },
   
   -- Close current tab/pane
-  { key = 'w', mods = 'CMD', action = act.CloseCurrentPane { confirm = true } },
+  { key = 'w', mods = 'SUPER', action = act.CloseCurrentPane { confirm = true } },
   
   -- Pane management
   -- --------------------------------------------------------
   -- Split panes
-  { key = 'd', mods = 'CMD', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-  { key = 'd', mods = 'CMD|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+  { key = 'd', mods = 'SUPER', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = 'd', mods = 'SUPER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
   
   -- Navigate between panes
-  { key = '[', mods = 'CMD', action = act.ActivatePaneDirection 'Prev' },
-  { key = ']', mods = 'CMD', action = act.ActivatePaneDirection 'Next' },
-  { key = 'h', mods = 'CMD', action = act.ActivatePaneDirection 'Left' },
-  { key = 'j', mods = 'CMD', action = act.ActivatePaneDirection 'Down' },
-  { key = 'k', mods = 'CMD', action = act.ActivatePaneDirection 'Up' },
-  { key = 'l', mods = 'CMD', action = act.ActivatePaneDirection 'Right' },
+  { key = '[', mods = 'SUPER', action = act.ActivatePaneDirection 'Prev' },
+  { key = ']', mods = 'SUPER', action = act.ActivatePaneDirection 'Next' },
+  { key = 'h', mods = 'SUPER', action = act.ActivatePaneDirection 'Left' },
+  { key = 'j', mods = 'SUPER', action = act.ActivatePaneDirection 'Down' },
+  { key = 'k', mods = 'SUPER', action = act.ActivatePaneDirection 'Up' },
+  { key = 'l', mods = 'SUPER', action = act.ActivatePaneDirection 'Right' },
   
   -- Resize panes
-  { key = 'h', mods = 'CMD|ALT', action = act.AdjustPaneSize { 'Left', 5 } },
-  { key = 'l', mods = 'CMD|ALT', action = act.AdjustPaneSize { 'Right', 5 } },
-  { key = 'k', mods = 'CMD|ALT', action = act.AdjustPaneSize { 'Up', 5 } },
-  { key = 'j', mods = 'CMD|ALT', action = act.AdjustPaneSize { 'Down', 5 } },
+  { key = 'h', mods = 'SUPER|ALT', action = act.AdjustPaneSize { 'Left', 5 } },
+  { key = 'l', mods = 'SUPER|ALT', action = act.AdjustPaneSize { 'Right', 5 } },
+  { key = 'k', mods = 'SUPER|ALT', action = act.AdjustPaneSize { 'Up', 5 } },
+  { key = 'j', mods = 'SUPER|ALT', action = act.AdjustPaneSize { 'Down', 5 } },
 }
 
 return config
-
