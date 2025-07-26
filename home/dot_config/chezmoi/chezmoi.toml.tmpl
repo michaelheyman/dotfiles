@@ -1,0 +1,13 @@
+[data]
+  # Define different profiles for different contexts
+  # Current options: "personal", "work"
+  profile = "{{ .profile | default "personal" }}"
+
+# Define how external programs are used
+[merge]
+  command = "vimdiff"
+
+# Edit files using the specified editor
+[edit]
+  command = "code"
+  args = ["--wait"]
