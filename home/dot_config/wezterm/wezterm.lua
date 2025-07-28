@@ -40,21 +40,17 @@ config.keys = {
   
   -- Close current tab/pane
   { key = 'w', mods = 'SUPER', action = act.CloseCurrentPane { confirm = true } },
-  
+
   -- Pane management
   -- --------------------------------------------------------
   -- Split panes
   { key = 'd', mods = 'SUPER', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
   { key = 'd', mods = 'SUPER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
-  
+
   -- Navigate between panes
   { key = '[', mods = 'SUPER', action = act.ActivatePaneDirection 'Prev' },
   { key = ']', mods = 'SUPER', action = act.ActivatePaneDirection 'Next' },
-  { key = 'h', mods = 'SUPER', action = act.ActivatePaneDirection 'Left' },
-  { key = 'j', mods = 'SUPER', action = act.ActivatePaneDirection 'Down' },
-  { key = 'k', mods = 'SUPER', action = act.ActivatePaneDirection 'Up' },
-  { key = 'l', mods = 'SUPER', action = act.ActivatePaneDirection 'Right' },
-  
+
   -- Resize panes
   { key = 'h', mods = 'SUPER|ALT', action = act.AdjustPaneSize { 'Left', 5 } },
   { key = 'l', mods = 'SUPER|ALT', action = act.AdjustPaneSize { 'Right', 5 } },
