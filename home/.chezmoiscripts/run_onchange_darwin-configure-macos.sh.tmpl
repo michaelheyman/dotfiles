@@ -14,4 +14,7 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Disable Chrome two-finger back/forward navigation
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 
+# Disable auto add period after double space
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
 {{ end -}}
