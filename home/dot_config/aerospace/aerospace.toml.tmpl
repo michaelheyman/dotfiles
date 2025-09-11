@@ -101,6 +101,7 @@ alt-d = 'workspace D' # mnemonics D - Development
 alt-m = 'workspace M' # mnemonics M - Media
 # alt-n = 'workspace N' # Used for ñ character on some keyboards
 {{ if eq .profile "work" -}}
+alt-o = 'workspace O' # mnemonics O - Obsidian
 alt-p = 'workspace P' # mnemonics P - Personal
 {{- end }}
 alt-s = 'workspace S' # mnemonics S - Social/Chat
@@ -210,6 +211,11 @@ run = "move-node-to-workspace B"
 if.app-id = 'org.jkiss.dbeaver.core.product'
 run = "move-node-to-workspace B"
 
+# Obsidian
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = "move-node-to-workspace O"
+
 {{ if eq .profile "work" -}}
 [workspace-to-monitor-force-assignment]
 # Main monitor
@@ -234,4 +240,5 @@ run = "move-node-to-workspace B"
 # # Right monitor
 "A" = 3
 "S" = 3
+"O" = 3
 {{- end }}

@@ -21,6 +21,7 @@ packages:
       - iina
       - keepingyouawake
       - nikitabobko/tap/aerospace
+      - obsidian
       - postman
       - scroll-reverser
       - spotify
