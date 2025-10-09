@@ -3,6 +3,11 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 
+# Add Go bin directory to PATH (only if not already present)
+if [[ ":$PATH:" != *":$HOME/go/bin:"* ]]; then
+    export PATH="$HOME/go/bin:$PATH"
+fi
+
 {{ if eq .chezmoi.os "darwin" -}}
 # Add Homebrew to PATH (only if not already present)
 if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
