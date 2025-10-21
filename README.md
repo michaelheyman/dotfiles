@@ -23,7 +23,7 @@ You can install `chezmoi` and initialize your dotfiles from this private reposit
 command. This will also apply the changes to your home directory.
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:michaelheyman/dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:michaelheyman/dotfiles.git
 ```
 
 If you prefer to review the changes before applying them, you can omit the `--apply` flag and then
