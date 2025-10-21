@@ -12,8 +12,7 @@ packages:
       - vim
       - wget
     casks:
-      - appcleaner
-      - disk-inventory-x
+      - bitwarden
       - docker
       - firefox
       - google-chrome
