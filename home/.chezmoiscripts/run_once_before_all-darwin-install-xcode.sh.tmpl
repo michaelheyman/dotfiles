@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+if ! xcode-select -p &> /dev/null; then
+    echo "Installing Xcode Command Line Tools..."
+    xcode-select --install
+else
+    echo "Xcode Command Line Tools are already installed."
+fi
+
+{{ end -}}
