@@ -1,32 +1,53 @@
 {{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
-# Disable dock bounce to alert behavior
-defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock
+configure_dock() {
+    # Disable dock bounce to alert behavior
+    defaults write com.apple.dock no-bouncing -bool TRUE
 
-# Auto-hide the dock
-defaults write com.apple.dock autohide -bool true && killall Dock
+    # Auto-hide the dock
+    defaults write com.apple.dock autohide -bool true
 
-# Remove all the apps from the left side of the dock
-defaults write com.apple.dock persistent-apps -array && killall Dock
+    # Remove all the apps from the left side of the dock
+    defaults write com.apple.dock persistent-apps -array
+
+    killall Dock
+}
 
 # Set plain text as the default format in texedit
 # defaults write com.apple.TextEdit RichText -int 0
 
-# Enable key-repetition is some apps in OS X
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+configure_keyboard() {
+    # Enable key-repetition is some apps in OS X
+    defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Set the key repeat rate to the fastest
-defaults write NSGlobalDomain KeyRepeat -int 2
+    # Set the key repeat rate to the fastest
+    defaults write NSGlobalDomain KeyRepeat -int 2
 
-# Set the delay until repeat to the shortest
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
+    # Set the delay until repeat to the shortest
+    defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
-# Disable auto add period after double space
-defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+    # Disable auto add period after double space
+    defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-# Hide the text input menu bar icon
-defaults write com.apple.TextInputMenu visible -bool false
+    # Hide the text input menu bar icon
+    defaults write com.apple.TextInputMenu visible -bool false
+}
+
+configure_trackpad() {
+    # Disable force click and haptic feedback
+    defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed -bool true
+
+    # Set the trackpad to tap to click
+    # Something is still missing here since this doesn't fully work
+    # defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+    # defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -bool true
+
+    killall Dock
+}
+
+configure_keyboard
+configure_trackpad
 
 # Disable Chrome two-finger back/forward navigation
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
