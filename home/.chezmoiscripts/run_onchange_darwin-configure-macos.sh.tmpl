@@ -2,22 +2,36 @@
 #!/bin/bash
 
 # Disable dock bounce to alert behavior
-defaults write com.apple.dock no-bouncing -bool TRUE
-# Must 'killall Dock' to apply
+defaults write com.apple.dock no-bouncing -bool TRUE && killall Dock
+
+# Auto-hide the dock
+defaults write com.apple.dock autohide -bool true && killall Dock
+
+# Remove all the apps from the left side of the dock
+defaults write com.apple.dock persistent-apps -array && killall Dock
 
 # Set plain text as the default format in texedit
-defaults write com.apple.TextEdit RichText -int 0
+# defaults write com.apple.TextEdit RichText -int 0
 
 # Enable key-repetition is some apps in OS X
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-# Disable Chrome two-finger back/forward navigation
-defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+# Set the key repeat rate to the fastest
+defaults write NSGlobalDomain KeyRepeat -int 2
+
+# Set the delay until repeat to the shortest
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Disable auto add period after double space
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 # Hide the text input menu bar icon
 defaults write com.apple.TextInputMenu visible -bool false
+
+# Disable Chrome two-finger back/forward navigation
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+
+# Set alert volume to zero
+osascript -e "set volume alert volume 0"
 
 {{ end -}}
