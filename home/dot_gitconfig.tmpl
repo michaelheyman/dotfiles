@@ -98,17 +98,8 @@
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 [user]
-{{- if eq .profile "work" }}
-	signingkey = 2DBD016E0C99BE0B
-{{- end }}
 	name = Michael Heyman
 	email = michaelheyman@users.noreply.github.com
-{{ if eq .profile "work" -}}
-[commit]
-	gpgsign = true
-[gpg]
-	program = /opt/homebrew/bin/gpg
-{{- end }}
 [init]
 	defaultBranch = main
 [push]
