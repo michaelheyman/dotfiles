@@ -32,6 +32,9 @@ configure_keyboard() {
 
     # Hide the text input menu bar icon
     defaults write com.apple.TextInputMenu visible -bool false
+
+    # Enable keyboard navigation (e.g. tab through dialog buttons)
+    defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
 }
 
 configure_trackpad() {
