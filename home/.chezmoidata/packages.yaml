@@ -12,7 +12,7 @@ packages:
       - vim
       - wget
     casks:
-      - bitwarden
+      # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
       - docker
       - firefox
       - google-chrome
@@ -25,6 +25,7 @@ packages:
       - scroll-reverser
       - spotify
       - telegram
+      - tomatobar
       - visual-studio-code
       - wezterm
   debian:
