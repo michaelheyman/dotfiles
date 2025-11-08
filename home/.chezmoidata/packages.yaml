@@ -13,10 +13,10 @@ packages:
       - wget
     casks:
       # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
-      - docker
+      - docker-desktop
       - firefox
+      - gcloud-cli
       - google-chrome
-      - google-cloud-sdk
       - iina
       - keepingyouawake
       - nikitabobko/tap/aerospace
