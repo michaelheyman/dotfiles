@@ -9,6 +9,10 @@
 ;; also hopefully have helpful error messages in case something goes wrong.
 ;; If you need help, you are welcome to ask.
 
+(defcfg
+  process-unmapped-keys   no
+)
+
 ;; Only one defsrc is allowed.
 ;;
 ;; defsrc defines the keys that will be intercepted by kanata. The order of the
@@ -21,7 +25,7 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  fn lctl lmet lalt           spc            ralt rmet rctl
 )
 
 (defvar
@@ -66,6 +70,8 @@
   ;; tap: backtick (grave), hold: toggle layer-switching layer while held
   grl (tap-hold 200 200 grv (layer-toggle layers))
 
+  fn (tap-hold 250 250 fn (layer-toggle fn))
+
   ;; layer-switch changes the base layer.
   base (layer-switch base)
 
@@ -74,15 +80,15 @@
     (on-idle-fakekey to-base tap 20)
   )
 
-  ;; home row mods
-  a (tap-hold-release-keys $tap-time $hold-time (multi a @tap) $pinky $left-hand-keys)
-  s (tap-hold-release-keys $tap-time $hold-time (multi s @tap) $ringy $left-hand-keys)
-  d (tap-hold-release-keys $tap-time $hold-time (multi d @tap) $middy $left-hand-keys)
-  f (tap-hold-release-keys $tap-time $hold-time (multi f @tap) $index $left-hand-keys)
-  j (tap-hold-release-keys $tap-time $hold-time (multi j @tap) $index $right-hand-keys)
-  k (tap-hold-release-keys $tap-time $hold-time (multi k @tap) $middy $right-hand-keys)
-  l (tap-hold-release-keys $tap-time $hold-time (multi l @tap) $ringy $right-hand-keys)
-  ; (tap-hold-release-keys $tap-time $hold-time (multi ; @tap) $pinky $right-hand-keys)
+  ;; below home row mods
+  z (tap-hold-release-keys $tap-time $hold-time (multi z @tap) $pinky $left-hand-keys)
+  x (tap-hold-release-keys $tap-time $hold-time (multi x @tap) $ringy $left-hand-keys)
+  c (tap-hold-release-keys $tap-time $hold-time (multi c @tap) $middy $left-hand-keys)
+  v (tap-hold-release-keys $tap-time $hold-time (multi v @tap) $index $left-hand-keys)
+  m (tap-hold-release-keys $tap-time $hold-time (multi m @tap) $index $right-hand-keys)
+  , (tap-hold-release-keys $tap-time $hold-time (multi , @tap) $middy $right-hand-keys)
+  . (tap-hold-release-keys $tap-time $hold-time (multi . @tap) $ringy $right-hand-keys)
+  / (tap-hold-release-keys $tap-time $hold-time (multi / @tap) $pinky $right-hand-keys)
 )
 
 ;; The first layer defined is the layer that will be active by default when
@@ -92,9 +98,9 @@
   esc  🔅    🔆    ✗    ✗    ✗    ✗    ◀◀   ▶⏸   ▶▶   🔇    🔉    🔊
   @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps @a   @s   @d   @f   g    h    @j   @k   @l   @;   '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft @z   @x   @c   @v   b    n    @m   @,   @.   @/   rsft
+  @fn lctl lmet lalt           spc            ralt rmet rctl
 )
 
 (deflayer nomods
@@ -103,7 +109,16 @@
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+  fn lctl lmet lalt           spc            ralt rmet rctl
+)
+
+(deflayer fn
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  _    lrld _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _
+  _  _    _    _              _              _    _    _
 )
 
 ;; The `lrld` action stands for "live reload". This will re-parse everything
@@ -121,5 +136,5 @@
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _
-  _    _    _              _              _    _    _
+  _  _    _    _              _              _    _    _
 )
