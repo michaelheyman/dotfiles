@@ -1,6 +1,20 @@
 version: "3"
 
 tasks:
+  install:
+    desc: install dotfiles dependencies
+    cmds:
+      - task: install.pre-commit
+  
+  install.pre-commit:
+    desc: install pre-commit hooks
+    preconditions:
+      - sh: which pre-commit
+        msg: "pre-commit is not installed. Please install it from https://pre-commit.com/#install"
+    cmds:
+      - pre-commit install
+      - pre-commit install --hook-type pre-push
+
   docker.build:
     desc: build dotfiles docker image
     cmds:
