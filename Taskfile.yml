@@ -1,0 +1,51 @@
+version: "3"
+
+tasks:
+  docker.build:
+    desc: build dotfiles docker image
+    cmds:
+      - docker build -t dotfiles -f .docker/Dockerfile .
+
+  docker.clean:
+    desc: clean up dotfiles docker image
+    cmds:
+      - docker rmi -f dotfiles
+
+  docker.run:
+    desc: run dotfiles docker image
+    cmds:
+      - docker run -it --entrypoint sh dotfiles
+
+  pre-commit:
+    desc: run pre-commit checks
+    preconditions:
+      - sh: which pre-commit
+        msg: "pre-commit is not installed. Please install it from https://pre-commit.com/#install"
+    cmds:
+      - pre-commit run --all-files 
+
+  lint:
+    desc: lint files
+    cmds:
+      - task: lint.markdown
+
+  lint.markdown:
+    desc: link markdown files
+    preconditions:
+      - sh: which npx
+        msg: "npx is not installed. Please install Node.js from https://nodejs.org/"
+    cmds:
+      - npx --yes markdownlint-cli2 ./README.md  
+
+  fmt:
+    desc: format files
+    cmds:
+      - task: fmt.markdown
+
+  fmt.markdown:
+    desc: fmt markdown files
+    preconditions:
+      - sh: which npx
+        msg: "npx is not installed. Please install Node.js from https://nodejs.org/"
+    cmds:
+      - npx --yes doctoc --github README.md  
