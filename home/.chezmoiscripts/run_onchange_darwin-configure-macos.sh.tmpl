@@ -63,6 +63,9 @@ configure_trackpad
 # Disable Chrome two-finger back/forward navigation
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 
+# Configure Finder to open new windows/tabs in Home folder
+defaults write com.apple.finder NewWindowTarget -string 'PfHm'
+
 # Set alert volume to zero
 osascript -e "set volume alert volume 0"
 
