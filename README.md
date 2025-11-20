@@ -8,26 +8,30 @@ This is a configuration-driven set of dotfiles that allows me to version control
 environment and keep it consistent across multiple machines. It uses `chezmoi` to manage
 configurations for different operating systems (macOS and Linux) and environments.
 
-## Prerequisites
+## Optional
 
-This repository is private. To use these dotfiles, you must have:
-
-1. **SSH Authentication with GitHub**:
-    You need to have an SSH key set up and added to your GitHub account to clone this repository.
-    Follow the [GitHub instructions](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-    for help.
+This repository can be installed via HTTPS or SSH. In order to install via SSH, you must set up
+[SSH authentication with GitHub](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
 
 ## Installation
 
-You can install `chezmoi` and initialize your dotfiles from this private repository with a single
-command. This will also apply the changes to your home directory.
+You can install `chezmoi` and initialize your dotfiles from this repository with a single command.
+This will also apply the changes to your home directory.
+
+If you prefer to review the changes before applying them, you can omit the `--apply` flag and then
+run `chezmoi diff` to see a preview and `chezmoi apply -v` to execute the changes.
+
+### Install via SSH (Recommended)
 
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:michaelheyman/dotfiles.git
 ```
 
-If you prefer to review the changes before applying them, you can omit the `--apply` flag and then
-run `chezmoi diff` to see a preview and `chezmoi apply -v` to execute the changes.
+### Install via HTTPS
+
+```bash
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply https://github.com/michaelheyman/dotfiles.git
+```
 
 ## Development and Testing
 
@@ -67,19 +71,13 @@ your dotfiles on Linux.
     From the root of the repository, run:
 
     ```bash
-    task docker.build
+    task docker:build
     ```
 
 2. **Run the container**:
     The `Dockerfile` is configured to automatically run `chezmoi apply`. You can run the container
-    to verify that the process completes without errors.
+    interactively to see the results:
 
     ```bash
-    task docker.run
-    ```
-
-    To inspect the container's state, you can start an interactive shell:
-
-    ```bash
-    task docker.run.interactively
+    task docker:run
     ```
