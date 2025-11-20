@@ -95,8 +95,10 @@
 	excludesFile = ~/.gitignore_global
 [http]
 	postBuffer = 1048576000
+{{- if not .disableSSHGitConfig }}
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
+{{- end }}
 [user]
 	name = Michael Heyman
 	email = michaelheyman@users.noreply.github.com

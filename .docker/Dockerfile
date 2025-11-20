@@ -14,6 +14,7 @@ ENV CHEZMOI_OS=linux
 
 RUN mkdir -p /root/.config/chezmoi && \
     echo '[data]' > /root/.config/chezmoi/chezmoi.toml && \
-    echo 'profile = "personal"' >> /root/.config/chezmoi/chezmoi.toml
+    echo 'profile = "personal"' >> /root/.config/chezmoi/chezmoi.toml && \
+    echo 'disableSSHGitConfig = true' >> /root/.config/chezmoi/chezmoi.toml
 
 RUN chezmoi --source /app/home apply -v
