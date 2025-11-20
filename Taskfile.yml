@@ -9,9 +9,9 @@ tasks:
   install:
     desc: install dotfiles dependencies
     cmds:
-      - task: install.pre-commit
+      - task: install:pre-commit
   
-  install.pre-commit:
+  install:pre-commit:
     desc: install pre-commit hooks
     preconditions:
       - sh: which pre-commit
@@ -20,22 +20,17 @@ tasks:
       - pre-commit install
       - pre-commit install --hook-type pre-push
 
-  docker.build:
+  docker:build:
     desc: build dotfiles docker image
     cmds:
       - docker build -t dotfiles -f .docker/Dockerfile .
 
-  docker.clean:
+  docker:clean:
     desc: clean up dotfiles docker image
     cmds:
       - docker rmi -f dotfiles
 
-  docker.run:
-    desc: run dotfiles docker image
-    cmds:
-      - docker run --rm dotfiles
-
-  docker.run.interactive:
+  docker:run:
     desc: run dotfiles docker image interactively
     cmds:
       - docker run -it --entrypoint sh dotfiles
@@ -51,9 +46,9 @@ tasks:
   lint:
     desc: lint files
     cmds:
-      - task: lint.markdown
+      - task: lint:markdown
 
-  lint.markdown:
+  lint:markdown:
     desc: link markdown files
     preconditions:
       - sh: which npx
@@ -64,9 +59,9 @@ tasks:
   fmt:
     desc: format files
     cmds:
-      - task: fmt.markdown
+      - task: fmt:markdown
 
-  fmt.markdown:
+  fmt:markdown:
     desc: fmt markdown files
     preconditions:
       - sh: which npx
