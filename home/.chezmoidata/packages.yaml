@@ -4,6 +4,7 @@ packages:
       - fish
       - git
       - go
+      - go-task/tap/go-task
       - jq
       - pyenv
       - pyenv-virtualenv

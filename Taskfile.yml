@@ -1,6 +1,11 @@
 version: "3"
 
 tasks:
+  default:
+    desc: default task
+    cmds:
+      - task --list
+
   install:
     desc: install dotfiles dependencies
     cmds:
@@ -27,6 +32,11 @@ tasks:
 
   docker.run:
     desc: run dotfiles docker image
+    cmds:
+      - docker run --rm dotfiles
+
+  docker.run.interactive:
+    desc: run dotfiles docker image interactively
     cmds:
       - docker run -it --entrypoint sh dotfiles
 

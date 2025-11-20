@@ -67,7 +67,7 @@ your dotfiles on Linux.
     From the root of the repository, run:
 
     ```bash
-    docker build -f .docker/Dockerfile -t dotfiles .
+    task docker.build
     ```
 
 2. **Run the container**:
@@ -75,12 +75,11 @@ your dotfiles on Linux.
     to verify that the process completes without errors.
 
     ```bash
-    docker run --rm dotfiles
-
+    task docker.run
     ```
 
     To inspect the container's state, you can start an interactive shell:
 
     ```bash
-    docker run -it --rm dotfiles bash
+    task docker.run.interactively
     ```
