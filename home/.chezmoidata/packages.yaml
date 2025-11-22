@@ -6,6 +6,8 @@ packages:
       - go
       - go-task/tap/go-task
       - jq
+      - node # For npx
+      - pipx
       - pyenv
       - pyenv-virtualenv
       - tmux
