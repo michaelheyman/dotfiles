@@ -1,5 +1,15 @@
 version: "3"
 
+includes:
+  markdown:
+    taskfile: git@github.com:michaelheyman/taskfiles.git//markdown/Taskfile.yml?ref=main
+    aliases:
+      - md
+  pre-commit:
+    taskfile: git@github.com:michaelheyman/taskfiles.git//pre-commit/Taskfile.yml?ref=main
+    aliases:
+      - pc
+
 tasks:
   default:
     desc: default task
@@ -9,17 +19,8 @@ tasks:
   install:
     desc: install dotfiles dependencies
     cmds:
-      - task: install:pre-commit
+      - task: pc:install
   
-  install:pre-commit:
-    desc: install pre-commit hooks
-    preconditions:
-      - sh: which pre-commit
-        msg: "pre-commit is not installed. Please install it from https://pre-commit.com/#install"
-    cmds:
-      - pre-commit install
-      - pre-commit install --hook-type pre-push
-
   docker:build:
     desc: build dotfiles docker image
     cmds:
@@ -37,34 +38,15 @@ tasks:
 
   pre-commit:
     desc: run pre-commit checks
-    preconditions:
-      - sh: which pre-commit
-        msg: "pre-commit is not installed. Please install it from https://pre-commit.com/#install"
     cmds:
-      - pre-commit run --all-files 
+      - task: pc:run
 
   lint:
     desc: lint files
     cmds:
-      - task: lint:markdown
-
-  lint:markdown:
-    desc: link markdown files
-    preconditions:
-      - sh: which npx
-        msg: "npx is not installed. Please install Node.js from https://nodejs.org/"
-    cmds:
-      - npx --yes markdownlint-cli2 ./README.md  
+      - task: md:lint
 
   fmt:
     desc: format files
     cmds:
-      - task: fmt:markdown
-
-  fmt:markdown:
-    desc: fmt markdown files
-    preconditions:
-      - sh: which npx
-        msg: "npx is not installed. Please install Node.js from https://nodejs.org/"
-    cmds:
-      - npx --yes doctoc --github README.md  
+      - task: md:format
