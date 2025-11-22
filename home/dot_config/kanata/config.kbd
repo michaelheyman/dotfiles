@@ -80,11 +80,11 @@
     (on-idle-fakekey to-base tap 20)
   )
 
-  ;; below home row mods
-  z (tap-hold-release-keys $tap-time $hold-time (multi z @tap) $pinky $left-hand-keys)
-  x (tap-hold-release-keys $tap-time $hold-time (multi x @tap) $ringy $left-hand-keys)
-  c (tap-hold-release-keys $tap-time $hold-time (multi c @tap) $middy $left-hand-keys)
-  v (tap-hold-release-keys $tap-time $hold-time (multi v @tap) $index $left-hand-keys)
+  ;; mixed home row mods
+  a (tap-hold-release-keys $tap-time $hold-time (multi a @tap) $pinky $left-hand-keys)
+  s (tap-hold-release-keys $tap-time $hold-time (multi s @tap) $ringy $left-hand-keys)
+  d (tap-hold-release-keys $tap-time $hold-time (multi d @tap) $middy $left-hand-keys)
+  f (tap-hold-release-keys $tap-time $hold-time (multi f @tap) $index $left-hand-keys)
   m (tap-hold-release-keys $tap-time $hold-time (multi m @tap) $index $right-hand-keys)
   , (tap-hold-release-keys $tap-time $hold-time (multi , @tap) $middy $right-hand-keys)
   . (tap-hold-release-keys $tap-time $hold-time (multi . @tap) $ringy $right-hand-keys)
@@ -98,8 +98,8 @@
   esc  🔅    🔆    ✗    ✗    ✗    ✗    ◀◀   ▶⏸   ▶▶   🔇    🔉    🔊
   @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft @z   @x   @c   @v   b    n    @m   @,   @.   @/   rsft
+  caps @a   @s   @d   @f   g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    @m   @,   @.   @/   rsft
   @fn lctl lmet lalt           spc            ralt rmet rctl
 )
 
