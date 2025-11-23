@@ -9,6 +9,8 @@ includes:
     taskfile: git@github.com:michaelheyman/taskfiles.git//pre-commit/Taskfile.yml?ref=main
     aliases:
       - pc
+  yaml:
+    taskfile: git@github.com:michaelheyman/taskfiles.git//yaml/Taskfile.yml?ref=main
 
 tasks:
   default:
@@ -20,7 +22,7 @@ tasks:
     desc: install dotfiles dependencies
     cmds:
       - task: pc:install
-  
+
   docker:build:
     desc: build dotfiles docker image
     cmds:
@@ -49,4 +51,4 @@ tasks:
   fmt:
     desc: format files
     cmds:
-      - task: md:format
+      - task: yaml:format
