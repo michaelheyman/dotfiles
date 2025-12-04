@@ -62,6 +62,18 @@ To make changes to your dotfiles, you can edit the source files directly and the
     git push
     ```
 
+    Optionally run pre-commit hooks before committing:
+
+    ```bash
+    pre-commit run --all-files
+    ```
+
+    or with `pipx`:
+
+    ```bash
+    pipx run pre-commit run --all-files
+    ```
+
 ### Testing with Docker
 
 A `Dockerfile` is included in the `.docker/` directory to provide a clean environment for testing
