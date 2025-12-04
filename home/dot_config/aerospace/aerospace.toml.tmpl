@@ -180,6 +180,34 @@ run = ['layout floating']
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace A"
 
+# Development applications
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = "move-node-to-workspace D"
+
+[[on-window-detected]]
+if.app-id = 'com.github.wez.wezterm'
+run = "move-node-to-workspace D"
+
+# Back-end applications
+[[on-window-detected]]
+if.app-id = 'com.postmanlabs.mac'
+run = "move-node-to-workspace B"
+
+[[on-window-detected]]
+if.app-id = 'org.jkiss.dbeaver.core.product'
+run = "move-node-to-workspace B"
+
+# Media applications
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = "move-node-to-workspace M"
+
+# Obsidian
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = "move-node-to-workspace O"
+
 # Social applications
 [[on-window-detected]]
 if.app-id = 'ru.keepcoder.Telegram'
@@ -198,25 +226,6 @@ run = "move-node-to-workspace S"
 if.app-id = 'us.zoom.xos'
 run = "move-node-to-workspace T"
 {{- end }}
-
-# Media applications
-[[on-window-detected]]
-if.app-id = 'com.spotify.client'
-run = "move-node-to-workspace M"
-
-# Back-end applications
-[[on-window-detected]]
-if.app-id = 'com.postmanlabs.mac'
-run = "move-node-to-workspace B"
-
-[[on-window-detected]]
-if.app-id = 'org.jkiss.dbeaver.core.product'
-run = "move-node-to-workspace B"
-
-# Obsidian
-[[on-window-detected]]
-if.app-id = 'md.obsidian'
-run = "move-node-to-workspace O"
 
 [workspace-to-monitor-force-assignment]
 # Main monitor
