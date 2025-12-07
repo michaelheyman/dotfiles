@@ -69,4 +69,7 @@ defaults write com.apple.finder NewWindowTarget -string 'PfHm'
 # Set alert volume to zero
 osascript -e "set volume alert volume 0"
 
+# Set the default temperature unit to Celsius
+defaults write -g AppleTemperatureUnit -string "Celsius"
+
 {{ end -}}
