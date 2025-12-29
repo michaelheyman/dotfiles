@@ -9,6 +9,28 @@ config.inactive_pane_hsb = {
   brightness = 0.5, -- Default: 0.8
 }
 
+-- Mouse bindings
+config.mouse_bindings = {
+  -- Disable the default click behavior
+  {
+    event = { Up = { streak = 1, button = "Left"} },
+    mods = "NONE",
+    action = wezterm.action.CompleteSelection 'PrimarySelection',
+  },
+  -- Taken from https://wezterm.org/recipes/hyperlinks.html#optional-configuration
+  {
+    event = { Up = { streak = 1, button = 'Left' } },
+    mods = 'SUPER',
+    action = act.OpenLinkAtMouseCursor,
+  },
+  -- Disable the 'Down' event of CMD-Click to avoid weird program behaviors
+  {
+    event = { Down = { streak = 1, button = 'Left' } },
+    mods = 'SUPER',
+    action = act.Nop,
+  },
+}
+
 -- Key bindings
 config.keys = {
   -- Terminal control shortcuts
