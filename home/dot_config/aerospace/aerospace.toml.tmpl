@@ -180,6 +180,10 @@ run = ['layout floating']
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace A"
 
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "move-node-to-workspace A"
+
 # Development applications
 [[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
