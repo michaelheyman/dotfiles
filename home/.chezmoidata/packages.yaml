@@ -16,6 +16,7 @@ packages:
       - wget
     casks:
       # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
+      - claude
       - claude-code
       - docker-desktop
       - firefox
