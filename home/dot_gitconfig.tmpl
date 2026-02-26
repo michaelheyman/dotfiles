@@ -95,7 +95,7 @@
 	excludesFile = ~/.gitignore_global
 [http]
 	postBuffer = 1048576000
-{{- if not .disableSSHGitConfig }}
+{{- if not (index . "disableSSHGitConfig") }}
 [url "ssh://git@github.com/"]
 	insteadOf = https://github.com/
 {{- end }}
