@@ -3,6 +3,7 @@
   # Current options: "personal", "work"
   profile = "{{ .profile | default "personal" }}"
   disableSSHGitConfig = {{ (index . "disableSSHGitConfig") | default false }}
+  isSynology = {{ if stat "/etc/synoinfo.conf" }}true{{ else }}false{{ end }}
 
 # Define how external programs are used
 [merge]

@@ -7,7 +7,10 @@
 " https://vimdoc.sourceforge.net/htmldoc/options.html#'compatible'
 set nocompatible
 
-source ~/.vim/plugins.vim
+" Do not load plugins on a Synology machine since it doesn't have git
+if !filereadable('/etc/synoinfo.conf')
+  source ~/.vim/plugins.vim
+endif
 
 " vim-plug will have set `filetype plugin indent on` and `syntax enable`, which
 " is why they are not included here

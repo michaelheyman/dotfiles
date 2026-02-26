@@ -33,6 +33,23 @@ sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply git@github.com:michaelhe
 sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply https://github.com/michaelheyman/dotfiles.git
 ```
 
+### Install on Synology NAS
+
+Two DSM-specific issues require workarounds:
+
+1. The standard install script fails with `unable to determine libc` — use the statically-linked
+   musl build instead, which has no libc dependency.
+2. DSM mounts `/tmp` with `noexec`, so chezmoi can't execute its temporary scripts there — set
+   `TMPDIR` to a directory under your home folder.
+
+```bash
+mkdir -p ~/.local/bin ~/.local/tmp
+curl -sL "https://github.com/twpayne/chezmoi/releases/download/v2.69.4/chezmoi-linux-amd64-musl" \
+    -o ~/.local/bin/chezmoi
+chmod +x ~/.local/bin/chezmoi
+TMPDIR=~/.local/tmp ~/.local/bin/chezmoi init --apply https://github.com/michaelheyman/dotfiles.git
+```
+
 ## Development and Testing
 
 To make changes to your dotfiles, you can edit the source files directly and then apply them.
