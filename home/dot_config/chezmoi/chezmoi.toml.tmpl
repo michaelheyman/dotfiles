@@ -2,7 +2,7 @@
   # Define different profiles for different contexts
   # Current options: "personal", "work"
   profile = "{{ .profile | default "personal" }}"
-  disableSSHGitConfig = {{ .disableSSHGitConfig | default false }}
+  disableSSHGitConfig = {{ get . "disableSSHGitConfig" | default false }}
 
 # Define how external programs are used
 [merge]
