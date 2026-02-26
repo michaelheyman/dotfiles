@@ -40,6 +40,5 @@ packages:
       - fish
       - jq
       - procps
-      - starship
       - zsh
       - vim

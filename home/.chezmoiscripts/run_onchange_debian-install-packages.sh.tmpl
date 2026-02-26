@@ -4,7 +4,15 @@
 set -e -u
 
 echo "Updating APT cache and installing packages..."
-sudo apt-get update
+if ! sudo apt-get update; then
+    echo ""
+    echo "Error: 'apt-get update' failed. Possible causes:"
+    echo "  - Your Ubuntu/Debian version is EOL and its repos have been removed"
+    echo "  - Network connectivity issues"
+    echo ""
+    echo "Fix /etc/apt/sources.list or upgrade your OS, then re-run: chezmoi apply"
+    exit 1
+fi
 
 {{- if .packages.debian.apts }}
 {{- range .packages.debian.apts }}
@@ -14,5 +22,10 @@ if ! dpkg -l {{ . | quote }} >/dev/null 2>&1; then
 fi
 {{- end }}
 {{- end }}
+
+if ! command -v starship >/dev/null 2>&1; then
+    echo "Installing starship..."
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+fi
 
 {{ end -}}
