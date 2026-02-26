@@ -1,0 +1,9 @@
+# ~/.profile is sourced by login shells when ~/.bash_profile is not present.
+
+# Switch to bash shell
+/bin/bash
+
+# Source ~/.bashrc to load aliases, exports, and starship.
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi

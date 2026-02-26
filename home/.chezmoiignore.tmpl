@@ -1,6 +1,9 @@
 {{ if ne .chezmoi.os "darwin" -}}
 dot_config/aerospace
 {{- end }}
+{{ if not (index . "isSynology") -}}
+dot_profile
+{{- end }}
 {{ if eq .profile "work" -}}
 dot_ghci
 dot_config/kanata/config.kbd

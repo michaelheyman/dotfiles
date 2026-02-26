@@ -1,4 +1,4 @@
-{{- if .isSynology -}}
+{{- if (index . "isSynology") -}}
 #!/bin/sh
 
 set -e -u
