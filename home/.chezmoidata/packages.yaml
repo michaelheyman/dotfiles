@@ -10,6 +10,7 @@ packages:
       - pipx
       - pyenv
       - pyenv-virtualenv
+      - starship
       - tmux
       - tree
       - vim
@@ -39,5 +40,6 @@ packages:
       - fish
       - jq
       - procps
+      - starship
       - zsh
       - vim

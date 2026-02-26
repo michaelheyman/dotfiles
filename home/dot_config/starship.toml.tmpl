@@ -1,0 +1,29 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# https://starship.rs/config/#directory
+# The directory module shows the path to your current directory, truncated to three parent folders.
+[directory]
+fish_style_pwd_dir_length=1
+
+{{ if ne .profile "work" -}}
+# https://starship.rs/config/#google-cloud-gcloud
+# The gcloud module shows the current configuration for gcloud CLI.
+[gcloud]
+disabled = true
+{{- end }}
+
+# https://starship.rs/config/#local-ip
+# The localip module shows the IPv4 address of the primary network interface.
+[localip]
+disabled = false
+
+# https://starship.rs/config/#status
+# The status module displays the exit code of the previous command.
+[status]
+disabled = false
+
+# https://starship.rs/config/#sudo
+# The sudo module displays if sudo credentials are currently cached.
+[sudo]
+disabled = false
