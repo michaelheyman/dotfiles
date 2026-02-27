@@ -2,6 +2,7 @@ packages:
   darwin:
     brews:
       - fish
+      - fisher
       - git
       - go
       - go-task/tap/go-task
@@ -34,6 +35,8 @@ packages:
       - tomatobar
       - visual-studio-code
       - wezterm
+    fisher:
+      - oh-my-fish/plugin-osx
   debian:
     apts:
       - curl
