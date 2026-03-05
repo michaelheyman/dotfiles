@@ -36,6 +36,7 @@ packages:
       - visual-studio-code
       - wezterm
     fisher:
+      - meaningful-ooo/sponge
       - oh-my-fish/plugin-osx
   debian:
     apts:
