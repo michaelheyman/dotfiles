@@ -4,6 +4,7 @@ packages:
       - fish
       - fisher
       - git
+      - gh
       - go
       - go-task/tap/go-task
       - jq
