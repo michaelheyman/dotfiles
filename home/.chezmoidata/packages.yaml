@@ -6,6 +6,7 @@ packages:
       - git
       - gh
       - go
+      - golangci-lint
       - go-task/tap/go-task
       - jq
       - node # For npx
