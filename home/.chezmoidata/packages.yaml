@@ -39,6 +39,7 @@ packages:
       - visual-studio-code
       - wezterm
     fisher:
+      - barnybug/docker-fish-completion
       - meaningful-ooo/sponge
       - oh-my-fish/plugin-osx
       - PatrickF1/fzf.fish
