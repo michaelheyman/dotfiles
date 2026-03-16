@@ -3,6 +3,7 @@ packages:
     brews:
       - fish
       - fisher
+      - fzf
       - git
       - gh
       - go
@@ -40,10 +41,12 @@ packages:
     fisher:
       - meaningful-ooo/sponge
       - oh-my-fish/plugin-osx
+      - PatrickF1/fzf.fish
   debian:
     apts:
       - curl
       - fish
+      - fzf
       - jq
       - procps
       - zsh

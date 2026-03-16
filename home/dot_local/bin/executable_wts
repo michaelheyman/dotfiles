@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# wts — fzf-select a git worktree and print its path
+# Composable: code (wts), claude (wts), etc.
+
+set -euo pipefail
+
+if ! git rev-parse --show-toplevel &>/dev/null; then
+    echo "Not inside a git repository" >&2
+    exit 1
+fi
+
+git worktree list --porcelain \
+    | grep "^worktree " \
+    | awk '{print $2}' \
+    | fzf --prompt="worktree> " \
+          --preview="git -C {} log --oneline -5 2>/dev/null"
