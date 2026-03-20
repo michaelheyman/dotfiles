@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(~/.ssh/**)",
+      "Read(~/.config/fish/conf.d/secrets.fish)"
+    ]
+  }
+}
