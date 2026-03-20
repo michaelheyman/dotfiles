@@ -9,6 +9,7 @@ packages:
       - go
       - golangci-lint
       - go-task/tap/go-task
+      - helm@3 # v4 is not supported yet by k3s and Argo CD
       - jq
       - node # For npx
       - pipx
