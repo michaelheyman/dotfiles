@@ -3,6 +3,9 @@ local act = wezterm.action
 
 local config = wezterm.config_builder()
 
+-- Enable kitty keyboard protocol so Shift+Enter works correctly with Claude Code
+config.enable_kitty_keyboard = true
+
 -- Pane appearance settings
 config.inactive_pane_hsb = {
   saturation = 0.8, -- Default: 0.9
