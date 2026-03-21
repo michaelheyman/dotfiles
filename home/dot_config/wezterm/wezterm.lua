@@ -3,9 +3,6 @@ local act = wezterm.action
 
 local config = wezterm.config_builder()
 
--- Enable kitty keyboard protocol so Shift+Enter works correctly with Claude Code
-config.enable_kitty_keyboard = true
-
 -- Pane appearance settings
 config.inactive_pane_hsb = {
   saturation = 0.8, -- Default: 0.9
@@ -38,7 +35,12 @@ config.mouse_bindings = {
 config.keys = {
   -- Terminal control shortcuts
   -- --------------------------------------------------------
-  
+
+  -- Send kitty keyboard Shift+Enter sequence so Claude Code can distinguish
+  -- it from plain Enter, without enabling kitty keyboard protocol globally
+  -- (which bleeds through SSH and breaks arrow keys in remote fish sessions).
+  { key = 'Return', mods = 'SHIFT', action = act.SendString('\x1b[13;2u') },
+
   -- Disable the default SUPER+K behavior
   { key = 'k', mods = 'SUPER', action = act.DisableDefaultAssignment },
   
