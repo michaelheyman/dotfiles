@@ -6,6 +6,12 @@ input=$(cat)
 cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
 model=$(echo "$input" | jq -r '.model.display_name // empty')
 used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
+
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+RESET='\033[0m'
 
 # Fish-style path shortening: shorten each parent component to 1 char
 fish_path() {
@@ -58,7 +64,19 @@ fi
 
 if [ -n "$used_pct" ]; then
 	printf_pct=$(printf "%.0f" "$used_pct" 2>/dev/null || echo "$used_pct")
-	line="${line} | ctx ${printf_pct}%"
+	if [ "$printf_pct" -ge 90 ] 2>/dev/null; then
+		ctx_color="$RED"
+	elif [ "$printf_pct" -ge 70 ] 2>/dev/null; then
+		ctx_color="$YELLOW"
+	else
+		ctx_color="$GREEN"
+	fi
+	line="${line} | ${ctx_color}ctx ${printf_pct}%${RESET}"
 fi
 
-printf "%s" "$line"
+if [ -n "$cost" ]; then
+	cost_fmt=$(printf '$%.4f' "$cost")
+	line="${line} | ${cost_fmt}"
+fi
+
+printf "%b" "$line"
