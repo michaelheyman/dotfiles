@@ -1,0 +1,9 @@
+{{ if and (eq .chezmoi.os "darwin") (ne .profile "work") -}}
+#!/bin/bash
+
+set -e -u
+
+# https://determinate.systems/nix/
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix \
+  | sh -s -- install
+{{ end -}}

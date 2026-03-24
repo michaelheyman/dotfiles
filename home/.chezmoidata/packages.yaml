@@ -39,6 +39,10 @@ packages:
       - tomatobar
       - visual-studio-code
       - wezterm
+    nix:
+      - github:zhaofengli/colmena
+      - nixpkgs#age
+      - nixpkgs#sops
     fisher:
       - barnybug/docker-fish-completion
       - meaningful-ooo/sponge
