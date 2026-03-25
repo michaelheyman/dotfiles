@@ -14,3 +14,11 @@ if [[ ":$PATH:" != *":/opt/homebrew/bin:"* ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
 {{ end -}}
+
+# https://code.claude.com/docs/en/env-vars
+# Set to 1 to strip Anthropic and cloud provider credentials from subprocess
+# environments (Bash tool, hooks, MCP stdio servers). The parent Claude process
+# keeps these credentials for API calls, but child processes cannot read them,
+# reducing exposure to prompt injection attacks that attempt to exfiltrate
+# secrets via shell expansion.
+export CLAUDE_CODE_SUBPROCESS_ENV_SCRUB=1
