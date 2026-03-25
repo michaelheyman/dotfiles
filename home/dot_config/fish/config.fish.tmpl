@@ -13,6 +13,10 @@ end
 # Disable help message when opening shell
 set fish_greeting
 
+# https://github.com/meaningful-ooo/sponge?tab=readme-ov-file#-adjusting-delay
+# Delay purging of filtered commands so you can always access the last 5 entries
+set sponge_delay 5
+
 # Check if pyenv exists and initialize it if it does
 if type -q pyenv
   pyenv init - | source
