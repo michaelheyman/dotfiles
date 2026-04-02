@@ -2,5 +2,6 @@ fish_add_path $HOME/.local/bin
 fish_add_path $HOME/go/bin
 {{ if eq .chezmoi.os "darwin" -}}
 fish_add_path /opt/homebrew/bin
+fish_add_path /opt/homebrew/opt/helm@3/bin  # helm@3 is keg-only and not symlinked into /opt/homebrew
 set -gx HOMEBREW_NO_ANALYTICS 1  # Disable Homebrew analytics
 {{ end -}}
