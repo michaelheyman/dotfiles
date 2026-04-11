@@ -1,6 +1,7 @@
 packages:
   darwin:
     brews:
+      - bitwarden-cli
       - fish
       - fisher
       - fzf

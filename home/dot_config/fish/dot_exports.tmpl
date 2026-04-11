@@ -3,25 +3,6 @@
 # (Bash tool, hooks, MCP stdio servers) to reduce prompt injection exposure.
 set -gx CLAUDE_CODE_SUBPROCESS_ENV_SCRUB 1
 
-{{ if ne .profile "work" -}}
-# Claude Code → Honeycomb telemetry (requires HONEYCOMB_API_KEY in secrets.fish)
-if set -q HONEYCOMB_API_KEY
-    set -gx CLAUDE_CODE_ENABLE_TELEMETRY 1
-    set -gx CLAUDE_CODE_ENHANCED_TELEMETRY_BETA 1
-    set -gx OTEL_METRICS_EXPORTER otlp
-    set -gx OTEL_LOGS_EXPORTER otlp
-    set -gx OTEL_TRACES_EXPORTER otlp
-    set -gx OTEL_EXPORTER_OTLP_PROTOCOL grpc
-    set -gx OTEL_EXPORTER_OTLP_ENDPOINT "https://api.honeycomb.io:443"
-    set -gx OTEL_METRIC_EXPORT_INTERVAL 10000
-    set -gx OTEL_LOGS_EXPORT_INTERVAL 5000
-    set -gx OTEL_TRACES_EXPORT_INTERVAL 10000
-    set -gx OTEL_SERVICE_NAME claude-code
-    set -gx OTEL_RESOURCE_ATTRIBUTES "service.name=claude-code"
-    set -gx OTEL_EXPORTER_OTLP_HEADERS "x-honeycomb-dataset=claude,x-honeycomb-team=$HONEYCOMB_API_KEY"
-end
-{{- end }}
-
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/go/bin
 {{ if eq .chezmoi.os "darwin" -}}
