@@ -1,7 +1,0 @@
-{{- if ne .profile "work" }}
-{
-  "env": {
-    "OTEL_EXPORTER_OTLP_HEADERS": "x-honeycomb-dataset=claude,x-honeycomb-team={{ (bitwarden "item" "honeycomb-api-key").login.password }}"
-  }
-}
-{{- end }}
