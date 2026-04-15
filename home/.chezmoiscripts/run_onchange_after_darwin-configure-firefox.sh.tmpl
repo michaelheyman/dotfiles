@@ -1,0 +1,78 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+
+set -e -u
+
+# The heredoc below embeds the full user.js content into the rendered script,
+# so chezmoi's onchange hash changes automatically whenever preferences change.
+
+FIREFOX_DIR="$HOME/Library/Application Support/Firefox"
+PROFILES_INI="$FIREFOX_DIR/profiles.ini"
+
+if [[ ! -f "$PROFILES_INI" ]]; then
+    echo "Firefox profiles.ini not found. Launch Firefox once, then re-run: chezmoi apply"
+    exit 0
+fi
+
+USER_JS_CONTENT=$(cat <<'USERJS_EOF'
+{{ template "firefox-user.js" . }}
+USERJS_EOF
+)
+
+deploy_to_profile() {
+    local profile_dir="$1"
+    if [[ ! -d "$profile_dir" ]]; then
+        echo "Warning: profile directory missing: $profile_dir (skipping)"
+        return 0
+    fi
+    local target="$profile_dir/user.js"
+    if [[ -f "$target" ]] && [[ "$(cat "$target")" == "$USER_JS_CONTENT" ]]; then
+        echo "user.js already up to date: $target"
+        return 0
+    fi
+    local tmp
+    tmp=$(mktemp "$profile_dir/.user.js.XXXXXX")
+    printf '%s\n' "$USER_JS_CONTENT" >"$tmp"
+    mv "$tmp" "$target"
+    echo "Deployed user.js to: $target"
+}
+
+section=""
+current_path=""
+current_is_relative="1"
+
+while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" =~ ^\[(.+)\]$ ]]; then
+        # Save captured section name before any further regex clobbers BASH_REMATCH
+        new_section="${BASH_REMATCH[1]}"
+        if [[ "$section" =~ ^Profile ]] && [[ -n "$current_path" ]]; then
+            if [[ "$current_is_relative" == "1" ]]; then
+                deploy_to_profile "$FIREFOX_DIR/$current_path"
+            else
+                deploy_to_profile "$current_path"
+            fi
+        fi
+        section="$new_section"
+        current_path=""
+        current_is_relative="1"
+        continue
+    fi
+    if [[ ! "$section" =~ ^Profile ]]; then continue; fi
+    if [[ "$line" =~ ^Path=(.+)$ ]]; then
+        current_path="${BASH_REMATCH[1]}"
+    elif [[ "$line" =~ ^IsRelative=(.+)$ ]]; then
+        current_is_relative="${BASH_REMATCH[1]}"
+    fi
+done <"$PROFILES_INI"
+
+# Handle the final section (profiles.ini has no trailing newline/section)
+if [[ "$section" =~ ^Profile ]] && [[ -n "$current_path" ]]; then
+    if [[ "$current_is_relative" == "1" ]]; then
+        deploy_to_profile "$FIREFOX_DIR/$current_path"
+    else
+        deploy_to_profile "$current_path"
+    fi
+fi
+
+echo "Firefox user.js deployment complete."
+{{ end -}}
