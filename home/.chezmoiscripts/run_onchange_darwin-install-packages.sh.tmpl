@@ -11,11 +11,9 @@ brew {{ . | quote }}
 {{ end -}}
 {{ end -}}
 
-{{ if ne .profile "work" -}}
 {{ if .packages.darwin.casks -}}
 {{ range .packages.darwin.casks -}}
 cask {{ . | quote }}
-{{ end -}}
 {{ end -}}
 {{ end -}}
 
