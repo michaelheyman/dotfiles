@@ -11,8 +11,11 @@ brew {{ . | quote }}
 {{ end -}}
 {{ end -}}
 
-{{ if .packages.darwin.casks -}}
-{{ range .packages.darwin.casks -}}
+{{ range .packages.darwin.casks.shared -}}
+cask {{ . | quote }}
+{{ end -}}
+{{ if ne .profile "work" -}}
+{{ range .packages.darwin.casks.home -}}
 cask {{ . | quote }}
 {{ end -}}
 {{ end -}}

@@ -1,6 +1,7 @@
 packages:
   darwin:
     brews:
+      - chezmoi
       - fish
       - fisher
       - fzf
@@ -22,24 +23,26 @@ packages:
       - wget
       - yq
     casks:
-      # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
-      - claude
-      - claude-code@latest
-      - docker-desktop
-      - firefox
-      - gcloud-cli
-      - google-chrome
-      - iina
-      - keepingyouawake
-      - nikitabobko/tap/aerospace
-      - obsidian
-      - postman
-      - scroll-reverser
-      - spotify
-      - telegram
-      - tomatobar
-      - visual-studio-code
-      - wezterm
+      shared:
+        # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
+        - docker-desktop
+        - firefox
+        - google-chrome
+        - nikitabobko/tap/aerospace
+        - obsidian
+        - postman
+        - scroll-reverser
+        - spotify
+        - tomatobar
+        - visual-studio-code
+        - wezterm
+      home:
+        - claude
+        - claude-code@latest
+        - gcloud-cli
+        - iina
+        - keepingyouawake
+        - telegram
     nix:
       - github:zhaofengli/colmena
       - nixpkgs#age
