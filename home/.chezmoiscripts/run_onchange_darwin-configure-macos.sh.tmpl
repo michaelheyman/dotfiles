@@ -35,7 +35,6 @@ configure_keyboard() {
 
     # Enable keyboard navigation (e.g. tab through dialog buttons)
     defaults write NSGlobalDomain AppleKeyboardUIMode -int 2
-
 }
 
 # Keyboard shortcuts will not apply until logout/login
@@ -56,6 +55,7 @@ configure_trackpad() {
     killall Dock
 }
 
+configure_dock
 configure_keyboard
 configure_keyboard_shortcuts
 configure_trackpad
