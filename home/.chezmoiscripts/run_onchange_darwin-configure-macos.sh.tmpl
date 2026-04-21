@@ -1,6 +1,8 @@
 {{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
+# See https://macos-defaults.com/ for references of commands
+
 configure_dock() {
     # Disable dock bounce to alert behavior
     defaults write com.apple.dock no-bouncing -bool TRUE
@@ -55,16 +57,24 @@ configure_trackpad() {
     killall Dock
 }
 
+configure_finder() {
+    # Open new windows/tabs in Home folder
+    defaults write com.apple.finder NewWindowTarget -string 'PfHm'
+
+    # Set to list view
+    defaults write com.apple.finder "FXPreferredViewStyle" -string "Nlsv"
+    
+    killall Finder
+}
+
 configure_dock
 configure_keyboard
 configure_keyboard_shortcuts
 configure_trackpad
+configure_finder
 
 # Disable Chrome two-finger back/forward navigation
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
-
-# Configure Finder to open new windows/tabs in Home folder
-defaults write com.apple.finder NewWindowTarget -string 'PfHm'
 
 # Set alert volume to zero
 osascript -e "set volume alert volume 0"
