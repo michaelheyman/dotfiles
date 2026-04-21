@@ -67,11 +67,24 @@ configure_finder() {
     killall Finder
 }
 
+configure_aerospace() {
+    # Group apps so that mission control doesn't cluster windows.
+    # See https://nikitabobko.github.io/AeroSpace/guide#a-note-on-mission-control
+    defaults write com.apple.dock expose-group-apps -bool true
+    
+    # Disable "Displays have separate Spaces".
+    # See https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
+    defaults write com.apple.spaces spans-displays -bool true
+
+    killall Dock
+}
+
 configure_dock
 configure_keyboard
 configure_keyboard_shortcuts
 configure_trackpad
 configure_finder
+configure_aerospace
 
 # Disable Chrome two-finger back/forward navigation
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
