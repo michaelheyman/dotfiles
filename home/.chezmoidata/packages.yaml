@@ -23,7 +23,7 @@ packages:
       - wget
       - yq
     casks:
-      shared:
+      default:
         # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
         - docker-desktop
         - firefox
@@ -35,7 +35,7 @@ packages:
         - tomatobar
         - visual-studio-code
         - wezterm
-      home:
+      restricted:
         - claude
         - claude-code@latest
         - gcloud-cli
