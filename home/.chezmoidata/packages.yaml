@@ -49,6 +49,7 @@ packages:
       - nixpkgs#sops
     fisher:
       - barnybug/docker-fish-completion
+      - edc/bass
       - meaningful-ooo/sponge
       - oh-my-fish/plugin-osx
       - PatrickF1/fzf.fish

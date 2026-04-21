@@ -1,5 +1,5 @@
 # File containing secrets that must NOT be version controlled.
-# Expected location: ~/.config/fish/secrets.fish
-if test -e $HOME/.config/fish/secrets.fish
-    source $HOME/.config/fish/secrets.fish
+# Expected location: ~/.shell/secrets.sh
+if test -e $HOME/.shell/secrets.sh
+    bass source $HOME/.shell/secrets.sh
 end
