@@ -55,10 +55,12 @@
 {{- end }}
   "permissions": {
     "deny": [
-      "Read(**/.env)",
-      "Read(**/*.tfvars)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/fish/conf.d/secrets.fish)",
+      "Read(~/.shell/secrets.sh)",
       "Read(~/.ssh/**)",
-      "Read(~/.config/fish/conf.d/secrets.fish)"
+      "Read(**/*.tfvars)",
+      "Read(**/.env)"
     ]
   }
 }
