@@ -2,6 +2,7 @@ packages:
   darwin:
     brews:
       - chezmoi
+      - circleci
       - fish
       - fisher
       - fzf
@@ -17,6 +18,7 @@ packages:
       - pyenv
       - pyenv-virtualenv
       - starship
+      - tilT
       - tmux
       - tree
       - vim
