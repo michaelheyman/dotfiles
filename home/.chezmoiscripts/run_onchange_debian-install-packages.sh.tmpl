@@ -1,4 +1,4 @@
-{{- if and (eq .chezmoi.os "linux") (lookPath "apt-get") -}}
+{{- if and (eq .chezmoi.os "linux") (lookPath "apt-get") (ne .profile "devcontainer") -}}
 #!/bin/sh
 
 set -e -u
@@ -25,7 +25,10 @@ fi
 
 if ! command -v starship >/dev/null 2>&1; then
     echo "Installing starship..."
-    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+    # starship.rs/install.sh is blocked in proxy-restricted environments; use pinned GitHub release
+    STARSHIP_VERSION="v1.22.1"
+    STARSHIP_URL="https://github.com/starship/starship/releases/download/${STARSHIP_VERSION}/starship-x86_64-unknown-linux-gnu.tar.gz"
+    curl -sL "$STARSHIP_URL" | tar -xz -C ~/.local/bin starship
 fi
 
 {{ end -}}

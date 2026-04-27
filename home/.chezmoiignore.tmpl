@@ -9,3 +9,20 @@ dot_profile
 dot_ghci
 dot_config/kanata/config.kbd
 {{- end }}
+{{ if ne .profile "devcontainer" -}}
+.claude/settings.local.json
+{{- end }}
+{{ if eq .profile "devcontainer" -}}
+dot_ghci
+dot_config/kanata/config.kbd
+dot_config/fish
+dot_config/wezterm
+dot_config/aerospace
+dot_config/kanata
+dot_tmux.conf
+dot_vimrc
+dot_vim
+.claude
+.chezmoiexternals/tpm.toml
+.chezmoiexternals/vim-plug.toml
+{{- end }}
