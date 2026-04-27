@@ -49,10 +49,10 @@ configure_trackpad() {
     # Disable force click and haptic feedback
     defaults write com.apple.AppleMultitouchTrackpad ForceSuppressed -bool true
 
-    # Set the trackpad to tap to click
-    # Something is still missing here since this doesn't fully work
-    # defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-    # defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -bool true
+    # Set the trackpad to tap to click. Requires log out
+    defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+    defaults -currentHost write -g com.apple.mouse.tapBehavior -int 1
 
     killall Dock
 }
