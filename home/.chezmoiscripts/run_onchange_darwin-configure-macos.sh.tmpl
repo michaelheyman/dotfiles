@@ -74,7 +74,8 @@ configure_aerospace() {
     
     # Disable "Displays have separate Spaces".
     # See https://nikitabobko.github.io/AeroSpace/guide#a-note-on-displays-have-separate-spaces
-    defaults write com.apple.spaces spans-displays -bool true
+    # Disabling this setting causes the menu bar to disappear from non-primary monitors.
+    # defaults write com.apple.spaces spans-displays -bool true
 
     killall Dock
 }
