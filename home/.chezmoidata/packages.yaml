@@ -5,6 +5,7 @@ packages:
       - circleci
       - fish
       - fisher
+      - fnm
       - fzf
       - git
       - gh
