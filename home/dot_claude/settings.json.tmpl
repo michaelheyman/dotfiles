@@ -9,7 +9,7 @@
     "OTEL_TRACES_EXPORTER": "otlp",
     "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
     "OTEL_EXPORTER_OTLP_ENDPOINT": "https://api.honeycomb.io:443",
-    "OTEL_EXPORTER_OTLP_HEADERS": "x-honeycomb-dataset=claude,x-honeycomb-team={{ output "fish" "-c" "source ~/.config/fish/conf.d/secrets.fish 2>/dev/null; echo -n $HONEYCOMB_API_KEY" }}",
+    "OTEL_EXPORTER_OTLP_HEADERS": "x-honeycomb-dataset=claude,x-honeycomb-team={{ output "fish" "-c" "source ~/.shell/secrets.sh 2>/dev/null; echo -n $HONEYCOMB_API_KEY" }}",
     "OTEL_METRIC_EXPORT_INTERVAL": "10000",
     "OTEL_LOGS_EXPORT_INTERVAL": "5000",
     "OTEL_TRACES_EXPORT_INTERVAL": "10000",
@@ -57,11 +57,11 @@
   "permissions": {
     "deny": [
       "Read(~/.aws/**)",
-      "Read(~/.config/fish/conf.d/secrets.fish)",
-      "Read(~/.shell/secrets.sh)",
       "Read(~/.ssh/**)",
+      "Read(**/secrets.*)",
       "Read(**/*.tfvars)",
-      "Read(**/.env)"
+      "Read(**/.env)",
+      "Read(**/.env.*)",
     ]
   }
 }
