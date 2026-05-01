@@ -37,7 +37,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude needs your attention\" with title \"Claude Code\"'"
+            "command": "{{ .chezmoi.homeDir }}/.claude/notify-bridge/hook-sender.sh"
           }
         ]
       }
@@ -47,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "osascript -e 'display notification \"Claude has finished\" with title \"Claude Code\"'"
+            "command": "{{ .chezmoi.homeDir }}/.claude/notify-bridge/hook-sender.sh"
           }
         ]
       }
