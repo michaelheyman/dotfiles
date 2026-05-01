@@ -5,6 +5,6 @@ function mouse-off --description 'Switch back to natural scrolling for trackpad'
         return
     end
     defaults write NSGlobalDomain com.apple.swipescrolldirection -bool true
-    killall cfprefsd
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     echo "🖥️  Trackpad mode — natural scrolling enabled"
 end

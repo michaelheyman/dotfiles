@@ -5,6 +5,6 @@ function mouse-on --description 'Switch to traditional (non-natural) scrolling f
         return
     end
     defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-    killall cfprefsd
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     echo "🖱️  Mouse mode — traditional scrolling enabled"
 end
