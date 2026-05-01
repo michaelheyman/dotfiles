@@ -1,6 +1,7 @@
 {{ if ne .chezmoi.os "darwin" -}}
 dot_config/aerospace
 dot_local/bin/executable_aerospace-cleanup
+Library
 {{- end }}
 {{ if not (index . "isSynology") -}}
 dot_profile
