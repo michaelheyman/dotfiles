@@ -8,8 +8,11 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string>/bin/bash</string>
-    <string>{{ .chezmoi.homeDir }}/.claude/notify-bridge/subscriber/subscribe.sh</string>
+    <string>{{ if eq .chezmoi.arch "arm64" }}/opt/homebrew{{ else }}/usr/local{{ end }}/bin/ntfy</string>
+    <string>subscribe</string>
+    <string>--config</string>
+    <string>{{ .chezmoi.homeDir }}/.claude/notify-bridge/subscriber/client.yml</string>
+    <string>--from-config</string>
   </array>
 
   <key>RunAtLoad</key>

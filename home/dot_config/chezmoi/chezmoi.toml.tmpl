@@ -4,6 +4,7 @@
   profile = "{{ .profile | default "personal" }}"
   disableSSHGitConfig = {{ (index . "disableSSHGitConfig") | default false }}
   isSynology = {{ if stat "/etc/synoinfo.conf" }}true{{ else }}false{{ end }}
+  notifyBridgeAllowDevcontainer = {{ (index . "notifyBridgeAllowDevcontainer") | default false }}
 
 # Define how external programs are used
 [merge]
