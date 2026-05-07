@@ -1,4 +1,4 @@
-{{- if and (eq .chezmoi.os "darwin") (eq .profile "personal") (not .disableSSHGitConfig) }}
+{{- if and (eq .chezmoi.os "darwin") (not .disableSSHGitConfig) }}
 [".claude/notify-bridge"]
 type = "git-repo"
 url = "git@github.com:michaelheyman/claude-notify-bridge.git"

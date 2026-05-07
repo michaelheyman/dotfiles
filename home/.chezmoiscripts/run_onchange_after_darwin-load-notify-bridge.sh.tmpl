@@ -1,41 +1,11 @@
-{{- if and (eq .chezmoi.os "darwin") (eq .profile "personal") (not .disableSSHGitConfig) -}}
+{{- if and (eq .chezmoi.os "darwin") (not .disableSSHGitConfig) -}}
 #!/bin/bash
+# Installs the maildir dispatcher and loads the WatchPaths LaunchAgent.
+# Re-runs whenever the install.sh content changes.
 #
-# Bootstraps the claude-notify-bridge LaunchAgents (server + subscriber) into
-# the user's launchd domain. Re-runs whenever either plist's rendered content
-# changes — those hashes are baked into the script body below so chezmoi
-# detects the diff.
-#
-# subscriber plist hash: {{ include "Library/LaunchAgents/com.user.claude-notify-subscriber.plist.tmpl" | sha256sum }}
-# server plist hash:     {{ include "Library/LaunchAgents/com.user.claude-notify-server.plist.tmpl"     | sha256sum }}
+# install.sh hash: {{ include ".claude/notify-bridge/launchd/install.sh" | sha256sum }}
 
-set -e -u
+set -euo pipefail
 
-uid=$(id -u)
-domain="gui/$uid"
-agent_dir="$HOME/Library/LaunchAgents"
-
-bootstrap() {
-  local label="$1"
-  local plist="$agent_dir/$label.plist"
-
-  if [ ! -f "$plist" ]; then
-    echo "notify-bridge: plist missing, skipping: $plist" >&2
-    return 0
-  fi
-
-  launchctl bootout "$domain/$label" 2>/dev/null || true
-  launchctl bootstrap "$domain" "$plist"
-  launchctl kickstart -k "$domain/$label"
-}
-
-# Server first so the subscriber doesn't log connection-refused on startup.
-bootstrap com.user.claude-notify-server
-bootstrap com.user.claude-notify-subscriber
-
-# Sanity ping — the server should be listening on the loopback within a beat.
-sleep 1
-if ! curl -sf --max-time 2 -o /dev/null "http://127.0.0.1:2586/v1/health"; then
-  echo "notify-bridge: warning — ntfy server health check failed on 127.0.0.1:2586" >&2
-fi
+bash "$HOME/.claude/notify-bridge/launchd/install.sh"
 {{- end }}

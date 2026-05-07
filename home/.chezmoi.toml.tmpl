@@ -1,7 +1,5 @@
 {{- $profile := promptStringOnce . "profile" "Enter machine profile (personal, work, devcontainer):" "personal" -}}
-{{- $allowDevcontainer := promptBoolOnce . "notifyBridgeAllowDevcontainer" "Allow notify-bridge ntfy server to bind 0.0.0.0 (for devcontainer access)?" false -}}
 
 [data]
 profile = {{ $profile | quote }}
 disableSSHGitConfig = {{ (index . "disableSSHGitConfig") | default false }}
-notifyBridgeAllowDevcontainer = {{ $allowDevcontainer }}
