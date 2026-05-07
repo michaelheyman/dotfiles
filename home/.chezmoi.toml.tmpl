@@ -1,4 +1,11 @@
-{{- $profile := promptStringOnce . "profile" "Enter machine profile (personal, work, devcontainer):" "personal" -}}
+{{- $profile := "personal" -}}
+{{- if env "REMOTE_CONTAINERS" -}}
+{{-   $profile = "devcontainer" -}}
+{{- else if env "CODESPACES" -}}
+{{-   $profile = "devcontainer" -}}
+{{- else -}}
+{{-   $profile = promptStringOnce . "profile" "Enter machine profile (personal, work, devcontainer):" "personal" -}}
+{{- end -}}
 
 [data]
 profile = {{ $profile | quote }}
