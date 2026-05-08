@@ -1,9 +1,8 @@
 {{- if and (eq .chezmoi.os "darwin") (not .disableSSHGitConfig) -}}
 #!/bin/bash
 # Installs the maildir dispatcher and loads the WatchPaths LaunchAgent.
-# Re-runs whenever the install.sh content changes.
-#
-# install.sh hash: {{ include ".claude/notify-bridge/launchd/install.sh" | sha256sum }}
+# Runs once on first chezmoi apply. To force a re-run:
+#   chezmoi state delete --bucket=scriptState --key=run_once_after_darwin-load-notify-bridge.sh
 
 set -euo pipefail
 
