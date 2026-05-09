@@ -6,16 +6,12 @@ Library
 {{ if not (index . "isSynology") -}}
 dot_profile
 {{- end }}
-{{ if eq .profile "work" -}}
+.claude/settings.local.json
+{{ if ne .profile "personal" -}}
 dot_ghci
 dot_config/kanata/config.kbd
-{{- end }}
-{{ if ne .profile "devcontainer" -}}
-.claude/settings.local.json
 {{- end }}
 {{ if eq .profile "devcontainer" -}}
-dot_ghci
-dot_config/kanata/config.kbd
 dot_config/fish
 dot_config/wezterm
 dot_config/aerospace

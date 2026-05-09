@@ -30,7 +30,7 @@
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true
   },
-{{- if and (eq .chezmoi.os "darwin") (ne .profile "devcontainer") }}
+{{- if eq .chezmoi.os "darwin" }}
   "hooks": {
     "Notification": [
       {

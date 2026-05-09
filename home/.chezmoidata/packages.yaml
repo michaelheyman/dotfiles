@@ -19,7 +19,7 @@ packages:
       - pyenv
       - pyenv-virtualenv
       - starship
-      - tilT
+      - tilt
       - tmux
       - tree
       - vim
