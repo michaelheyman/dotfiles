@@ -7,11 +7,22 @@ set -eu
 bin_dir="${HOME}/.local/bin"
 chezmoi="${bin_dir}/chezmoi"
 if ! command -v chezmoi >/dev/null 2>&1 && [ ! -x "${chezmoi}" ]; then
+	os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+	case "$(uname -m)" in
+	x86_64 | amd64) arch="amd64" ;;
+	aarch64 | arm64) arch="arm64" ;;
+	*)
+		echo "Unsupported architecture: $(uname -m)" >&2
+		exit 1
+		;;
+	esac
+
 	echo "Installing chezmoi to '${chezmoi}'" >&2
 	mkdir -p "${bin_dir}"
-	curl -fsSL "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-linux-amd64" \
+	curl -fsSL "https://github.com/twpayne/chezmoi/releases/latest/download/chezmoi-${os}-${arch}" \
 		-o "${chezmoi}"
 	chmod +x "${chezmoi}"
+	unset os arch
 elif command -v chezmoi >/dev/null 2>&1; then
 	chezmoi="$(command -v chezmoi)"
 fi
