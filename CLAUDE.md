@@ -61,9 +61,6 @@ Configured in `~/.config/chezmoi/chezmoi.toml` via `data.profile`. Current optio
 - `work` — macOS workstation; excludes personal casks (Claude app, gcloud, Telegram), uses Jaeger alias
 - `devcontainer` — Linux dev container; minimal tooling, no host-only daemons
 
-The `work` profile is a darwin variant of `personal` — it shares most config but skips restricted
-casks and personal-only AeroSpace workspaces.
-
 ## Key directories
 
 - `home/.chezmoiscripts/` — Lifecycle scripts; `run_once_before_*` installs prerequisites (Xcode,
