@@ -1,22 +1,81 @@
 #!/bin/bash
 
-kill_procs="$(docker ps -q)"
+# DCA_EXCLUDE: extended regex of container names to protect (e.g. 'foo|bar')
+EXCLUDE="${DCA_EXCLUDE:-}"
+FORCE_ALL=false
 
-if [ "$(echo "$kill_procs")" = "" ] ; then
-    echo "No docker processes to kill."
+for arg in "$@"; do
+    case "$arg" in
+        --all|-a) FORCE_ALL=true ;;
+        *) printf "Unknown option: %s\n" "$arg"; exit 1 ;;
+    esac
+done
+
+CYAN='\033[0;36m'
+YELLOW='\033[0;33m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+BOLD='\033[1m'
+DIM='\033[2m'
+RESET='\033[0m'
+
+print_table() {
+    local data="$1"
+    local max_len=4  # min width = len("NAME")
+    while IFS= read -r line; do
+        [ -z "$line" ] && continue
+        name=$(awk '{print $2}' <<< "$line")
+        [ ${#name} -gt $max_len ] && max_len=${#name}
+    done <<< "$data"
+
+    printf "\n  ${BOLD}%-12s  %-${max_len}s${RESET}\n" "CONTAINER ID" "NAME"
+    while IFS= read -r line; do
+        [ -z "$line" ] && continue
+        id=$(awk '{print $1}' <<< "$line")
+        name=$(awk '{print $2}' <<< "$line")
+        printf "  ${CYAN}%-12s${RESET}  %-${max_len}s\n" "$id" "$name"
+    done <<< "$data"
+}
+
+all_running="$(docker ps --format '{{.ID}} {{.Names}}')"
+remove_all="$(docker ps -a --format '{{.ID}} {{.Names}}')"
+
+if $FORCE_ALL; then
+    printf "${RED}${BOLD}! Overriding exclusions${RESET}  ${DIM}(--all)${RESET}\n\n"
+    kill_rows="$all_running"
+    remove_rows="$remove_all"
+elif [ -n "$EXCLUDE" ]; then
+    skipped="$(grep -E "$EXCLUDE" <<< "$all_running")"
+    kill_rows="$(grep -Ev "$EXCLUDE" <<< "$all_running")"
+    remove_rows="$(grep -Ev "$EXCLUDE" <<< "$remove_all")"
+
+    if [ -n "$skipped" ]; then
+        printf "${YELLOW}${BOLD}~ Protected${RESET}  ${DIM}(matched exclusions (${EXCLUDE}) — skipping)${RESET}\n"
+        print_table "$skipped"
+        echo ""
+    fi
 else
-    echo "Killing all docker processes.."
-    docker kill $kill_procs
-    echo "Done."
+    kill_rows="$all_running"
+    remove_rows="$remove_all"
+fi
+
+kill_procs="$(awk '{print $1}' <<< "$kill_rows")"
+remove_procs="$(awk '{print $1}' <<< "$remove_rows")"
+
+if [ -z "$kill_procs" ]; then
+    printf "${DIM}  Nothing to stop.${RESET}\n"
+else
+    printf "${RED}${BOLD}× Stopping${RESET}\n"
+    print_table "$kill_rows"
+    docker kill $kill_procs > /dev/null
     echo ""
 fi
 
-remove_procs="$(docker ps -a -q)"
-
-if [ "$(echo "$remove_procs")" = "" ] ; then
-    echo "No docker processes to remove."
+if [ -z "$remove_procs" ]; then
+    printf "${DIM}  Nothing to remove.${RESET}\n"
 else
-    echo "Removing all docker processes.."
-    docker rm $remove_procs
-    echo "Done."
+    printf "\n${RED}${BOLD}× Removing${RESET}\n"
+    print_table "$remove_rows"
+    docker rm $remove_procs > /dev/null
+    printf "\n${GREEN}${BOLD}✓ Done.${RESET}\n"
 fi
