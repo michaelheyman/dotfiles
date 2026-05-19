@@ -8,7 +8,7 @@ mkdir -p "$HOME/.local/bin"
 
 if ! command -v fish >/dev/null 2>&1; then
     echo "Installing fish..."
-    curl -sL "https://github.com/fish-shell/fish-shell/releases/latest/download/fish-static-linux-x86_64.tar.xz" \
+    curl -sL "https://github.com/fish-shell/fish-shell/releases/download/4.7.1/fish-4.7.1-linux-x86_64.tar.xz" \
         | tar -xJ -C "$HOME/.local/bin" fish
     chmod +x "$HOME/.local/bin/fish"
 fi
