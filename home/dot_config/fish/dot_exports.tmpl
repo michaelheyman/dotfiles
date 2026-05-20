@@ -1,7 +1,10 @@
 # https://code.claude.com/docs/en/env-vars
 # Strip Anthropic and cloud provider credentials from subprocess environments
 # (Bash tool, hooks, MCP stdio servers) to reduce prompt injection exposure.
+# Requires bubblewrap (bwrap) on Linux; skip in devcontainer where bwrap is not installed.
+{{ if ne .profile "devcontainer" -}}
 set -gx CLAUDE_CODE_SUBPROCESS_ENV_SCRUB 1
+{{ end -}}
 
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/go/bin
