@@ -30,7 +30,7 @@ packages:
         # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
         - docker-desktop
         - firefox
-        - google-chrome
+        - ghostty
         - nikitabobko/tap/aerospace
         - obsidian
         - postman
@@ -41,6 +41,7 @@ packages:
       restricted:
         - claude
         - claude-code@latest
+        - google-chrome
         - gcloud-cli
         - iina
         - keepingyouawake

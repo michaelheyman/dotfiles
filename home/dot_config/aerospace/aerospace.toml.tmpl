@@ -53,7 +53,7 @@ automatically-unhide-macos-hidden-apps = true
 # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
-alt-shift-enter = 'exec-and-forget open -n -a WezTerm.app'
+alt-shift-enter = 'exec-and-forget open -n -a Ghostty.app'
 # Opens a new window of VSCode.
 # This requires the `code` shell command to be installed. Intalled it with:
 # CMD+SHIFT+P -> Shell Command: Install 'code' command in PATH
@@ -194,6 +194,10 @@ run = "move-node-to-workspace D"
 
 [[on-window-detected]]
 if.app-id = 'com.github.wez.wezterm'
+run = "move-node-to-workspace D"
+
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
 run = "move-node-to-workspace D"
 
 # Back-end applications
