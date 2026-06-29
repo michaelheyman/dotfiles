@@ -196,9 +196,14 @@ run = "move-node-to-workspace D"
 if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace D"
 
-[[on-window-detected]]
-if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace D"
+# Disabled because of the following issues:
+# - https://github.com/ghostty-org/ghostty/discussions/3674
+# - https://github.com/nikitabobko/AeroSpace/issues/68 
+# A new tab in Ghostty causes the terminal to move to the workspace,
+# if this option is enabled.
+# [[on-window-detected]]
+# if.app-id = 'com.mitchellh.ghostty'
+# run = "move-node-to-workspace D"
 
 # Back-end applications
 [[on-window-detected]]
