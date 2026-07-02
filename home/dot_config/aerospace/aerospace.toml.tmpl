@@ -100,6 +100,7 @@ alt-b = 'workspace B'
 alt-d = 'workspace D' # mnemonics D - Development
 # alt-e = 'workspace E' # Used for é character on some keyboards
 # alt-i = 'workspace I' # Used for ^ character on some keyboards
+alt-g = 'workspace G' # mnemonics G - Ghostty
 alt-m = 'workspace M' # mnemonics M - Media
 # alt-n = 'workspace N' # Used for ñ character on some keyboards
 alt-o = 'workspace O' # mnemonics O - Obsidian
@@ -128,6 +129,7 @@ alt-shift-9 = 'move-node-to-workspace 9'
 alt-shift-b = 'move-node-to-workspace B'
 alt-shift-d = 'move-node-to-workspace D'
 # alt-shift-f = 'move-node-to-workspace F' # Conflicts with VSCode's format shortcut
+alt-shift-g = 'move-node-to-workspace G'
 alt-shift-m = 'move-node-to-workspace M'
 alt-shift-o = 'move-node-to-workspace O'
 {{ if eq .profile "work" -}}
@@ -198,14 +200,14 @@ run = "move-node-to-workspace D"
 if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace D"
 
-# Disabled because of the following issues:
+# Ghostty
+# Requires its own workspace because new Ghostty tabs move them to its own
+# workspace:
 # - https://github.com/ghostty-org/ghostty/discussions/3674
 # - https://github.com/nikitabobko/AeroSpace/issues/68 
-# A new tab in Ghostty causes the terminal to move to the workspace,
-# if this option is enabled.
-# [[on-window-detected]]
-# if.app-id = 'com.mitchellh.ghostty'
-# run = "move-node-to-workspace D"
+[[on-window-detected]]
+if.app-id = 'com.mitchellh.ghostty'
+run = "move-node-to-workspace D"
 
 # Back-end applications
 [[on-window-detected]]
@@ -261,8 +263,9 @@ run = "move-node-to-workspace T"
 "4" = 2
 "5" = 2
 "0" = 2
-"D" = 2
 "C" = 2
+"D" = 2
+"G" = 2
 "T" = 2
 
 # # Left monitor
