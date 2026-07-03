@@ -200,14 +200,18 @@ run = "move-node-to-workspace D"
 if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace D"
 
-# Ghostty
+# Ghostty & Glaude
 # Requires its own workspace because new Ghostty tabs move them to its own
 # workspace:
 # - https://github.com/ghostty-org/ghostty/discussions/3674
 # - https://github.com/nikitabobko/AeroSpace/issues/68 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace D"
+run = "move-node-to-workspace G"
+
+[[on-window-detected]]
+if.app-id = 'com.anthropic.claudefordesktop'
+run = "move-node-to-workspace G"
 
 # Back-end applications
 [[on-window-detected]]
