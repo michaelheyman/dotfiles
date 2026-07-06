@@ -1,7 +1,10 @@
+{{- /* no controlling terminal (e.g. devcontainer CLI) means we can't prompt, so assume devcontainer */ -}}
 {{- $profile := "personal" -}}
 {{- if env "REMOTE_CONTAINERS" -}}
 {{-   $profile = "devcontainer" -}}
 {{- else if env "CODESPACES" -}}
+{{-   $profile = "devcontainer" -}}
+{{- else if not (stat "/dev/tty") -}}
 {{-   $profile = "devcontainer" -}}
 {{- else -}}
 {{-   $profile = promptStringOnce . "profile" "Enter machine profile (personal, work, devcontainer):" "personal" -}}
