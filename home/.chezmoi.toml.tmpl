@@ -1,10 +1,10 @@
-{{- /* no controlling terminal (e.g. devcontainer CLI) means we can't prompt, so assume devcontainer */ -}}
+{{- /* CHEZMOI_NO_TTY is set by install.sh when it can't open /dev/tty (e.g. devcontainer CLI) */ -}}
 {{- $profile := "personal" -}}
 {{- if env "REMOTE_CONTAINERS" -}}
 {{-   $profile = "devcontainer" -}}
 {{- else if env "CODESPACES" -}}
 {{-   $profile = "devcontainer" -}}
-{{- else if not (stat "/dev/tty") -}}
+{{- else if env "CHEZMOI_NO_TTY" -}}
 {{-   $profile = "devcontainer" -}}
 {{- else -}}
 {{-   $profile = promptStringOnce . "profile" "Enter machine profile (personal, work, devcontainer):" "personal" -}}

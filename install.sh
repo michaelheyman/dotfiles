@@ -31,6 +31,13 @@ unset bin_dir
 # POSIX way to get script's dir: https://stackoverflow.com/a/29834779/12156188
 script_dir="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)"
 
+# /dev/tty always exists as a device node, but opening it fails with ENXIO
+# when there's no controlling terminal (e.g. devcontainer CLI lifecycle
+# commands), so chezmoi's config template can't detect this on its own.
+if ! (: </dev/tty) 2>/dev/null; then
+	export CHEZMOI_NO_TTY=1
+fi
+
 set -- init --apply --source="${script_dir}"
 
 echo "Running 'chezmoi $*'" >&2
