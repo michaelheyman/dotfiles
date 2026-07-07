@@ -207,7 +207,13 @@ run = "move-node-to-workspace D"
 # - https://github.com/nikitabobko/AeroSpace/issues/68 
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
-run = "move-node-to-workspace G"
+run = [
+    "move-node-to-workspace G",
+    # Allow for Ghostty to tabs to be treated as non-native windows. Unfloat
+    # window manually after creation (alt+shift+; followed by f by default).
+    # See https://ghostty.org/docs/help/macos-tiling-wms#aerospace:
+    "layout tiling",
+]
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
