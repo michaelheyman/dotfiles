@@ -24,13 +24,6 @@
     "type": "command",
     "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
   },
-  "attribution": {
-    "commit": "",
-    "pr": ""
-  },
-  "enabledPlugins": {
-    "gopls-lsp@claude-plugins-official": true
-  },
 {{- if eq .chezmoi.os "darwin" }}
   "hooks": {
     "Notification": [
