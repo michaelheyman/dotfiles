@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Emits OSC 777 (banner) + BEL (sound) to controlling TTY -> on the host
+{
+    printf '\033]777;notify;%s;%s\033\\' "${1:-Claude Code}" "${2:-Done}"
+    printf '\a'
+} > /dev/tty 2> /dev/null || true
