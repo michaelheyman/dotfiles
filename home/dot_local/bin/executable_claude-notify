@@ -1,7 +1,27 @@
 #!/bin/sh
+# claude-notify [title] [body] — OSC 777 banner + bell to the host terminal.
+# Hooks have no controlling TTY (/dev/tty -> ENXIO), so walk up the process
+# tree to the Claude TUI process and write to the pts its output is attached to.
 
-# Emits OSC 777 (banner) + BEL (sound) to controlling TTY -> on the host
+TITLE="$1"; BODY="$2"
+[ -n "$TITLE" ] || TITLE="Claude Code"
+[ -n "$BODY" ] || BODY="Done"
+
+tty=""
+pid=$$
+while [ "$pid" -gt 1 ] 2>/dev/null; do
+  for fd in 2 1 0; do
+    t=$(readlink "/proc/$pid/fd/$fd" 2>/dev/null)
+    case "$t" in
+      /dev/pts/*) tty="$t"; break 2 ;;
+    esac
+  done
+  pid=$(sed 's/^.*) . //; s/ .*//' "/proc/$pid/stat" 2>/dev/null) || break
+done
+
+[ -n "$tty" ] && [ -w "$tty" ] || exit 0
+
 {
-    printf '\033]777;notify;%s;%s\033\\' "${1:-Claude Code}" "${2:-Done}"
-    printf '\a'
-} > /dev/tty 2> /dev/null || true
+  printf '\033]777;notify;%s;%s\033\\' "$TITLE" "$BODY"
+  printf '\a'
+} > "$tty" 2>/dev/null
