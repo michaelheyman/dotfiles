@@ -1,27 +1,29 @@
 #!/bin/sh
-# claude-notify [title] [body] — OSC 777 banner + bell to the host terminal.
-# Hooks have no controlling TTY (/dev/tty -> ENXIO), so walk up the process
-# tree to the Claude TUI process and write to the pts its output is attached to.
 
-TITLE="$1"; BODY="$2"
-[ -n "$TITLE" ] || TITLE="Claude Code"
-[ -n "$BODY" ] || BODY="Done"
+# Emits OSC 777 (banner) + BEL (sound) to the controlling TTY -> on the host.
 
-tty=""
-pid=$$
-while [ "$pid" -gt 1 ] 2>/dev/null; do
-  for fd in 2 1 0; do
-    t=$(readlink "/proc/$pid/fd/$fd" 2>/dev/null)
-    case "$t" in
-      /dev/pts/*) tty="$t"; break 2 ;;
-    esac
-  done
-  pid=$(sed 's/^.*) . //; s/ .*//' "/proc/$pid/stat" 2>/dev/null) || break
-done
+# When invoked from Claude Code's Bash tool, this runs in a detached
+# subshell with no controlling terminal of its own (`tty` reports
+# "not a tty"), so `/dev/tty` can't be opened. The real terminal is
+# attached to an ancestor process (the `claude` process itself), so walk
+# up the process tree until we find one with a real tty.
+find_tty() {
+    pid=$$
+    while [ "$pid" -gt 1 ]; do
+        info=$(ps -o ppid=,tty= -p "$pid" 2>/dev/null)
+        ppid=$(echo "$info" | awk '{print $1}')
+        ttycol=$(echo "$info" | awk '{print $2}')
+        case "$ttycol" in
+            ""|"??"|"?") pid="$ppid" ;;
+            *) echo "/dev/$ttycol"; return 0 ;;
+        esac
+    done
+    return 1
+}
 
-[ -n "$tty" ] && [ -w "$tty" ] || exit 0
+tty_dev=$(find_tty) || exit 0
 
 {
-  printf '\033]777;notify;%s;%s\033\\' "$TITLE" "$BODY"
-  printf '\a'
-} > "$tty" 2>/dev/null
+    printf '\033]777;notify;%s;%s\033\\' "${1:-Claude Code}" "${2:-Done}"
+    printf '\a'
+} 2> /dev/null > "$tty_dev" || true
