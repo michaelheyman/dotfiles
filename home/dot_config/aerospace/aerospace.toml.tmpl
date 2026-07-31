@@ -1,5 +1,7 @@
 # The default config can be found here: https://nikitabobko.github.io/AeroSpace/guide#default-config
 
+config-version = 2
+
 exec-on-workspace-change = [
     '/bin/bash', '-c',
 ]
@@ -204,7 +206,9 @@ run = "move-node-to-workspace D"
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = [
-    "move-node-to-workspace G",
+    # Enabling this prevents Ghostty tabs from being created without moving to
+    # workspace G, so this is disabled until the issues above are resolved.
+    # "move-node-to-workspace G",
     # Allow for Ghostty to tabs to be treated as non-native windows. Unfloat
     # window manually after creation (alt+shift+; followed by f by default).
     # See https://ghostty.org/docs/help/macos-tiling-wms#aerospace:
