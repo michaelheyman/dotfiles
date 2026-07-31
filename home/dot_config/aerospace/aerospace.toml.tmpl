@@ -270,28 +270,41 @@ run = "move-node-to-workspace T"
 {{- end }}
 
 [workspace-to-monitor-force-assignment]
-# Main monitor
-"1" = 2
-"2" = 2
-"3" = 2
-"4" = 2
-"5" = 2
-"0" = 2
-"C" = 2
-"D" = 2
-"G" = 2
-"T" = 2
+# Available monitor identifiers:
+# - main - "Main" monitor ("main" as in System Settings → Displays → Use as)
+# - secondary - Non-main monitor in case when there are only two monitors
+# - <number> - Sequence number of the monitor from left to right
+#
+# Ensure your monitors are configured following in a way that satisfy the
+# definitions above.
+#
+# Arrays are fallbacks, such that the first pattern that matches wins. This
+# allows for more complex monitor arrangements (2-display, 3-display, etc.).
+#
+# See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 
-# # Left monitor
-"6" = 1
-"7" = 1
-"8" = 1
-"9" = 1
-"M" = 1
-"B" = 1
-"X" = 1
-"O" = 1
+# Main mointor
+"1" = "main"
+"2" = "main"
+"3" = "main"
+"4" = "main"
+"5" = "main"
+"0" = "main"
+"C" = "main"
+"D" = "main"
+"G" = "main"
+"T" = "main"
 
-# # Right monitor
-"A" = 3
-"S" = 3
+# Secondary/Left monitor
+"6" = ["secondary", 1]
+"7" = ["secondary", 1]
+"8" = ["secondary", 1]
+"9" = ["secondary", 1]
+"M" = ["secondary", 1]
+"B" = ["secondary", 1]
+"X" = ["secondary", 1]
+"O" = ["secondary", 1]
+
+# Secondary/Right monitor
+"A" = ["secondary", 3]
+"S" = ["secondary", 3]
