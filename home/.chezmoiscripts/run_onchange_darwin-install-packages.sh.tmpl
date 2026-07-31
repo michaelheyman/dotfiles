@@ -7,16 +7,16 @@ brew bundle --file=/dev/stdin <<EOF
 
 {{ if .packages.darwin.brews -}}
 {{ range .packages.darwin.brews -}}
-brew {{ . | quote }}
+brew {{ . | quote }}{{ if contains "/" . }}, trusted: true{{ end }}
 {{ end -}}
 {{ end -}}
 
 {{ range .packages.darwin.casks.default -}}
-cask {{ . | quote }}
+cask {{ . | quote }}{{ if contains "/" . }}, trusted: true{{ end }}
 {{ end -}}
 {{ if ne .profile "work" -}}
 {{ range .packages.darwin.casks.restricted -}}
-cask {{ . | quote }}
+cask {{ . | quote }}{{ if contains "/" . }}, trusted: true{{ end }}
 {{ end -}}
 {{ end -}}
 
