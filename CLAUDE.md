@@ -57,7 +57,7 @@ Templates branch on:
 
 Configured in `~/.config/chezmoi/chezmoi.toml` via `data.profile`. Current options:
 
-- `personal` — macOS workstation; full toolchain, notifications, telemetry
+- `personal` — macOS workstation; full toolchain, telemetry
 - `work` — macOS workstation; excludes personal casks (Claude app, gcloud, Telegram), uses Jaeger alias
 - `devcontainer` — Linux dev container; minimal tooling, no host-only daemons
 

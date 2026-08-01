@@ -24,31 +24,6 @@
     "type": "command",
     "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
   },
-{{- if eq .chezmoi.os "darwin" }}
-  "hooks": {
-    "Notification": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "{{ .chezmoi.homeDir }}/.claude/notify-bridge/hook-sender.sh"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "{{ .chezmoi.homeDir }}/.claude/notify-bridge/hook-sender.sh"
-          }
-        ]
-      }
-    ]
-  },
-{{- end }}
   "permissions": {
     "deny": [
       "Read(~/.aws/**)",
