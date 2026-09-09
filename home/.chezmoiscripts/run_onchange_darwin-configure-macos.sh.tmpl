@@ -101,4 +101,8 @@ osascript -e "set volume alert volume 0"
 # Set the default temperature unit to Celsius
 defaults write -g AppleTemperatureUnit -string "Celsius"
 
+# Clicking desktop doesn't move windows
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+killall WindowManager
+
 {{ end -}}
