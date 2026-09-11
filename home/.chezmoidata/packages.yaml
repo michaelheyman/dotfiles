@@ -13,6 +13,7 @@ packages:
       - golangci-lint
       - go-task
       - helm@3 # v4 is not supported yet by k3s and Argo CD
+      - herdr
       - jq
       - node@24 # For npx, LTS
       - pipx
