@@ -21,11 +21,6 @@
     "OTEL_RESOURCE_ATTRIBUTES": "service.name=claude-code"
 {{- end }}
   },
-  "editorMode": "vim",
-  "statusLine": {
-    "type": "command",
-    "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
-  },
   "permissions": {
     "deny": [
       "Read(~/.aws/**)",
@@ -37,5 +32,10 @@
       "Bash(ssh *)",
       "Bash(sudo *)"
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
+  },
+  "editorMode": "vim"
 }
