@@ -36,7 +36,6 @@ packages:
         - obsidian
         - postman
         - spotify
-        - tomatobar
         - visual-studio-code
         - wezterm
       restricted:
@@ -47,6 +46,7 @@ packages:
         - iina
         - keepingyouawake
         - telegram
+        - tomatobar
         - scroll-reverser
     nix:
       - github:zhaofengli/colmena
