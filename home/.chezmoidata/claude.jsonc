@@ -1,0 +1,58 @@
+{
+  "claude": {
+    // Top-level keys chezmoi enforces in ~/.claude/settings.json; see home/dot_claude/modify_settings.json
+    "settings": {
+      "$schema": "https://json.schemastore.org/claude-code-settings.json",
+      "env": {
+        // Grants access to `plugin eval`
+        "CLAUDE_CODE_WALNUT_SPIRE": "1",
+        // Stop Opus 5 from excessively writing comments and being overly verbose
+        "CLAUDE_CODE_BASALT_COVE": "1",
+        "CLAUDE_CODE_PACKAGE_MANAGER_AUTO_UPDATE": "1",
+        "CLAUDE_CODE_ENABLE_AUTO_MODE": "1"
+      },
+      "permissions": {
+        "deny": [
+          "Read(~/.aws/**)",
+          "Read(~/.ssh/**)",
+          "Read(**/secrets.*)",
+          "Read(**/*.tfvars)",
+          "Read(**/.env)",
+          "Read(**/.env.*)",
+          "Bash(ssh *)",
+          "Bash(sudo *)"
+        ]
+      },
+      "statusLine": {
+        // command is set in modify_settings.json because it needs the home directory
+        "type": "command"
+      },
+      "editorMode": "vim",
+      "model": "opus"
+    },
+    // Top-level keys chezmoi leaves to other programs. Any key in the live file
+    // that is neither here nor in settings is kept, but warned about on apply.
+    "delegated": [
+      "enabledPlugins",
+      "extraKnownMarketplaces",
+      "hooks",
+      "pluginConfigs"
+    ],
+    // Added to settings.env on the personal profile; OTEL_EXPORTER_OTLP_HEADERS
+    // carries the Honeycomb key and is set in modify_settings.json
+    "telemetryEnv": {
+      "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+      "CLAUDE_CODE_ENHANCED_TELEMETRY_BETA": "1",
+      "OTEL_METRICS_EXPORTER": "otlp",
+      "OTEL_LOGS_EXPORTER": "otlp",
+      "OTEL_TRACES_EXPORTER": "otlp",
+      "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+      "OTEL_EXPORTER_OTLP_ENDPOINT": "https://api.honeycomb.io:443",
+      "OTEL_METRIC_EXPORT_INTERVAL": "10000",
+      "OTEL_LOGS_EXPORT_INTERVAL": "5000",
+      "OTEL_TRACES_EXPORT_INTERVAL": "10000",
+      "OTEL_SERVICE_NAME": "claude-code",
+      "OTEL_RESOURCE_ATTRIBUTES": "service.name=claude-code"
+    }
+  }
+}

@@ -38,6 +38,17 @@ tasks:
     cmds:
       - docker run -it --entrypoint sh dotfiles
 
+  claude:diff:
+    desc: show Claude settings drift for managed keys and the keys chezmoi leaves alone
+    silent: true
+    cmds:
+      - echo "== Managed keys (chezmoi diff)"
+      - chezmoi diff ~/.claude/settings.json
+      - echo "== Unmanaged keys"
+      - |
+        jq --argjson owned "$(chezmoi data --format json | jq -c '.claude.settings | keys')" \
+          'with_entries(select(.key as $k | $owned | index($k) | not))' ~/.claude/settings.json
+
   pre-commit:
     desc: run pre-commit checks
     cmds:

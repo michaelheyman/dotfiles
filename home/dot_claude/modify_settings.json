@@ -1,0 +1,33 @@
+{{- /* chezmoi:modify-template */ -}}
+{{- /*
+  Other programs also write this file, so chezmoi only enforces the top-level
+  keys under claude.settings in .chezmoidata/claude.jsonc and leaves the keys
+  under claude.delegated alone. Any other key is kept but warned about, since
+  chezmoi cannot tell a key removed from claude.settings from one a tool added.
+*/ -}}
+{{- $managed := deepCopy .claude.settings -}}
+{{- $managed = setValueAtPath "statusLine.command" (printf "bash %s/.claude/statusline-command.sh" .chezmoi.homeDir) $managed -}}
+{{- if eq .profile "personal" -}}
+{{-   $_ := merge $managed.env .claude.telemetryEnv -}}
+{{-   $honeycombKey := output "fish" "-c" "source ~/.shell/secrets.sh 2>/dev/null; echo -n $HONEYCOMB_API_KEY" -}}
+{{-   $managed = setValueAtPath "env.OTEL_EXPORTER_OTLP_HEADERS" (printf "x-honeycomb-dataset=claude,x-honeycomb-team=%s" $honeycombKey) $managed -}}
+{{- end -}}
+{{- $current := dict -}}
+{{- $modified := dict -}}
+{{- if trim .chezmoi.stdin -}}
+{{-   $current = fromJson .chezmoi.stdin -}}
+{{-   $modified = fromJson .chezmoi.stdin -}}
+{{- end -}}
+{{- range $key, $value := $managed -}}
+{{-   $modified = setValueAtPath $key $value $modified -}}
+{{- end -}}
+{{- range $key, $value := $current -}}
+{{-   if not (or (hasKey $managed $key) (has $key $.claude.delegated)) -}}
+{{-     warnf "~/.claude/settings.json: unmanaged key %q (add it to claude.settings or claude.delegated in .chezmoidata/claude.jsonc, or delete it from the file)" $key -}}
+{{-   end -}}
+{{- end -}}
+{{- if deepEqual $current $modified -}}
+{{-   .chezmoi.stdin -}}
+{{- else -}}
+{{    toPrettyJson "  " $modified }}
+{{  end -}}
