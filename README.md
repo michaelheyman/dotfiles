@@ -79,16 +79,11 @@ To make changes to your dotfiles, you can edit the source files directly and the
     git push
     ```
 
-    Optionally run pre-commit hooks before committing:
+    `task install` installs the pinned tools (via mise) and a pre-commit hook that checks
+    every commit. To run the same checks on every file:
 
     ```bash
-    pre-commit run --all-files
-    ```
-
-    or with `pipx`:
-
-    ```bash
-    pipx run pre-commit run --all-files
+    task lint
     ```
 
 ### Testing with Docker

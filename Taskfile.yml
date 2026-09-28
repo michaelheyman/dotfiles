@@ -1,17 +1,5 @@
 version: "3"
 
-includes:
-  markdown:
-    taskfile: git@github.com:michaelheyman/taskfiles.git//markdown/Taskfile.yml?ref=main
-    aliases:
-      - md
-  pre-commit:
-    taskfile: git@github.com:michaelheyman/taskfiles.git//pre-commit/Taskfile.yml?ref=main
-    aliases:
-      - pc
-  yaml:
-    taskfile: git@github.com:michaelheyman/taskfiles.git//yaml/Taskfile.yml?ref=main
-
 tasks:
   default:
     desc: default task
@@ -19,9 +7,10 @@ tasks:
       - task --list
 
   install:
-    desc: install dotfiles dependencies
+    desc: install the pinned tools and the git hooks
     cmds:
-      - task: pc:install
+      - mise install
+      - mise exec -- lefthook install
 
   docker:build:
     desc: build dotfiles docker image
@@ -49,17 +38,7 @@ tasks:
         jq --argjson owned "$(chezmoi data --format json | jq -c '.claude.settings | keys')" \
           'with_entries(select(.key as $k | $owned | index($k) | not))' ~/.claude/settings.json
 
-  pre-commit:
-    desc: run pre-commit checks
-    cmds:
-      - task: pc:run
-
   lint:
-    desc: lint files
+    desc: Fix what can be fixed and report the rest, on every file the pre-commit hook covers
     cmds:
-      - task: md:lint
-
-  fmt:
-    desc: format files
-    cmds:
-      - task: yaml:format
+      - mise exec -- lefthook run pre-commit --all-files --no-stage-fixed

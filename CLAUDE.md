@@ -13,8 +13,8 @@ private hostnames. Secrets are loaded at runtime from `~/.shell/secrets.sh`
 ```bash
 chezmoi apply -v       # apply dotfiles to the home directory
 chezmoi diff           # preview pending changes
-task pre-commit        # run all pre-commit checks
-task --list            # every other task (format, lint, Docker testing, ...)
+task lint              # run every pre-commit check on all files; fixes what it can
+task --list            # every other task (Docker testing, ...)
 ```
 
 ## Architecture
@@ -40,5 +40,6 @@ dev container. The profile prompt in `home/.chezmoi.toml.tmpl` lists the valid v
 
 ## Pre-commit hooks
 
-`.pre-commit-config.yaml` defines the hooks, including secret scanning with gitleaks. Run
-`task install` to set them up locally.
+`.config/lefthook.yml` defines the checks, including secret scanning with gitleaks, and each
+tool's config sits beside it in `.config/`. The tools are pinned in `.config/mise.toml`. Run
+`task install` to install them and the git hook.

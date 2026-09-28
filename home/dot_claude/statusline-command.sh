@@ -20,38 +20,38 @@ RESET='\033[0m'
 
 # Fish-style path shortening: shorten each parent component to 1 char
 fish_path() {
-    dir="$1"
-    home="$HOME"
-    # Replace home prefix with ~
-    case "$dir" in
-    "$home"*) dir="~${dir#"$home"}" ;;
-    esac
-    # Split by / and shorten all but the last component to 1 character
-    IFS='/' read -ra parts <<-EOF
+	dir="$1"
+	home="$HOME"
+	# Replace home prefix with ~
+	case "$dir" in
+	"$home"*) dir="~${dir#"$home"}" ;;
+	esac
+	# Split by / and shorten all but the last component to 1 character
+	IFS='/' read -ra parts <<-EOF
 		$dir
 	EOF
-    result=""
-    total=${#parts[@]}
-    for i in "${!parts[@]}"; do
-        part="${parts[$i]}"
-        if [ -z "$part" ]; then
-            result="/"
-            continue
-        fi
-        if [ "$i" -eq $((total - 1)) ]; then
-            result="${result}/${part}"
-        else
-            result="${result}/${part:0:1}"
-        fi
-    done
-    echo "${result/#\/\//\/}"
+	result=""
+	total=${#parts[@]}
+	for i in "${!parts[@]}"; do
+		part="${parts[$i]}"
+		if [ -z "$part" ]; then
+			result="/"
+			continue
+		fi
+		if [ "$i" -eq $((total - 1)) ]; then
+			result="${result}/${part}"
+		else
+			result="${result}/${part:0:1}"
+		fi
+	done
+	echo "${result/#\/\//\/}"
 }
 
 # Git branch (skip optional locks)
 git_branch=""
 if git -C "$cwd" rev-parse --git-dir >/dev/null 2>&1; then
-    git_branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null ||
-        git -C "$cwd" rev-parse --short HEAD 2>/dev/null)
+	git_branch=$(git -C "$cwd" symbolic-ref --short HEAD 2>/dev/null ||
+		git -C "$cwd" rev-parse --short HEAD 2>/dev/null)
 fi
 
 short_path=$(fish_path "$cwd")
@@ -60,71 +60,71 @@ short_path=$(fish_path "$cwd")
 line="${short_path}"
 
 if [ -n "$git_branch" ]; then
-    line="${line} ${git_branch}"
+	line="${line} ${git_branch}"
 fi
 
 if [ -n "$model" ]; then
-    line="${line} | ${model}"
+	line="${line} | ${model}"
 fi
 
 if [ -n "$used_pct" ]; then
-    # Helper: color-code a rounded percentage value
-    pct_color() {
-        local pct
-        pct=$(printf "%.0f" "$1" 2>/dev/null || echo "$1")
-        if [ "$pct" -ge 90 ] 2>/dev/null; then
-            printf "%b" "${RED}${pct}%${RESET}"
-        elif [ "$pct" -ge 70 ] 2>/dev/null; then
-            printf "%b" "${YELLOW}${pct}%${RESET}"
-        else
-            printf "%b" "${GREEN}${pct}%${RESET}"
-        fi
-    }
+	# Helper: color-code a rounded percentage value
+	pct_color() {
+		local pct
+		pct=$(printf "%.0f" "$1" 2>/dev/null || echo "$1")
+		if [ "$pct" -ge 90 ] 2>/dev/null; then
+			printf "%b" "${RED}${pct}%${RESET}"
+		elif [ "$pct" -ge 70 ] 2>/dev/null; then
+			printf "%b" "${YELLOW}${pct}%${RESET}"
+		else
+			printf "%b" "${GREEN}${pct}%${RESET}"
+		fi
+	}
 
-    # Helper: dim "(3h12m)" countdown until an epoch timestamp; empty if past/unset
-    reset_countdown() {
-        local target now remaining days hours mins out
-        target="$1"
-        [ -n "$target" ] || return 0
-        now=$(date +%s)
-        remaining=$((target - now))
-        [ "$remaining" -gt 0 ] || return 0
+	# Helper: dim "(3h12m)" countdown until an epoch timestamp; empty if past/unset
+	reset_countdown() {
+		local target now remaining days hours mins out
+		target="$1"
+		[ -n "$target" ] || return 0
+		now=$(date +%s)
+		remaining=$((target - now))
+		[ "$remaining" -gt 0 ] || return 0
 
-        days=$((remaining / 86400))
-        hours=$((remaining % 86400 / 3600))
-        mins=$((remaining % 3600 / 60))
+		days=$((remaining / 86400))
+		hours=$((remaining % 86400 / 3600))
+		mins=$((remaining % 3600 / 60))
 
-        if [ "$days" -gt 0 ]; then
-            if [ "$hours" -gt 0 ]; then
-                out="${days}d${hours}h"
-            else
-                out="${days}d"
-            fi
-        elif [ "$hours" -gt 0 ]; then
-            out="${hours}h${mins}m"
-        else
-            out="${mins}m"
-        fi
+		if [ "$days" -gt 0 ]; then
+			if [ "$hours" -gt 0 ]; then
+				out="${days}d${hours}h"
+			else
+				out="${days}d"
+			fi
+		elif [ "$hours" -gt 0 ]; then
+			out="${hours}h${mins}m"
+		else
+			out="${mins}m"
+		fi
 
-        printf "%b" " ${DIM}(${out})${RESET}"
-    }
+		printf "%b" " ${DIM}(${out})${RESET}"
+	}
 
-    usage_segment="ctx $(pct_color "$used_pct")"
+	usage_segment="ctx $(pct_color "$used_pct")"
 
-    if [ -n "$five_hour_pct" ]; then
-        usage_segment="${usage_segment} / 5h $(pct_color "$five_hour_pct")$(reset_countdown "$five_hour_reset")"
-    fi
+	if [ -n "$five_hour_pct" ]; then
+		usage_segment="${usage_segment} / 5h $(pct_color "$five_hour_pct")$(reset_countdown "$five_hour_reset")"
+	fi
 
-    if [ -n "$seven_day_pct" ]; then
-        usage_segment="${usage_segment} / 7d $(pct_color "$seven_day_pct")$(reset_countdown "$seven_day_reset")"
-    fi
+	if [ -n "$seven_day_pct" ]; then
+		usage_segment="${usage_segment} / 7d $(pct_color "$seven_day_pct")$(reset_countdown "$seven_day_reset")"
+	fi
 
-    line="${line} | ${usage_segment}"
+	line="${line} | ${usage_segment}"
 fi
 
 if [ -n "$cost" ]; then
-    cost_fmt=$(printf '$%.4f' "$cost")
-    line="${line} | ${cost_fmt}"
+	cost_fmt=$(printf '$%.4f' "$cost")
+	line="${line} | ${cost_fmt}"
 fi
 
 printf "%b" "$line"

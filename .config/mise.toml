@@ -1,0 +1,13 @@
+[tools]
+lefthook = "2.1.14"
+gitleaks = "8.30.1"
+markdownlint-cli2 = "0.23.3"
+taplo = "0.10.0"
+shfmt = "3.14.1"
+shellcheck = "0.11.0"
+yamlfmt = "0.21.0"
+
+[settings]
+# The default ("auto") installs npm tools with mise's own installer, which writes a dependency
+# lock under .config/mise/locks/. Plain npm keeps .config/mise.lock the only lockfile.
+npm.package_manager = "npm"

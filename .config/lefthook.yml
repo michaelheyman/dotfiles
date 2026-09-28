@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/evilmartians/lefthook/v2.1.14/schema.json
+min_version: 2.1.14
+glob_matcher: doublestar
+# The tools in .config/mise.toml aren't on PATH unless a shell activated mise; git GUIs and
+# editors don't.
+lefthook: mise exec -- lefthook
+
+pre-commit:
+  parallel: true
+  fail_on_changes: ci
+  files: git diff --name-only --cached --diff-filter=ACMR
+  jobs:
+    - name: yamlfmt
+      glob: "**/*.{yaml,yml}"
+      run: yamlfmt -conf .config/yamlfmt.yaml {files}
+      stage_fixed: true
+    - name: markdownlint
+      glob: "**/*.md"
+      run: markdownlint-cli2 --config .config/.markdownlint.yaml --fix {files}
+      stage_fixed: true
+    - name: toml
+      glob: "**/*.toml"
+      group:
+        piped: true
+        jobs:
+          - name: taplo-fmt
+            run: taplo fmt {files}
+            stage_fixed: true
+          - name: taplo-lint
+            run: taplo lint --no-schema {files}
+    - name: shell
+      glob: "**/*.sh"
+      group:
+        piped: true # shellcheck must not read a script shfmt is still rewriting
+        jobs:
+          - name: shfmt
+            run: shfmt -w -s {files}
+            stage_fixed: true
+          - name: shellcheck
+            # shellcheck is single-threaded, so files are checked in parallel batches. No
+            # auto-fix: its quoting fix would silently change scripts that split a variable on
+            # purpose.
+            run: printf '%s\n' {files} | xargs -P 8 -n 4 shellcheck
+    - name: gitleaks
+      run: gitleaks git --pre-commit --staged --redact --no-banner
