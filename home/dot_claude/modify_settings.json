@@ -23,7 +23,7 @@
 {{- end -}}
 {{- range $key, $value := $current -}}
 {{-   if not (or (hasKey $managed $key) (has $key $.claude.delegated)) -}}
-{{-     warnf "~/.claude/settings.json: unmanaged key %q (add it to claude.settings or claude.delegated in .chezmoidata/claude.jsonc, or delete it from the file)" $key -}}
+{{-     warnf "~/.claude/settings.json: unmanaged key %q (add it to claude.settings or claude.delegated in .chezmoidata/claude.jsonc, or delete it from the file; run `task claude:diff` to inspect)" $key -}}
 {{-   end -}}
 {{- end -}}
 {{- if deepEqual $current $modified -}}

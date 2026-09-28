@@ -28,7 +28,8 @@
         "type": "command"
       },
       "editorMode": "vim",
-      "model": "opus"
+      "model": "opus",
+      "agentPushNotifEnabled": true
     },
     // Top-level keys chezmoi leaves to other programs. Any key in the live file
     // that is neither here nor in settings is kept, but warned about on apply.
