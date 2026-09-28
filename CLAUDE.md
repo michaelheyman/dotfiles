@@ -11,69 +11,34 @@ private hostnames. Secrets are loaded at runtime from `~/.shell/secrets.sh`
 ## Commands
 
 ```bash
-# Apply dotfiles to home directory
-chezmoi apply -v
-
-# Preview pending changes without applying
-chezmoi diff
-
-# Edit a managed file (opens in $EDITOR)
-chezmoi edit ~/.bashrc
-
-# Run all pre-commit checks
-task pre-commit        # or: pipx run pre-commit run --all-files
-
-# Format files
-task fmt               # YAML formatting
-
-# Lint files
-task lint              # Markdown linting
-
-# Docker testing (Linux devcontainer simulation)
-task docker:build
-task docker:run
+chezmoi apply -v       # apply dotfiles to the home directory
+chezmoi diff           # preview pending changes
+task pre-commit        # run all pre-commit checks
+task --list            # every other task (format, lint, Docker testing, ...)
 ```
 
 ## Architecture
 
-All managed files live under `home/` (the chezmoi source directory). Chezmoi applies
-`home/` to `~/` using filename conventions:
+All managed files live under `home/` (the chezmoi source directory), applied to `~/` using
+chezmoi's source-state naming: `dot_`, `.tmpl`, and the `run_once_`/`run_onchange_`/`before_`
+script prefixes.
 
-- `dot_` prefix → `.` in target (e.g., `dot_bashrc` → `~/.bashrc`)
-- `dot_config/` → `~/.config/`
-- `.tmpl` suffix → processed as a Go template before writing
-- `run_once_*` scripts → run once per machine (hash-tracked)
-- `run_onchange_*` scripts → re-run when the script's content changes
-- `run_once_before_*` → run before applying other files
-
-Templates branch on:
-
-- `{{ .chezmoi.os }}` — `"darwin"` vs `"linux"`
-- `{{ .profile }}` — `"personal"`, `"work"`, or `"devcontainer"`
-- `{{ .isSynology }}` — Synology NAS detection
-- `{{ .disableSSHGitConfig }}` — disables SSH→HTTPS git URL rewriting
-
-## Profiles
-
-Configured in `~/.config/chezmoi/chezmoi.toml` via `data.profile`. Current options:
-
-- `personal` — macOS workstation; full toolchain, telemetry
-- `work` — macOS workstation; excludes personal casks (Claude app, gcloud, Telegram), uses Jaeger alias
-- `devcontainer` — Linux dev container; minimal tooling, no host-only daemons
+Templates branch on `.chezmoi.os` and on variables in the `[data]` section of the chezmoi
+config templates (`home/.chezmoi.toml.tmpl` and `home/dot_config/chezmoi/chezmoi.toml.tmpl`).
+The most important is `.profile`, which separates full workstation setups from a minimal
+dev container. The profile prompt in `home/.chezmoi.toml.tmpl` lists the valid values.
 
 ## Key directories
 
-- `home/.chezmoiscripts/` — Lifecycle scripts; `run_once_before_*` installs prerequisites (Xcode,
-  Homebrew), `run_once_*` installs packages, `run_onchange_*` re-applies config when script content
-  changes
-- `home/.chezmoiexternals/` — External git repos (vim-plug, tpm) managed as chezmoi externals with refresh schedules
-- `home/.chezmoidata/packages.yaml` — Single source of truth for all package lists (brews, casks, apt, nix, fisher plugins)
-- `home/.chezmoitemplates/` — Reusable template partials included with `{{ template "name" . }}`
-- `home/dot_claude/` — Claude Code settings, hooks, and status line script
-- `home/dot_shell/` — Shell-agnostic config sourced by bash, zsh, and fish
+- `home/.chezmoiscripts/` — lifecycle scripts that install prerequisites and packages, and
+  re-apply config when a script's content changes
+- `home/.chezmoiexternals/` — external git repos managed as chezmoi externals
+- `home/.chezmoidata/packages.yaml` — single source of truth for package lists
+- `home/.chezmoitemplates/` — reusable template partials, included with `{{ template "name" . }}`
+- `home/dot_claude/` — Claude Code config
+- `home/dot_shell/` — shell-agnostic config sourced by every shell
 
 ## Pre-commit hooks
 
-The repo enforces: gitleaks (secret scanning), markdownlint, taplo (TOML format/lint),
-shfmt (shell formatting), shellcheck (shell linting), yamlfmt. Run `task install` to
-set up the pre-commit hooks locally.
+`.pre-commit-config.yaml` defines the hooks, including secret scanning with gitleaks. Run
+`task install` to set them up locally.
