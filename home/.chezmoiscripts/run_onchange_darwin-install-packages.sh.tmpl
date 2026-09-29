@@ -3,7 +3,9 @@
 
 set -e -u
 
-brew bundle --file=/dev/stdin <<EOF
+# Install only what's missing. Upgrading already-installed packages can quit running
+# apps, so that stays a deliberate `brew upgrade`.
+brew bundle --no-upgrade --file=/dev/stdin <<EOF
 
 {{ if .packages.darwin.brews -}}
 {{ range .packages.darwin.brews -}}
