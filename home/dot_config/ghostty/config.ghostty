@@ -24,3 +24,13 @@ desktop-notifications = true
 
 auto-update = download
 auto-update-channel = stable
+
+# Option key sends alt codes properly, which allows unbinding of keys that rely
+# on the option key signals
+macos-option-as-alt = true
+
+# Unbind left and right navigation so that Ghostty sends normal terminal
+# signals for these ops, allowing Herdr to interpret them too. Otherwise,
+# alt+(left|right) does not work in Herdr
+keybind = alt+left=unbind
+keybind = alt+right=unbind
