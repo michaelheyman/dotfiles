@@ -17,6 +17,12 @@ set fish_greeting
 # Delay purging of filtered commands so you can always access the last N entries
 set sponge_delay 10
 
+# herdr panes report TERM_PROGRAM=herdr, which Claude Code doesn't recognize as
+# hyperlink-capable, so force clickable links there
+if set -q HERDR_ENV
+  set -gx FORCE_HYPERLINK 1
+end
+
 # Check if pyenv exists and initialize it if it does
 if type -q pyenv
   pyenv init - | source
