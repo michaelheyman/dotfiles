@@ -109,6 +109,7 @@ alt-m = 'workspace M' # mnemonics M - Media
 alt-o = 'workspace O' # mnemonics O - Obsidian
 {{ if eq .profile "work" -}}
 alt-p = 'workspace P' # mnemonics P - Personal
+alt-q = 'workspace Q' # mnemonics Q - Questions (Claude)
 {{- end }}
 alt-s = 'workspace S' # mnemonics S - Social/Chat
 alt-t = 'workspace T' # mnemonics T - Talk
@@ -137,6 +138,7 @@ alt-shift-m = 'move-node-to-workspace M'
 alt-shift-o = 'move-node-to-workspace O'
 {{ if eq .profile "work" -}}
 alt-shift-p = 'move-node-to-workspace P'
+alt-shift-q = 'move-node-to-workspace Q'
 {{- end }}
 alt-shift-s = 'move-node-to-workspace S'
 alt-shift-t = 'move-node-to-workspace T'
@@ -201,7 +203,7 @@ run = "move-node-to-workspace D"
 if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace D"
 
-# Ghostty & Glaude
+# Ghostty
 # Requires its own workspace because new Ghostty tabs move them to its own
 # workspace:
 # - https://github.com/ghostty-org/ghostty/discussions/3674
@@ -220,7 +222,7 @@ run = [
 
 [[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
-run = "move-node-to-workspace G"
+run = "move-node-to-workspace Q"
 
 # Back-end applications
 [[on-window-detected]]
@@ -296,6 +298,7 @@ run = "move-node-to-workspace T"
 "C" = "main"
 "D" = "main"
 "G" = "main"
+"Q" = "main"
 "T" = "main"
 
 # Secondary/Left monitor
