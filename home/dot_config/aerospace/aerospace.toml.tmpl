@@ -107,10 +107,10 @@ alt-g = 'workspace G' # mnemonics G - Ghostty
 alt-m = 'workspace M' # mnemonics M - Media
 # alt-n = 'workspace N' # Used for ñ character on some keyboards
 alt-o = 'workspace O' # mnemonics O - Obsidian
-{{ if eq .profile "work" -}}
+{{- if eq .profile "work" }}
 alt-p = 'workspace P' # mnemonics P - Personal
-alt-q = 'workspace Q' # mnemonics Q - Questions (Claude)
 {{- end }}
+alt-q = 'workspace Q' # mnemonics Q - Questions (Claude)
 alt-s = 'workspace S' # mnemonics S - Social/Chat
 alt-t = 'workspace T' # mnemonics T - Talk
 alt-w = 'workspace W' # mnemonics W - Web browser
@@ -136,10 +136,10 @@ alt-shift-d = 'move-node-to-workspace D'
 alt-shift-g = 'move-node-to-workspace G'
 alt-shift-m = 'move-node-to-workspace M'
 alt-shift-o = 'move-node-to-workspace O'
-{{ if eq .profile "work" -}}
+{{- if eq .profile "work" }}
 alt-shift-p = 'move-node-to-workspace P'
-alt-shift-q = 'move-node-to-workspace Q'
 {{- end }}
+alt-shift-q = 'move-node-to-workspace Q'
 alt-shift-s = 'move-node-to-workspace S'
 alt-shift-t = 'move-node-to-workspace T'
 alt-shift-w = 'move-node-to-workspace W'
@@ -173,7 +173,7 @@ alt-shift-l = ['join-with right', 'mode main']
 
 # On window detected callbacks.
 # See: https://nikitabobko.github.io/AeroSpace/guide#on-window-detected-callback
-{{ if eq .profile "work" -}}
+{{- if eq .profile "work" }}
 [[on-window-detected]]
 if.app-id = 'org.mozilla.firefox'
 run = "move-node-to-workspace P"
