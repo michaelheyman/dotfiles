@@ -30,7 +30,12 @@
       },
       "editorMode": "vim",
       "model": "opus",
-      "agentPushNotifEnabled": true
+      "agentPushNotifEnabled": true,
+      "voiceEnabled": true,
+      "voice": {
+        "enabled": true,
+        "mode": "hold"
+      }
     },
     // Top-level keys chezmoi leaves to other programs. Any key in the live file
     // that is neither here nor in settings is kept, but warned about on apply.
