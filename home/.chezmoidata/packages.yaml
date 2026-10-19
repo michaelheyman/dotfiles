@@ -31,7 +31,6 @@ packages:
       default:
         # - bitwarden # Install via App Store instead, in order to enable Touch ID unlock
         - docker-desktop
-        - firefox
         - ghostty
         - nikitabobko/tap/aerospace
         - obsidian
@@ -41,6 +40,7 @@ packages:
       restricted:
         - claude
         - claude-code@latest
+        - firefox
         - google-chrome
         - gcloud-cli
         - iina
