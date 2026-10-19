@@ -35,7 +35,6 @@ packages:
         - ghostty
         - nikitabobko/tap/aerospace
         - obsidian
-        - postman
         - spotify
         - visual-studio-code
         - wezterm
@@ -46,6 +45,7 @@ packages:
         - gcloud-cli
         - iina
         - keepingyouawake
+        - postman
         - telegram
         - tomatobar
         - scroll-reverser
