@@ -34,3 +34,9 @@ macos-option-as-alt = true
 # alt+(left|right) does not work in Herdr
 keybind = alt+left=unbind
 keybind = alt+right=unbind
+
+# Temporarily fix the pasting to searchbar failures. The fix comes from this
+# thread: https://github.com/ghostty-org/ghostty/discussions/11530#discussioncomment-16657838
+# Once https://github.com/ghostty-org/ghostty/issues/10749 closes this can be
+# removed
+keybind = super+v=paste_from_clipboard
