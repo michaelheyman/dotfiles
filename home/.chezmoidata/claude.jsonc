@@ -24,6 +24,7 @@
           "Bash(sudo *)"
         ]
       },
+      "disableArtifact": true,
       "statusLine": {
         // command is set in modify_settings.json because it needs the home directory
         "type": "command"
